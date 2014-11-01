@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>CoWorking</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link type="text/css" rel="stylesheet" href="css/launch.css" media="screen" />
+    <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
+    <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+    <script type="text/javascript"
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCpMZQh33v3B9AuHlqqH8ubLqhpIpxWwWw">
+
+    <script type="text/javascript" src="js/jquery.ui.map.js"></script>
+    <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true"></script>
+    <!--The jsapi allows for I.P. address based look-up -->
+    <script src="http://www.google.com/jsapi" language="javascript"></script>
+    <script type="text/javascript" src="http://www.parsecdn.com/js/parse-1.3.0.min.js"></script>
+
+    </head>
+
+    <body>
+    <div id="home" data-role="page" data-theme="a">
+      <div data-role="header" data-theme="a" style="height:36px;" align="center">
+        <img src="images/coworking.png" height="25" width="21"style="margin-top:6px"></img>CoWorking!
+        <!--
+        <a href="mailto:tarunvijayvargiya@gmail.com" align="right">Contact us</a>
+        <a  align="right">LogIn</a>-->
+       </div>
+      <!--<div>
+        <center>
+          Are there any Hotels and Restaurants around where I can bring my pet?
+        </center>
+      </div> -->
+      <div data-role="content">
+        <div class="ui-bar-c ui-corner-all ui-shadow" style="padding:0.45em;">
+          <div id="welcome" style="textalign:center; height:300px;" align="center">
+            <h4> "Let's do some amazing things together!" </h4><br/>
+            <img src="images/Working-together.png"/><br/>
+            <p id="UseCurText" style="display:none;">Enter an address and click Search Location to view nearby People or</p>
+            <a id="UserCurBut" data-role="button" data-theme="a" data-ajax="false" style="display:none;" onclick="initialize()">Use Current Location</a>
+          </div>
+          <div id="map_canvas" class="map rounded" style="display :none; height:300px;">
+          </div>
+        </div>
+      </div><!-- adding the map showing current position of user -->
+      <div id="search-panel" align="center" style="display:none;">
+        <input type="search"
+        style="width:80%;"
+        id="target"
+        placeholder="Search Address" />
+      </div>
+     <!--
+      <div id="formdiv" style="display:none" align="center">
+        <ul data-role="listview" data-theme="b" align="center">
+
+          <li><a href="savehotels.html" align="center" data-ajax="false">Hotel</a></li>
+          <li><a href="restaurant.html" align="center" data-ajax="false">Restaurant</a></li>
+          <li><a href="saveparks.html"  align="center" data-ajax="false">Park</a></li>
+
+        </ul>
+      </div>-->
+      <div class="footer" data-role="footer" data-theme="a" >
+        <div data-role="controlgroup" data-type="horizontal" id="footerbut">
+          <!--<a data-role="button" data-theme="a" data-ajax="false">Hotels</a>
+          <a data-role="button" data-theme="a" data-ajax="false">Restaurants</a>-->
+          <!--
+          <a data-role="button" data-theme="a" data-ajax="false" onclick="toggleFormLinks()">Submit New Data</a>-->
+          
+          <!--<a data-role="button" data-theme="a" data-ajax="false" onclick="codeAddress()" style="display:none;">Search Location</a>-->
+        </div>
+
+        <div data-role="popup" id="popupLogin" data-theme="a" class="ui-corner-all">
+          <form>
+            <div style="padding:10px 20px;">
+                <h3>Please sign in</h3>
+                <label for="un" class="ui-hidden-accessible" id="">Username:</label>
+                <input type="text" name="user" id="un" value="" placeholder="username" data-theme="a">
+                <label for="pw" class="ui-hidden-accessible">Password:</label>
+                <input type="password" name="pass" id="pw" value="" placeholder="password" data-theme="a">
+                <button type="submit" class="ui-btn ui-corner-all ui-btn-inline ui-shadow ui-btn-a ui-btn-icon-left ui-icon-check" onclick="logIn()">Sign in</button>
+                <button type="submit" class="ui-btn ui-corner-all ui-btn-inline ui-shadow ui-btn-a ui-btn-icon-left ui-icon-check" onclick="signUp()">Sign up</button>
+              </div>
+            </form>
+          </div>
+      </div><!-- /footer -->
+    </div><!-- /page -->
+  </body>
+
+   <script type="text/javascript">
+    Parse.initialize("GI4coBdWVBWk8CexD33M9SD0GjHRTTq5jo1GnUbb", "r4yKyt6O5KiJhtMVfXraqoNZqee5JjiIBFH1fyIk");
+    var currentUser = Parse.User.current();
+
+    if (currentUser) {
+    document.getElementById('UseCurText').style.display = "block";
+     document.getElementById('UserCurBut').style.display = "block";
+     $('#footerbut').html("<button onclick=\"Parse.User.logOut();location.reload();\" class=\"ui-btn ui-corner-all ui-shadow ui-btn-a ui-btn-icon-left ui-icon-check\">Log Out</button>");
+      }
+      else{
+        document.getElementById('UseCurText').style.display = "none";
+      document.getElementById('UserCurBut').style.display = "none";
+      $('#footerbut').html("<a href=\"#popupLogin\" data-rel=\"popup\" data-position-to=\"window\" class=\"ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-check ui-btn-icon-left ui-btn-a\" data-transition=\"pop\">Sign in</a>");
+      }
+    function logIn() {
+    Parse.User.logIn($("#un").val(), $("#pw").val(), {
+      success: function(user) {
+        alert("Login successful, redirecting to home page.");
+        window.location.reload();
+      },
+      error: function(user, error) {
+          // Login failed. Check error for reason.
+          // Show the error message somewhere and let the user try again.
+          alert("Error: " + error.code + " " + error.message);
+        }
+      });
+  }
+
+  function signUp(){
+     var user = new Parse.User();
+     user.set("username", $("#un").val());
+     user.set("password", $("#pw").val());
+
+     user.signUp(null, {
+       success: function(user) {  
+        alert("Sign up successful, redirecting to home page.");
+        window.location.reload();
+      },
+      error: function(user, error) {
+          // Show the error message somewhere and let the user try again.
+          alert("Error: " + error.code + " " + error.message);
+        }
+      });
+   }
+    </script>
+</html>
