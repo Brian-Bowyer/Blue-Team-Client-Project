@@ -1,0 +1,220 @@
+<html>
+<head>
+	<!-- Credit to Shanimal on StackExchange for template code -->
+	<title>Edit Profile</title>
+
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+	<link rel="stylesheet" href="css/Stylesheets.css">
+
+	<!-- Install jQuery and underscore -->
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+	<script src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
+	<script src="http://documentcloud.github.com/underscore/underscore-min.js"></script>
+	<script src="https://www.parsecdn.com/js/parse-1.1.15.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="js/jquery.numeric.js"></script>
+</head>
+
+<body>
+	<div class = "header shadow">
+		<div class = "row row-xs-height">
+			<div class = "col-xs-3 col-xs-height col-bottom">
+				<a href = "./index.html"><button class ="btn btn-primary btn-lg"><span class = "buttontext">Cancel</span></button></a>
+			</div>
+			<div class = "col-xs-6 col-xs-height col-bottom">
+				<center><span style="font-size: 6em">StudyMoney</span></center>
+			</div>
+			<div class = "col-xs-3 col-xs-height col-bottom">
+				<div class = "text-right" id = "username"></div>
+			</div>
+		</div>
+	</div>
+	<div style = "margin: 0 30px 0 30px" class = "container-fluid filters">
+		<div class="form-group">
+			<label for="Title">Research Title</label>
+			<input type="text" class="form-control" id="Title">
+		</div>
+
+		<div class="form-group">
+			<label for="Description">Description</label>
+			<textarea type="text" class="form-control" id="Description"></textarea>
+		</div>
+
+		<div class="form-group">
+			<label for="Requirements">Requirements</label>
+			<textarea type="text" class="form-control" id="Requirements"></textarea>
+		</div>
+
+		<div class="form-group">
+			<div class="row">
+				<div class="col-xs-4">
+					<label for="Duration">Duration<br>(Minutes)</label>
+					<input type="number" class="form-control numeric" id="Duration" placeholder="30">
+					<br>
+					<center><button id = "variablebutton" class = "btn btn-default">
+						<span style = "font-size: 2.5em">Variable Length</span>
+					</button></center>
+				</div>
+
+				<div class="col-xs-4">
+					<label for="Pay">Pay<br>($)</label>
+					<input type="number" class="form-control numeric" id="PP" placeholder="25">
+				</div>
+
+				<div class="col-xs-4">
+					<label for="Location">Location<br>(Campus)</label>
+					<select class = "form-control" id = "Location">
+					  <option active = "active" value="Evanston">Evanston</option>
+					  <option value="Chicago">Chicago</option>
+					</select>
+				</div>
+			</div>
+		</div>
+		<!--
+		<div class="form-group">
+			<label for="URL">URL</label>
+			<input type="text" class="form-control" id="URL" placeholder="URL">
+		</div>
+		-->
+		<div class="form-group">
+			<label for="Contact">Contact<br>(E-Mail)</label>
+			<input type="text" class="form-control" id="Contact">
+		</div>
+		<br>
+		<div>
+			<button type="submit" class="btn btn-primary btn-lg btn-block" id="submit"><span class = "buttontext">Submit</span></button>
+		</div>
+		<br>
+	</div>
+	<style>
+		label {
+			font-size: 3em;
+		}
+		.form-control {
+			height: auto;
+			font-size: 3em;
+		}
+	</style>
+
+	<script>	
+		Parse.initialize("GI4coBdWVBWk8CexD33M9SD0GjHRTTq5jo1GnUbb", "r4yKyt6O5KiJhtMVfXraqoNZqee5JjiIBFH1fyIk");
+	
+		var durationholder;
+		var user = Parse.User.current();
+		var un;
+		if (user) {
+			un = user.attributes.username;
+			$("#username").html("<button onclick=\"Parse.User.logOut();location.reload();\" class =\"btn btn-primary btn-lg\"><span class = \"buttontext\">Log Out</span></button>");
+		} else {
+			un = "none";
+			$("#username").html("<a href = \"signUp.html\"><button class =\"btn btn-primary btn-lg\"><span class = \"buttontext\">Log In</span></button></a>");
+		}
+		$("input.numeric").numeric();
+		
+	$("#variablebutton").click(function() {
+	    if($( "#Duration" ).attr( "disabled") != "disabled") {
+	        $( "#Duration" ).attr( "disabled", "disabled");
+	        durationholder = $("#Duration").val();
+	        $("#Duration").val("");
+	        $( "#Duration" ).attr( "placeholder", "Variable" );
+	        $("#variablebutton").addClass("active");
+	    } else {
+	    	$( "#Duration" ).removeAttr( "disabled");
+	    	$("#Duration").val(durationholder);
+	    	$( "#Duration" ).attr( "placeholder", "30" );
+	    	$("#variablebutton").removeClass("active");
+	    }
+	});		
+		
+		var oid = location.search.split('objectID=')[1]
+		var ResearchStudy = Parse.Object.extend("ResearchStudy");
+		var query = new Parse.Query(ResearchStudy);
+		var study = "";
+		query.get(oid, {
+			success: function(s) {
+				study = s;
+				console.log("yay!");
+				loadstuff();
+				// The object was retrieved successfully.
+			},
+			error: function(object, error) {
+				console.log("boo!");
+				// The object was not retrieved successfully.
+				// error is a Parse.Error with an error code and message.
+			}
+		});
+
+		function Redirect() {
+      		window.location = "./index.html";
+    	}
+
+		function loadstuff() {
+			document.getElementById("Title").value = study.get("title");
+			document.getElementById("Description").value = study.get("description");
+			document.getElementById("Requirements").value = study.get("requirements");
+			if (study.get("length")) {
+				$( "#Duration" ).removeAttr( "disabled");
+				$("#Duration").val(durationholder);
+				$( "#Duration" ).attr( "placeholder", "30" );
+				$("#variablebutton").removeClass("active");
+				document.getElementById("Duration").value = study.get("length");
+			} else {
+				$( "#Duration" ).attr( "disabled", "disabled");
+				durationholder = $("#Duration").val();
+				$("#Duration").val("");
+				$( "#Duration" ).attr( "placeholder", "Variable" );
+				$("#variablebutton").addClass("active");
+			}
+
+			document.getElementById("PP").value = study.get("pay");
+			document.getElementById("Location").value = study.get("location");
+			document.getElementById("Contact").value = study.get("contact");
+		}
+
+		$('#submit').click(function () {
+			var un = user.attributes.username;
+			var tt = $("#Title").val();
+			var des = $("#Description").val();
+			var req =  $("#Requirements").val();
+	  	if ($("#Duration").val()) {
+	  		var dur =  $("#Duration").val() + " minutes";
+	  		var len = parseInt($("#Duration").val());
+		} else {
+		  	var dur = "Variable";
+		  	var len = null;
+		}
+			var pp =  parseInt($("#PP").val());
+			var loc =  $("#Location").val();
+			var con =  $("#Contact").val();
+
+			study.set("user", user);
+			study.set("title", tt);
+			study.set("description", des);
+			study.set("requirements", req);
+			study.set("duration", dur);
+			study.set("pay", pp);
+			study.set("location", loc);
+			study.set("contact", con);
+			study.set("poster", un);
+			study.set("length", len);
+
+			study.save(null, {
+				success: function(study) {
+					// Execute any logic that should take place after the object is saved.
+					console.log("save success.");
+				},
+				error: function(study, error) {
+					// Execute any logic that should take place if the save fails.
+					// error is a Parse.Error with an error code and message.
+					alert('Failed to create new object, with error code: ' + error.id);
+				}
+			});
+
+			setTimeout('Redirect()', 250);
+		});
+
+	</script>
+
+</body>
+</html>
