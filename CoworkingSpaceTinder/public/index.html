@@ -1,23 +1,35 @@
-<!doctype html>
+<html>
 <head>
 	<link rel="stylesheet" href="css/Stylesheet.css">
-	
-	<title></title>
+
 	<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?libraries=places"></script>
 	<script src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
 	<script src="http://documentcloud.github.com/underscore/underscore-min.js"></script>
 	<script src="https://www.parsecdn.com/js/parse-1.2.18.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 </head>
+<body>	
+	<script type="template" id = "cardTemplate">
+		<div class = "cardPadding">
+			<div class = "card container">
+				<div class = "row row-xs-height">
+					<div class = "col-offset-xs-4 col-xs-4 col-xs-height">
+						<span class = "picture"><img src = <%= imageURL %>></span>
+					</div>
+				</div>
+				<div class = "row row-xs-height">
+					<div class = "col-offset-xs-4 col-xs-4 col-xs-height">
+						<span class = "name">Name: <%= name %></span>
+					</div>
+				</div>
+			</div>
+		</div>	
+	</script>
 
-<body>
+	<div id = "target"></div>
+
+	<script type = "text/javascript" src = "js/index.js"></script>
 
 
-  <script type="text/javascript">
-    Parse.initialize("GI4coBdWVBWk8CexD33M9SD0GjHRTTq5jo1GnUbb", "r4yKyt6O5KiJhtMVfXraqoNZqee5JjiIBFH1fyIk");
-    
-  </script>
 </body>
-
 </html>
-
