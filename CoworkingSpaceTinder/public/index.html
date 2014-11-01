@@ -11,16 +11,12 @@
 <body>	
 	<script type="template" id = "cardTemplate">
 		<div class = "cardPadding">
-			<div class = "card container">
-				<div class = "row row-xs-height">
-					<div class = "col-offset-xs-4 col-xs-4 col-xs-height">
-						<span class = "picture"><img src = <%= imageURL %>></span>
+			<div class = "card container-fluid">
+					<div class = "col-xs-12 col-xs-height">
+						<img src = <%= imageURL %> class = "picture img-responsive" alt = "<%= name %>">
 					</div>
-				</div>
-				<div class = "row row-xs-height">
-					<div class = "col-offset-xs-4 col-xs-4 col-xs-height">
+					<div class = "col-xs-12 col-xs-height">
 						<span class = "name">Name: <%= name %></span>
-					</div>
 				</div>
 			</div>
 		</div>	
