@@ -3,22 +3,78 @@
   <head>
     <title>CoWorking</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8">
+  <!-- Standalone version -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta content="telephone=no" name="format-detection" />
+    <meta name="mobile-web-app-capable" content="yes">
     <link type="text/css" rel="stylesheet" href="css/launch.css" media="screen" />
     <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
     <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
     <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
     <script type="text/javascript"
-      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCpMZQh33v3B9AuHlqqH8ubLqhpIpxWwWw">
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCpMZQh33v3B9AuHlqqH8ubLqhpIpxWwWw"></script>
+    <script type="text/javascript">
+      (function(document,navigator,standalone) {
+      // prevents links from apps from oppening in mobile safari
+      // this javascript must be the first script in your <head>
+      if ((standalone in navigator) && navigator[standalone]) {
+        var curnode, location=document.location, stop=/^(a|html)$/i;
+        document.addEventListener('click', function(e) {
+          curnode=e.target;
+          while (!(stop).test(curnode.nodeName)) {
+            curnode=curnode.parentNode;
+          }
+          // Condidions to do this only on links to your own app
+          // if you want all links, use if('href' in curnode) instead.
+          if(
+            'href' in curnode && // is a link
+            (chref=curnode.href).replace(location.href,'').indexOf('#') && // is not an anchor
+            ( !(/^[a-z\+\.\-]+:/i).test(chref) ||                       // either does not have a proper scheme (relative links)
+              chref.indexOf(location.protocol+'//'+location.host)===0 ) // or is in the same protocol and domain
+          ) {
+            e.preventDefault();
+            location.href = curnode.href;
+          }
+        },false);
+      }
+    })(document,window.navigator,'standalone');
+    </script>
 
     <script type="text/javascript" src="js/jquery.ui.map.js"></script>
     <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true"></script>
     <!--The jsapi allows for I.P. address based look-up -->
+      <script src="http://documentcloud.github.com/underscore/underscore-min.js"></script>
     <script src="http://www.google.com/jsapi" language="javascript"></script>
-    <script type="text/javascript" src="http://www.parsecdn.com/js/parse-1.3.0.min.js"></script>
+    <script type="text/javascript" src="http://www.parsecdn.com/js/parse-1.2.18.min.js"></script>
 
     </head>
 
     <body>
+    <script type="boo/far" id="inforCard">
+      <div class="cardinfor">
+               <div class="ui-body ui-body-d" align="center">
+                <image src="" id="photoimg">
+                </div>
+
+                <h4> <%= Name %></h4>
+                <p> <%= Major %> </p>
+                <p> <%= Address %></p>
+        </div>
+    </script>
+    <script type="boo/bar" id="CheckCard">
+    <div class="ui-bar-c ui-corner-all ui-shadow" style="padding:0.45em; height:100px; background-color: white;" id="<%= objectId %>">
+          <div class="ui-block-a" style="width:100px;" align="center">
+            <img src="<%= Photo.url() %>" height="100px"/>
+          </div>
+          <div class="ui-block-b" style=" height:100px; margin-left: 20px">
+           <h5> <%= Name %> </h5>
+           <p><%= Major %><br>
+            <%= Address %></P>
+          </div>
+      </div>
+      <br>
+    </script>
     <div id="home" data-role="page" data-theme="a">
       <div data-role="header" data-theme="a" style="height:36px;" align="center">
         <img src="images/coworking.png" height="25" width="21"style="margin-top:6px"></img>CoWorking!
@@ -26,23 +82,20 @@
         <a href="mailto:tarunvijayvargiya@gmail.com" align="right">Contact us</a>
         <a  align="right">LogIn</a>-->
        </div>
-      <!--<div>
-        <center>
-          Are there any Hotels and Restaurants around where I can bring my pet?
-        </center>
-      </div> -->
-      <div data-role="content">
+      <div data-role="content" id="inforWindow">
         <div class="ui-bar-c ui-corner-all ui-shadow" style="padding:0.45em;">
           <div id="welcome" style="textalign:center; height:300px;" align="center">
             <h4> "Let's do some amazing things together!" </h4><br/>
             <img src="images/Working-together.png"/><br/>
-            <p id="UseCurText" style="display:none;">Enter an address and click Search Location to view nearby People or</p>
-            <a id="UserCurBut" data-role="button" data-theme="a" data-ajax="false" style="display:none;" onclick="initialize()">Use Current Location</a>
           </div>
-          <div id="map_canvas" class="map rounded" style="display :none; height:300px;">
+          <div id="map_canvas" class="map rounded" style="display :none; height:400px;">
+             <!--
+             <p id="UseCurText" align="center">Enter an address and click Search Location to view nearby People or</p>-->
+            <a id="UserCurBut" data-role="button" data-theme="b" data-ajax="false" onclick="initialize()">Check-in Current Location</a>
           </div>
         </div>
-      </div><!-- adding the map showing current position of user -->
+      </div><!--adding the map showing current position of user -->
+      <div data-role="content" id="checkInWindow" dispaly="none"></div>
       <div id="search-panel" align="center" style="display:none;">
         <input type="search"
         style="width:80%;"
@@ -59,7 +112,7 @@
 
         </ul>
       </div>-->
-      <div class="footer" data-role="footer" data-theme="a" >
+      <div class="footer" data-role="footer" data-theme="a" id="footer">
         <div data-role="controlgroup" data-type="horizontal" id="footerbut">
           <!--<a data-role="button" data-theme="a" data-ajax="false">Hotels</a>
           <a data-role="button" data-theme="a" data-ajax="false">Restaurants</a>-->
@@ -77,8 +130,8 @@
                 <input type="text" name="user" id="un" value="" placeholder="username" data-theme="a">
                 <label for="pw" class="ui-hidden-accessible">Password:</label>
                 <input type="password" name="pass" id="pw" value="" placeholder="password" data-theme="a">
-                <button type="submit" class="ui-btn ui-corner-all ui-btn-inline ui-shadow ui-btn-a ui-btn-icon-left ui-icon-check" onclick="logIn()">Sign in</button>
-                <button type="submit" class="ui-btn ui-corner-all ui-btn-inline ui-shadow ui-btn-a ui-btn-icon-left ui-icon-check" onclick="signUp()">Sign up</button>
+                <button type="submit" class="ui-btn ui-corner-all ui-btn-inline ui-shadow ui-btn-a ui-btn-icon-left ui-icon-user" onclick="logIn()">Log in</button>
+                <button type="submit" class="ui-btn ui-corner-all ui-btn-inline ui-shadow ui-btn-a ui-btn-icon-left ui-icon-power" onclick="signUp()">Sign up</button>
               </div>
             </form>
           </div>
@@ -89,29 +142,80 @@
    <script type="text/javascript">
     Parse.initialize("GI4coBdWVBWk8CexD33M9SD0GjHRTTq5jo1GnUbb", "r4yKyt6O5KiJhtMVfXraqoNZqee5JjiIBFH1fyIk");
     var currentUser = Parse.User.current();
-
+    var objectId
+    var useCurrent = true;
+    var temp = $("#inforCard").html();
+    var us_temp = _.template(temp);
+    var temp1 = $("#CheckCard").html();
+    var us_temp1 = _.template(temp1);
+    var ShowCard = Parse.Object.extend("UserInfor");
+    var usName;
     if (currentUser) {
-    document.getElementById('UseCurText').style.display = "block";
-     document.getElementById('UserCurBut').style.display = "block";
-     $('#footerbut').html("<button onclick=\"Parse.User.logOut();location.reload();\" class=\"ui-btn ui-corner-all ui-shadow ui-btn-a ui-btn-icon-left ui-icon-check\">Log Out</button>");
+        usName = currentUser.attributes.username;
+        //usphoto = currentUser.attributes.photo.url;
+        //document.getElementById('UseCurText').style.display = "block";
+        //document.getElementById('UserCurBut').style.display = "block";
+        toggleMap();
+        
+        var query = new Parse.Query(ShowCard);
+        query.equalTo("UserName", usName);
+        query.find({
+      success: function(results) {
+        results.forEach(function(result){
+                  var cardinfo = result.attributes;
+                  objectId = result.id;
+                  document.getElementById("map_canvas").insertAdjacentHTML("afterBegin", us_temp(cardinfo))
+                  //$("#map_canvas").append(us_temp(cardinfo));
+                  document.getElementById('photoimg').setAttribute('src',currentUser.attributes.photo.url());
+                          });
+      },
+      error: function(error) {
+                // error is an instance of Parse.Error.
+              }
+            });
+        $('#footerbut').html("<button onclick=\"editProfile()\" id=\"NewData\" class=\"ui-btn ui-corner-all ui-shadow ui-btn-a ui-btn-icon-left ui-icon-action\">Profile</button>" + "<button id=\"LogoutBut\" onclick=\"logOut()\" class=\"ui-btn ui-corner-all ui-shadow ui-btn-a ui-btn-icon-left ui-icon-back\">Log Out</button>");
+        /*setTimeout(function(){
+          Parse.User.logOut();
+          location.reload();
+        }, 60000);
+        /*$(window).bind('beforeunload', function() {
+            Parse.User.logOut();
+        });*/
       }
       else{
-        document.getElementById('UseCurText').style.display = "none";
-      document.getElementById('UserCurBut').style.display = "none";
+        //document.getElementById('UseCurText').style.display = "none";
+      //document.getElementById('UserCurBut').style.display = "none";
       $('#footerbut').html("<a href=\"#popupLogin\" data-rel=\"popup\" data-position-to=\"window\" class=\"ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-check ui-btn-icon-left ui-btn-a\" data-transition=\"pop\">Sign in</a>");
       }
+
+
     function logIn() {
     Parse.User.logIn($("#un").val(), $("#pw").val(), {
       success: function(user) {
-        alert("Login successful, redirecting to home page.");
+        //alert("Login successful, redirecting to home page.");
         window.location.reload();
       },
       error: function(user, error) {
           // Login failed. Check error for reason.
           // Show the error message somewhere and let the user try again.
           alert("Error: " + error.code + " " + error.message);
+          window.location.reload();
         }
       });
+  }
+      function logOut() {
+        var query = new Parse.Query(ShowCard);
+        query.get(objectId, {
+      success: function(s) {
+        s.unset("Location");
+        s.save();  
+        Parse.User.logOut();
+      location.reload();      // The object was retrieved successfully.
+      },
+      error: function(object, error) {
+      }
+
+    });
   }
 
   function signUp(){
@@ -121,8 +225,8 @@
 
      user.signUp(null, {
        success: function(user) {  
-        alert("Sign up successful, redirecting to home page.");
-        window.location.reload();
+        //alert("Sign up successful, redirecting to home page.");
+       window.location = "../public/editProfile.html";
       },
       error: function(user, error) {
           // Show the error message somewhere and let the user try again.
@@ -130,5 +234,88 @@
         }
       });
    }
+   function editProfile() {
+    window.location = "../public/editProfile.html";
+   }
+
+   function toggleMap() {
+        document.getElementById("map_canvas").style.display="block";
+        document.getElementById("welcome").style.display = "none";
+      }
+
+   function initialize() {
+      
+        if (navigator.geolocation) {
+          //alert('geolocator enabled');
+          navigator.geolocation.getCurrentPosition(initializeMap);
+          gotLocation = true;
+        } else {
+          alert('Error: No location');
+        }
+        
+      }
+
+      function initializeMap(position) {
+        
+        var curLat;
+        var curLong;
+        if (useCurrent == true) {
+
+          curLat = position.coords.latitude;
+          curLong = position.coords.longitude;
+          document.getElementById("checkInWindow").style.display = "block";
+          document.getElementById("inforWindow").style.display = "none";
+          //alert(curLat + '\n' + curLong);
+        } else {
+
+          curLat = position.lat();
+          curLong = position.lng();
+        }
+        
+        var point = new Parse.GeoPoint({
+          latitude : curLat,
+          longitude : curLong
+        });
+
+        var query = new Parse.Query(ShowCard);
+        query.get(objectId, {
+      success: function(s) {
+        s.set("Location", point);
+        s.save();        // The object was retrieved successfully.
+      },
+      error: function(object, error) {
+        //alert('Failed to create new object, with error code: ' + error.message);
+        // The object was not retrieved successfully.
+        // error is a Parse.Error with an error code and message.
+      }
+    });
+        var query = new Parse.Query(ShowCard);
+        query.withinMiles("Location", point, 1);
+        query.limit(10);
+        query.find({
+          success:function(results) {
+            results.forEach(function(result){
+              if (result.attributes.UserName == usName) {
+                return false;
+              }
+                  var locInfo = result.attributes;
+                  locInfo['ObjectId']= result.id;
+                  //locInfo['URL'] = result.attributes.photo.url;
+                            $("#checkInWindow").append(us_temp1(locInfo));
+                  //document.getElementById("checkInWindow").insertAdjacentHTML("beforeEnd", us_temp1(locInfo));
+                  //$("#map_canvas").append(us_temp(cardinfo));
+                  //document.getElementById('photoimg').setAttribute('src',result.attributes.photo.url());
+                          });
+      },
+      error: function(error) {
+                // error is an instance of Parse.Error.
+              }
+
+          
+        })
+
+      }
+     
+       
     </script>
 </html>
