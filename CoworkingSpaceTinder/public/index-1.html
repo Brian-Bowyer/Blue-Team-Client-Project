@@ -14,35 +14,8 @@
     <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
     <script type="text/javascript"
       src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCpMZQh33v3B9AuHlqqH8ubLqhpIpxWwWw"></script>
-    <script type="text/javascript">
-      (function(document,navigator,standalone) {
-      // prevents links from apps from oppening in mobile safari
-      // this javascript must be the first script in your <head>
-      if ((standalone in navigator) && navigator[standalone]) {
-        var curnode, location=document.location, stop=/^(a|html)$/i;
-        document.addEventListener('click', function(e) {
-          curnode=e.target;
-          while (!(stop).test(curnode.nodeName)) {
-            curnode=curnode.parentNode;
-          }
-          // Condidions to do this only on links to your own app
-          // if you want all links, use if('href' in curnode) instead.
-          if(
-            'href' in curnode && // is a link
-            (chref=curnode.href).replace(location.href,'').indexOf('#') && // is not an anchor
-            ( !(/^[a-z\+\.\-]+:/i).test(chref) ||                       // either does not have a proper scheme (relative links)
-              chref.indexOf(location.protocol+'//'+location.host)===0 ) // or is in the same protocol and domain
-          ) {
-            e.preventDefault();
-            location.href = curnode.href;
-          }
-        },false);
-      }
-    })(document,window.navigator,'standalone');
-    </script>
-
+ 
     <script type="text/javascript" src="js/jquery.ui.map.js"></script>
-    <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true"></script>
     <!--The jsapi allows for I.P. address based look-up -->
       <script src="http://documentcloud.github.com/underscore/underscore-min.js"></script>
     <script src="http://www.google.com/jsapi" language="javascript"></script>
@@ -54,7 +27,7 @@
     <script type="boo/far" id="inforCard">
       <div class="cardinfor">
                <div class="ui-body ui-body-d" align="center">
-                <image src="" id="photoimg">
+                <image src="" id="photoimg" width="230">
                 </div>
 
                 <h4> <%= Name %></h4>
@@ -63,32 +36,32 @@
         </div>
     </script>
     <script type="boo/bar" id="CheckCard">
-    <div class="ui-bar-c ui-corner-all ui-shadow" style="padding:0.45em; height:100px; background-color: white;" id="<%= objectId %>">
-          <div class="ui-block-a" style="width:100px;" align="center">
-            <img src="<%= Photo.url() %>" height="100px"/>
+    <div class="ui-bar-c ui-corner-all ui-shadow ui-grid-a" style="background-color: white;" id="<%= objectId %>">
+          <div class="ui-block-a" style="width:80px; margin-top:15px; margin-left: 5px;" align="center">
+            <img src="<%= Photo.url() %>" height="70px"/>
           </div>
-          <div class="ui-block-b" style=" height:100px; margin-left: 20px">
-           <h5> <%= Name %> </h5>
-           <p><%= Major %><br>
-            <%= Address %></P>
+          <div class="ui-block-b" style="font-size: 0.9em; margin-left: 20px">
+           <p> <%= Name %> <br>
+           <%= Major %><br>
+           <%= Address %></P>
           </div>
       </div>
       <br>
     </script>
-    <div id="home" data-role="page" data-theme="a">
-      <div data-role="header" data-theme="a" style="height:36px;" align="center">
-        <img src="images/coworking.png" height="25" width="21"style="margin-top:6px"></img>CoWorking!
+    <div id="home" data-role="page" data-position="fixed" data-theme="a" class="type-interior ui-page ui-body-c ui-page-header-fixed ui-page-footer-fixed ui-page-active">
+      <div data-role="header" data-position="fixed" data-theme="a" class="ui-header ui-bar-a ui-header-fixed slidedown" role="banner" style="height:41px;" align="center" id="headerbut">
+        <img src="images/coworking.png" height="25" width="21" style="margin-top:6px" ></img>CoWorking!
         <!--
         <a href="mailto:tarunvijayvargiya@gmail.com" align="right">Contact us</a>
         <a  align="right">LogIn</a>-->
        </div>
       <div data-role="content" id="inforWindow">
         <div class="ui-bar-c ui-corner-all ui-shadow" style="padding:0.45em;">
-          <div id="welcome" style="textalign:center; height:300px;" align="center">
+          <div id="welcome" style="textalign:center;" class="ui-grid-a" align="center">
             <h4> "Let's do some amazing things together!" </h4><br/>
             <img src="images/Working-together.png"/><br/>
           </div>
-          <div id="map_canvas" class="map rounded" style="display :none; height:400px;">
+          <div id="map_canvas" class="map rounded" style="display :none;">
              <!--
              <p id="UseCurText" align="center">Enter an address and click Search Location to view nearby People or</p>-->
             <a id="UserCurBut" data-role="button" data-theme="b" data-ajax="false" onclick="initialize()">Check-in Current Location</a>
@@ -114,12 +87,6 @@
       </div>-->
       <div class="footer" data-role="footer" data-theme="a" id="footer">
         <div data-role="controlgroup" data-type="horizontal" id="footerbut">
-          <!--<a data-role="button" data-theme="a" data-ajax="false">Hotels</a>
-          <a data-role="button" data-theme="a" data-ajax="false">Restaurants</a>-->
-          <!--
-          <a data-role="button" data-theme="a" data-ajax="false" onclick="toggleFormLinks()">Submit New Data</a>-->
-          
-          <!--<a data-role="button" data-theme="a" data-ajax="false" onclick="codeAddress()" style="display:none;">Search Location</a>-->
         </div>
 
         <div data-role="popup" id="popupLogin" data-theme="a" class="ui-corner-all">
@@ -142,7 +109,7 @@
    <script type="text/javascript">
     Parse.initialize("GI4coBdWVBWk8CexD33M9SD0GjHRTTq5jo1GnUbb", "r4yKyt6O5KiJhtMVfXraqoNZqee5JjiIBFH1fyIk");
     var currentUser = Parse.User.current();
-    var objectId
+    var objectId;
     var useCurrent = true;
     var temp = $("#inforCard").html();
     var us_temp = _.template(temp);
@@ -173,7 +140,9 @@
                 // error is an instance of Parse.Error.
               }
             });
-        $('#footerbut').html("<button onclick=\"editProfile()\" id=\"NewData\" class=\"ui-btn ui-corner-all ui-shadow ui-btn-a ui-btn-icon-left ui-icon-action\">Profile</button>" + "<button id=\"LogoutBut\" onclick=\"logOut()\" class=\"ui-btn ui-corner-all ui-shadow ui-btn-a ui-btn-icon-left ui-icon-back\">Log Out</button>");
+        $('#headerbut').html("<a data-role=\"button\" onclick=\"editProfile()\" id=\"NewData\" class=\"ui-btn ui-btn-left ui-corner-all ui-shadow ui-btn-a ui-btn-icon-notext ui-icon-action\">Profile</a>" + "<img src=\"images/coworking.png\" height=\"25\" width=\"21\" style=\"margin-top:6px\"></img>CoWorking!" + "<a id=\"LogoutBut\" data-role=\"button\" onclick=\"logOut()\" class=\"ui-btn ui-btn-right ui-corner-all ui-shadow ui-btn-a ui-btn-icon-notext ui-icon-back\">LogOut</a>");
+         document.getElementById("footer").style.display = "none";
+
         /*setTimeout(function(){
           Parse.User.logOut();
           location.reload();
@@ -242,6 +211,10 @@
         document.getElementById("map_canvas").style.display="block";
         document.getElementById("welcome").style.display = "none";
       }
+   function goBack() {
+    document.getElementById("inforWindow").style.display="block";
+        document.getElementById("checkInWindow").style.display = "none";
+   }
 
    function initialize() {
       
@@ -265,6 +238,7 @@
           curLong = position.coords.longitude;
           document.getElementById("checkInWindow").style.display = "block";
           document.getElementById("inforWindow").style.display = "none";
+          $('#headerbut').html("<a data-role=\"button\" onclick=\"window.location.reload();\" id=\"NewData\" class=\"ui-btn ui-btn-left ui-corner-all ui-shadow ui-btn-a ui-btn-icon-notext ui-icon-carat-l\">Profile</a>" + "<img src=\"images/coworking.png\" height=\"25\" width=\"21\" style=\"margin-top:6px\"></img>CoWorking!" + "<a id=\"LogoutBut\" data-role=\"button\" onclick=\"logOut()\" class=\"ui-btn ui-btn-right ui-corner-all ui-shadow ui-btn-a ui-btn-icon-notext ui-icon-back\">LogOut</a>");
           //alert(curLat + '\n' + curLong);
         } else {
 
