@@ -143,10 +143,9 @@
           document.getElementById("search-panel").style.display = "block";
           $('#footerbut').html("<a data-role=\"button\" onclick=\"codeAddress()\" data-position-to=\"window\" class=\"ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-search ui-btn-icon-left ui-btn-a\" data-transition=\"pop\">Search</a>");
 
-        /*setTimeout(function(){
-          Parse.User.logOut();
-          location.reload();
-        }, 60000);
+        setTimeout(function(){
+          logOut();
+        }, 300000);
         /*$(window).bind('beforeunload', function() {
             Parse.User.logOut();
         });*/
