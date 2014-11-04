@@ -10,29 +10,36 @@
     <meta name="mobile-web-app-capable" content="yes">
     <link type="text/css" rel="stylesheet" href="css/launch.css" media="screen" />
     <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
+
     <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
     <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
     <script type="text/javascript"
       src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCpMZQh33v3B9AuHlqqH8ubLqhpIpxWwWw"></script>
- 
+    <script type="text/javascript"
+        src="https://maps.googleapis.com/maps/api/js?libraries=geometry,places">
+    </script>
+
     <script type="text/javascript" src="js/jquery.ui.map.js"></script>
     <!--The jsapi allows for I.P. address based look-up -->
       <script src="http://documentcloud.github.com/underscore/underscore-min.js"></script>
     <script src="http://www.google.com/jsapi" language="javascript"></script>
     <script type="text/javascript" src="http://www.parsecdn.com/js/parse-1.2.18.min.js"></script>
-
+    <script type="text/javascript">
+    var Add;
+    var Build;
+    </script>
     </head>
 
     <body>
     <script type="boo/far" id="inforCard">
       <div class="cardinfor">
                <div class="ui-body ui-body-d" align="center">
-                <image src="" id="photoimg" width="230">
+                <image src="" id="photoimg" width="205">
                 </div>
-
-                <h4> <%= Name %></h4>
-                <p> <%= Major %> </p>
-                <p> <%= Address %></p>
+                <p> <%= Name %><br>
+                <%= Major %> <br>
+                <%= BuildingName %><br>
+                <%= Address %></p>
         </div>
     </script>
     <script type="boo/bar" id="CheckCard">
@@ -43,7 +50,9 @@
           <div class="ui-block-b" style="font-size: 0.9em; margin-left: 20px">
            <p> <%= Name %> <br>
            <%= Major %><br>
-           <%= Address %></P>
+           <%= BuildingName %><br>
+           <%= Address %><br>
+           <%= calcDistance(new google.maps.LatLng(Location.latitude, Location.longitude), pyrmont) %> miles</p>
           </div>
       </div>
       <br>
@@ -62,30 +71,18 @@
             <img src="images/Working-together.png"/><br/>
           </div>
           <div id="map_canvas" class="map rounded" style="display :none;">
-             <!--
-             <p id="UseCurText" align="center">Enter an address and click Search Location to view nearby People or</p>-->
             <a id="UserCurBut" data-role="button" data-theme="b" data-ajax="false" onclick="initialize()">Check-in Current Location</a>
           </div>
         </div>
       </div><!--adding the map showing current position of user -->
-      <div data-role="content" id="checkInWindow" dispaly="none"></div>
+      <div data-role="content" id="checkInWindow" style="display:none;"></div>
       <div id="search-panel" align="center" style="display:none;">
         <input type="search"
         style="width:80%;"
         id="target"
         placeholder="Search Address" />
       </div>
-     <!--
-      <div id="formdiv" style="display:none" align="center">
-        <ul data-role="listview" data-theme="b" align="center">
-
-          <li><a href="savehotels.html" align="center" data-ajax="false">Hotel</a></li>
-          <li><a href="restaurant.html" align="center" data-ajax="false">Restaurant</a></li>
-          <li><a href="saveparks.html"  align="center" data-ajax="false">Park</a></li>
-
-        </ul>
-      </div>-->
-      <div class="footer" data-role="footer" data-theme="a" id="footer">
+      <div class="footer" data-role="footer" data-position="fixed" data-theme="a" id="footer">
         <div data-role="controlgroup" data-type="horizontal" id="footerbut">
         </div>
 
@@ -109,6 +106,7 @@
    <script type="text/javascript">
     Parse.initialize("GI4coBdWVBWk8CexD33M9SD0GjHRTTq5jo1GnUbb", "r4yKyt6O5KiJhtMVfXraqoNZqee5JjiIBFH1fyIk");
     var currentUser = Parse.User.current();
+    var geocoder = new google.maps.Geocoder();
     var objectId;
     var useCurrent = true;
     var temp = $("#inforCard").html();
@@ -117,6 +115,7 @@
     var us_temp1 = _.template(temp1);
     var ShowCard = Parse.Object.extend("UserInfor");
     var usName;
+    var pyrmont;
     if (currentUser) {
         usName = currentUser.attributes.username;
         //usphoto = currentUser.attributes.photo.url;
@@ -141,7 +140,8 @@
               }
             });
         $('#headerbut').html("<a data-role=\"button\" onclick=\"editProfile()\" id=\"NewData\" class=\"ui-btn ui-btn-left ui-corner-all ui-shadow ui-btn-a ui-btn-icon-notext ui-icon-action\">Profile</a>" + "<img src=\"images/coworking.png\" height=\"25\" width=\"21\" style=\"margin-top:6px\"></img>CoWorking!" + "<a id=\"LogoutBut\" data-role=\"button\" onclick=\"logOut()\" class=\"ui-btn ui-btn-right ui-corner-all ui-shadow ui-btn-a ui-btn-icon-notext ui-icon-back\">LogOut</a>");
-         document.getElementById("footer").style.display = "none";
+          document.getElementById("search-panel").style.display = "block";
+          $('#footerbut').html("<a data-role=\"button\" onclick=\"codeAddress()\" data-position-to=\"window\" class=\"ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-search ui-btn-icon-left ui-btn-a\" data-transition=\"pop\">Search</a>");
 
         /*setTimeout(function(){
           Parse.User.logOut();
@@ -211,10 +211,6 @@
         document.getElementById("map_canvas").style.display="block";
         document.getElementById("welcome").style.display = "none";
       }
-   function goBack() {
-    document.getElementById("inforWindow").style.display="block";
-        document.getElementById("checkInWindow").style.display = "none";
-   }
 
    function initialize() {
       
@@ -227,25 +223,90 @@
         }
         
       }
+    function callback(results, status) {
+        if (status == google.maps.places.PlacesServiceStatus.OK) {
+          if (results[0]) {
+            Build = results[0].name;
+             var query = new Parse.Query(ShowCard);
+                  query.get(objectId, {
+                    success: function(s) {
+                      s.set("BuildingName", Build);
+                      s.save();  
+               // The object was retrieved successfully.
+                    },
+                    error: function(object, error) {
+                      alert('Failed to create new object, with error code: ' + error.message);
+                    // The object was not retrieved successfully.
+                    // error is a Parse.Error with an error code and message.
+                    }
+                  });
+          }
+        }
+    }
 
-      function initializeMap(position) {
-        
+
+    function initializeMap(position) {
         var curLat;
         var curLong;
+        document.getElementById("inforWindow").style.display = "none";
+        document.getElementById("search-panel").style.display = "none";
+        document.getElementById("footer").style.display = "none";
+        document.getElementById("checkInWindow").style.display = "block";
+        $('#headerbut').html("<a data-role=\"button\" onclick=\"window.location.reload();\" id=\"NewData\" class=\"ui-btn ui-btn-left ui-corner-all ui-shadow ui-btn-a ui-btn-icon-notext ui-icon-carat-l\">Profile</a>" + "<img src=\"images/coworking.png\" height=\"25\" width=\"21\" style=\"margin-top:6px\"></img>CoWorking!" + "<a id=\"LogoutBut\" data-role=\"button\" onclick=\"logOut()\" class=\"ui-btn ui-btn-right ui-corner-all ui-shadow ui-btn-a ui-btn-icon-notext ui-icon-back\">LogOut</a>");
+
         if (useCurrent == true) {
 
           curLat = position.coords.latitude;
           curLong = position.coords.longitude;
-          document.getElementById("checkInWindow").style.display = "block";
-          document.getElementById("inforWindow").style.display = "none";
-          $('#headerbut').html("<a data-role=\"button\" onclick=\"window.location.reload();\" id=\"NewData\" class=\"ui-btn ui-btn-left ui-corner-all ui-shadow ui-btn-a ui-btn-icon-notext ui-icon-carat-l\">Profile</a>" + "<img src=\"images/coworking.png\" height=\"25\" width=\"21\" style=\"margin-top:6px\"></img>CoWorking!" + "<a id=\"LogoutBut\" data-role=\"button\" onclick=\"logOut()\" class=\"ui-btn ui-btn-right ui-corner-all ui-shadow ui-btn-a ui-btn-icon-notext ui-icon-back\">LogOut</a>");
-          //alert(curLat + '\n' + curLong);
+                    //alert(curLat + '\n' + curLong);
+          var latlng = new google.maps.LatLng(curLat, curLong);
+          var geocoder = new google.maps.Geocoder();
+            geocoder.geocode({'latLng': latlng}, function(results, status) {
+              if (status == google.maps.GeocoderStatus.OK) {
+                if (results[0]) {
+                  Add = results[0].formatted_address;
+                  var query = new Parse.Query(ShowCard);
+                  query.get(objectId, {
+                    success: function(s) {
+                      s.set("Address", Add);
+                      s.save();   
+               // The object was retrieved successfully.
+                    },
+                    error: function(object, error) {
+                      alert('Failed to create new object, with error code: ' + error.message);
+                    // The object was not retrieved successfully.
+                    // error is a Parse.Error with an error code and message.
+                    }
+                  });
+                } else {
+                  alert('No results found');
+                }
+              } else {
+              alert('Geocoder failed due to: ' + status);
+              }
+            }); 
+
         } else {
 
           curLat = position.lat();
           curLong = position.lng();
         }
-        
+
+        pyrmont = new google.maps.LatLng(curLat, curLong);
+        var request = {
+              location: pyrmont,
+              radius: '60',
+              type: ['store']
+
+            };
+        var map = new google.maps.Map(document.getElementById('map_canvas'), {
+        center: pyrmont,
+        zoom: 15
+        });
+
+        var service = new google.maps.places.PlacesService(map);
+        service.nearbySearch(request, callback);
+
         var point = new Parse.GeoPoint({
           latitude : curLat,
           longitude : curLong
@@ -253,41 +314,82 @@
 
         var query = new Parse.Query(ShowCard);
         query.get(objectId, {
-      success: function(s) {
-        s.set("Location", point);
-        s.save();        // The object was retrieved successfully.
-      },
-      error: function(object, error) {
-        //alert('Failed to create new object, with error code: ' + error.message);
+          success: function(s) {
+            s.set("Location", point);
+            s.save();   
+               // The object was retrieved successfully.
+          },
+          error: function(object, error) {
+        alert('Failed to create new object, with error code: ' + error.message);
         // The object was not retrieved successfully.
         // error is a Parse.Error with an error code and message.
-      }
-    });
+          }
+        });
+
         var query = new Parse.Query(ShowCard);
-        query.withinMiles("Location", point, 1);
+        query.withinMiles("Location", point, 0.4);
         query.limit(10);
         query.find({
           success:function(results) {
-            results.forEach(function(result){
+            if(results.length == 1) {
+              alert("No person around")
+            }
+            else{
+              results.forEach(function(result){
               if (result.attributes.UserName == usName) {
                 return false;
               }
                   var locInfo = result.attributes;
                   locInfo['ObjectId']= result.id;
                   //locInfo['URL'] = result.attributes.photo.url;
-                            $("#checkInWindow").append(us_temp1(locInfo));
-                  //document.getElementById("checkInWindow").insertAdjacentHTML("beforeEnd", us_temp1(locInfo));
+                  $("#checkInWindow").append(us_temp1(locInfo));
+                    //document.getElementById("checkInWindow").insertAdjacentHTML("beforeEnd", us_temp1(locInfo));
                   //$("#map_canvas").append(us_temp(cardinfo));
                   //document.getElementById('photoimg').setAttribute('src',result.attributes.photo.url());
-                          });
-      },
-      error: function(error) {
+              });
+
+            }   
+        },
+        error: function(error) {
                 // error is an instance of Parse.Error.
               }
-
-          
-        })
-
+        });
+      }
+      function codeAddress() {
+        //alert('codeAddress');
+        useCurrent = false;
+        input = document.getElementById("target");
+        Add = input.value;
+        //alert('created Address');
+        //alert('Address = ' + Address);
+        var query = new Parse.Query(ShowCard);
+                  query.get(objectId, {
+                    success: function(s) {
+                      s.set("Address", Add);
+                      s.save();   
+               // The object was retrieved successfully.
+                    },
+                    error: function(object, error) {
+                      alert('Failed to create new object, with error code: ' + error.message);
+                    // The object was not retrieved successfully.
+                    // error is a Parse.Error with an error code and message.
+                    }
+                  });
+        geocoder.geocode({
+          'address' : Add
+        }, function(results, status) {
+          if (status == google.maps.GeocoderStatus.OK) {
+            var temp = results[0].geometry.location;
+            //alert('ready to initialize map');
+            initializeMap(temp);        
+          } else {
+            alert("Geocode was not successful for the following reason: " + status);
+            useCurrent = true;
+          }
+        });
+      }
+      function calcDistance(p1, p2){
+        return (google.maps.geometry.spherical.computeDistanceBetween(p1, p2) / 1000 * 0.621371).toFixed(2);
       }
      
        

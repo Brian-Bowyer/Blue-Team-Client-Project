@@ -9,3 +9,10 @@
 	text-align: center;
 	position: fixed;
 }
+
+#inforWindow {
+    padding-bottom: 5px;
+    padding-top: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
