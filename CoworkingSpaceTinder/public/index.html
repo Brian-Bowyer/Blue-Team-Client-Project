@@ -4,7 +4,7 @@
     <title>CoWorking</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta charset="utf-8">
-  <!-- Standalone version -->
+    <!-- Standalone version -->
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta content="telephone=no" name="format-detection" />
     <meta name="mobile-web-app-capable" content="yes">
@@ -14,7 +14,7 @@
     <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
     <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
     <script type="text/javascript"
-      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCpMZQh33v3B9AuHlqqH8ubLqhpIpxWwWw"></script>
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCpMZQh33v3B9AuHlqqH8ubLqhpIpxWwWw"></script>
     <script type="text/javascript"
         src="https://maps.googleapis.com/maps/api/js?libraries=geometry,places">
     </script>
@@ -27,17 +27,21 @@
     </head>
 
     <body>
+    <!--Temp for ChechIn location-->
+    <script type="boo/far" id="checkLoc">
+    <a onclick="test = '<%= Name %>'; getUser();" id="<%= Name %>"class="ui-btn ui-corner-all"><%= Name %></a>
+    </script>
+    <!--Temp for LogIn user card-->
     <script type="template" id="inforCard">
       <div class="cardinfor">
                <div class="ui-body ui-body-d" align="center">
                 <image src="" id="photoimg" width="205">
                 </div>
                 <p> <%= Name %><br>
-                <%= Major %> <br>
-                <%= BuildingName %><br>
-                <%= Address %></p>
+                <%= Major %> </p>
         </div>
     </script>
+    <!--Temp for ChechIn ChecIn user card-->
     <script type="template" id="CheckCard">
     <div class="ui-bar-c ui-corner-all ui-shadow ui-grid-a" style="background-color: white;" id="<%= objectId %>">
           <div class="ui-block-a" style="width:80px; margin-top:15px; margin-left: 5px;" align="center">
@@ -46,20 +50,21 @@
           <div class="ui-block-b" style="font-size: 0.9em; margin-left: 20px">
            <p> <%= Name %> <br>
            <%= Major %><br>
-           <%= BuildingName %><br>
-           <%= Address %><br>
-           <%= calcDistance(new google.maps.LatLng(Location.latitude, Location.longitude), pyrmont) %> miles</p>
+           <%= CheckIn %></p>
           </div>
       </div>
       <br>
     </script>
+
     <div id="home" data-role="page" data-position="fixed" data-theme="a" class="type-interior ui-page ui-body-c ui-page-header-fixed ui-page-footer-fixed ui-page-active">
+
       <div data-role="header" data-position="fixed" data-theme="a" class="ui-header ui-bar-a ui-header-fixed slidedown" role="banner" style="height:41px;" align="center" id="headerbut">
         <img src="images/coworking.png" height="25" width="21" style="margin-top:6px" ></img>CoWorking!
         <!--
         <a href="mailto:tarunvijayvargiya@gmail.com" align="right">Contact us</a>
         <a  align="right">LogIn</a>-->
-       </div>
+      </div>
+
       <div data-role="content" id="inforWindow">
         <div class="ui-bar-c ui-corner-all ui-shadow" style="padding:0.45em;">
           <div id="welcome" style="textalign:center;" class="ui-grid-a" align="center">
@@ -67,17 +72,25 @@
             <img src="images/Working-together.png"/><br/>
           </div>
           <div id="map_canvas" class="map rounded" style="display :none;">
-            <a id="UserCurBut" data-role="button" data-theme="b" data-ajax="false" onclick="initialize()">Check-in Current Location</a>
+            <a id="UserCurBut" data-role="button" data-theme="b" data-ajax="false" onclick="CheckIn()">Check-in Current Location</a>
           </div>
         </div>
-      </div><!--adding the map showing current position of user -->
+      </div><!--welcom & userInfor Window -->
+
       <div data-role="content" id="checkInWindow" style="display:none;"></div>
+      <div data-role="content" id="checkLocation" style="display:none;">
+        <h5>Choose Location:</h5>
+        <form id="LocWin">
+        </form>
+      </div>
+
       <div id="search-panel" align="center" style="display:none;">
         <input type="search"
         style="width:80%;"
         id="target"
         placeholder="Search Address" />
       </div>
+
       <div class="footer" data-role="footer" data-position="fixed" data-theme="a" id="footer">
         <div data-role="controlgroup" data-type="horizontal" id="footerbut">
         </div>
@@ -96,8 +109,9 @@
             </form>
           </div>
       </div><!-- /footer -->
+
     </div><!-- /page -->
   </body>
 
-   <script type="text/javascript" src = "js/index-1.js"></script>
+   <script type="text/javascript" src = "js/index.js"></script>
 </html>
