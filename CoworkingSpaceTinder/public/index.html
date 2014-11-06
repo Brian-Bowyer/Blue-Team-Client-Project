@@ -9,7 +9,9 @@
     <meta content="telephone=no" name="format-detection" />
     <meta name="mobile-web-app-capable" content="yes">
     <link type="text/css" rel="stylesheet" href="css/launch.css" media="screen" />
-    <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
+    <link rel="stylesheet" href="themes/theme.min.css" />
+    <link rel="stylesheet" href="themes/jquery.mobile.icons.min.css" />
+    <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile.structure-1.4.5.min.css" />
 
     <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
     <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
@@ -24,13 +26,15 @@
       <script src="http://documentcloud.github.com/underscore/underscore-min.js"></script>
     <script src="http://www.google.com/jsapi" language="javascript"></script>
     <script type="text/javascript" src="http://www.parsecdn.com/js/parse-1.2.18.min.js"></script>
+    <script type="text/javascript" src = "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css"></script>
     </head>
 
     <body>
     <!--Temp for ChechIn location-->
-    <script type="boo/far" id="checkLoc">
+    <script type="template" id="checkLoc">
     <a onclick="test = '<%= Name %>'; getUser();" id="<%= Name %>"class="ui-btn ui-corner-all"><%= Name %></a>
     </script>
+
     <!--Temp for LogIn user card-->
     <script type="template" id="inforCard">
       <div class="cardinfor">
@@ -41,6 +45,7 @@
                 <%= Major %> </p>
         </div>
     </script>
+
     <!--Temp for ChechIn ChecIn user card-->
     <script type="template" id="CheckCard">
     <div class="ui-bar-c ui-corner-all ui-shadow ui-grid-a" style="background-color: white;" id="<%= objectId %>">
@@ -93,7 +98,7 @@
 
       <div class="footer" data-role="footer" data-position="fixed" data-theme="a" id="footer">
         <div data-role="controlgroup" data-type="horizontal" id="footerbut">
-        </div>
+      </div>
 
         <div data-role="popup" id="popupLogin" data-theme="a" class="ui-corner-all">
           <form>
