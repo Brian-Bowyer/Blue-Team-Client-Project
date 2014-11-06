@@ -39,10 +39,10 @@
     <script type="template" id="inforCard">
       <div class="cardinfor">
                <div class="ui-body ui-body-d" align="center">
-                <image src="" id="photoimg" width="205">
+                <image src="<%= photo.url() %>" id="photoimg" width="205">
                 </div>
-                <p> <%= Name %><br>
-                <%= Major %> </p>
+                <p> <%= name %><br>
+                <%= major %></p>
         </div>
     </script>
 
@@ -50,12 +50,12 @@
     <script type="template" id="CheckCard">
     <div class="ui-bar-c ui-corner-all ui-shadow ui-grid-a" style="background-color: white;" id="<%= objectId %>">
           <div class="ui-block-a" style="width:80px; margin-top:15px; margin-left: 5px;" align="center">
-            <img src="<%= Photo.url() %>" height="70px"/>
+            <img src="<%= photo.url() %>" height="70px"/>
           </div>
           <div class="ui-block-b" style="font-size: 0.9em; margin-left: 20px">
-           <p> <%= Name %> <br>
-           <%= Major %><br>
-           <%= CheckIn %></p>
+           <p> <%= name %> <br>
+           <%= major %><br>
+           <%= location %></p>
           </div>
       </div>
       <br>
@@ -77,7 +77,7 @@
             <img src="images/Working-together.png"/><br/>
           </div>
           <div id="map_canvas" class="map rounded" style="display :none;">
-            <a id="UserCurBut" data-role="button" data-theme="b" data-ajax="false" onclick="CheckIn()">Check-in Current Location</a>
+            <a id="UserCurBut" data-role="button" data-theme="a" data-ajax="false" onclick="CheckIn()">Check-in Current Location</a>
           </div>
         </div>
       </div><!--welcom & userInfor Window -->
@@ -108,8 +108,8 @@
                 <input type="text" name="user" id="un" value="" placeholder="username" data-theme="a">
                 <label for="pw" class="ui-hidden-accessible">Password:</label>
                 <input type="password" name="pass" id="pw" value="" placeholder="password" data-theme="a">
-                <button type="submit" class="ui-btn ui-corner-all ui-btn-inline ui-shadow ui-btn-a ui-btn-icon-left ui-icon-user" onclick="logIn()">Log in</button>
-                <button type="submit" class="ui-btn ui-corner-all ui-btn-inline ui-shadow ui-btn-a ui-btn-icon-left ui-icon-power" onclick="signUp()">Sign up</button>
+                <button type="submit" data-theme="a" class="ui-btn ui-corner-all ui-btn-inline ui-shadow ui-btn-a ui-btn-icon-left ui-icon-user" onclick="logIn()">Log in</button>
+                <button type="submit" data-theme="a" class="ui-btn ui-corner-all ui-btn-inline ui-shadow ui-btn-a ui-btn-icon-left ui-icon-power" onclick="signUp()">Sign up</button>
               </div>
             </form>
           </div>
@@ -118,5 +118,5 @@
     </div><!-- /page -->
   </body>
 
-   <script type="text/javascript" src = "js/index.js"></script>
+   <script type="text/javascript" src = "js/index-0.js"></script>
 </html>
