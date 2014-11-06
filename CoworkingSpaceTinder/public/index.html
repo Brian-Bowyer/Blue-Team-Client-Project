@@ -26,15 +26,9 @@
       <script src="http://documentcloud.github.com/underscore/underscore-min.js"></script>
     <script src="http://www.google.com/jsapi" language="javascript"></script>
     <script type="text/javascript" src="http://www.parsecdn.com/js/parse-1.2.18.min.js"></script>
-    <script type="text/javascript" src = "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css"></script>
     </head>
 
     <body>
-    <!--Temp for ChechIn location-->
-    <script type="template" id="checkLoc">
-    <a onclick="test = '<%= Name %>'; getUser();" id="<%= Name %>"class="ui-btn ui-corner-all"><%= Name %></a>
-    </script>
-
     <!--Temp for LogIn user card-->
     <script type="template" id="inforCard">
       <div class="cardinfor">
@@ -42,23 +36,9 @@
                 <image src="<%= photo.url() %>" id="photoimg" width="205">
                 </div>
                 <p> <%= name %><br>
-                <%= major %></p>
+                <%= major %><br>
+                <%= intent %></p>
         </div>
-    </script>
-
-    <!--Temp for ChechIn ChecIn user card-->
-    <script type="template" id="CheckCard">
-    <div class="ui-bar-c ui-corner-all ui-shadow ui-grid-a" style="background-color: white;" id="<%= objectId %>">
-          <div class="ui-block-a" style="width:80px; margin-top:15px; margin-left: 5px;" align="center">
-            <img src="<%= photo.url() %>" height="70px"/>
-          </div>
-          <div class="ui-block-b" style="font-size: 0.9em; margin-left: 20px">
-           <p> <%= name %> <br>
-           <%= major %><br>
-           <%= location %></p>
-          </div>
-      </div>
-      <br>
     </script>
 
     <div id="home" data-role="page" data-position="fixed" data-theme="a" class="type-interior ui-page ui-body-c ui-page-header-fixed ui-page-footer-fixed ui-page-active">
@@ -77,17 +57,10 @@
             <img src="images/Working-together.png"/><br/>
           </div>
           <div id="map_canvas" class="map rounded" style="display :none;">
-            <a id="UserCurBut" data-role="button" data-theme="a" data-ajax="false" onclick="CheckIn()">Check-in Current Location</a>
+            <a id="UserCurBut" data-role="button" data-theme="a" data-ajax="false" onclick ="window.location = './CheckIn.html';">Check-in Current Location</a>
           </div>
         </div>
       </div><!--welcom & userInfor Window -->
-
-      <div data-role="content" id="checkInWindow" style="display:none;"></div>
-      <div data-role="content" id="checkLocation" style="display:none;">
-        <h5>Choose Location:</h5>
-        <form id="LocWin">
-        </form>
-      </div>
 
       <div id="search-panel" align="center" style="display:none;">
         <input type="search"
