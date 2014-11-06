@@ -89,7 +89,7 @@ function signUp(){
   user.signUp(null, {
     success: function(user) {  
       //alert("Sign up successful, redirecting to home page.");
-      window.location = "../editProfile.html";
+      window.location = "./editProfile.html";
     },
     error: function(user, error) {
       alert("Error: " + error.code + " " + error.message);// Show the error message somewhere and let the user try again.
@@ -98,7 +98,7 @@ function signUp(){
 }
 
 function editProfile() {
-  window.location = "../editProfile.html";
+  window.location = "./editProfile.html";
 }
 
 function toggleMap() {

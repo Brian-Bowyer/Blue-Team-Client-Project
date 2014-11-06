@@ -4,10 +4,19 @@
  * =========================================================================
  */
 
+body {
+	background-color: black;
+}
+
+.home {
+	background-color: black;
+}
+
 .footer {
 	font-weight: 300;
 	text-align: center;
 	position: fixed;
+	background-color: black;
 }
 
 #inforWindow {
