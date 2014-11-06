@@ -86,10 +86,20 @@ function signUp(){
   var user = new Parse.User();
   user.set("username", $("#un").val());
   user.set("password", $("#pw").val());
-  user.signUp(null, {
+	
+	//var parseFile = new Parse.File("photo.png", file);
+	//parseFile.save().then(function() {
+		//alert("success");
+ // The file has been saved to Parse.
+	//}, function(error) {
+			//alert('Failed to create new file, with error code: ' + error.id);// The file either could not be read, or could not be saved to Parse.
+	//});
+	//user.set("photo", "https://truonex-static.s3.amazonaws.com/images/fallback/profile_avatar_default.png");
+  
+	user.signUp(null, {
     success: function(user) {  
       //alert("Sign up successful, redirecting to home page.");
-      window.location = "../editProfile.html";
+      window.location = "editProfile.html";
     },
     error: function(user, error) {
       alert("Error: " + error.code + " " + error.message);// Show the error message somewhere and let the user try again.
@@ -98,7 +108,7 @@ function signUp(){
 }
 
 function editProfile() {
-  window.location = "../editProfile.html";
+  window.location = "editProfile.html";
 }
 
 function toggleMap() {
@@ -347,6 +357,21 @@ function getUser() {
       // error is an instance of Parse.Error.
     }
   });
+	
+	var user = Parse.User.current();
+	var q2 =  new Parse.Query(Parse.User);
+	q2.equalTo("location", user.attributes.location);
+	q2.find({
+		success:function(results) {
+        results.forEach(function(result){
+					console.log(result.attributes.username);
+					console.log(result.attributes.photo.url());
+        });
+    },
+    error: function(error) {
+      // error is an instance of Parse.Error.
+    }
+  });		
 }
 
 
