@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>CoWorking</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8">
+    <!-- Standalone version -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta content="telephone=no" name="format-detection" />
+    <meta name="mobile-web-app-capable" content="yes">
+    <link type="text/css" rel="stylesheet" href="css/launch.css" media="screen" />
+    <link rel="stylesheet" href="themes/theme.min.css" />
+    <link rel="stylesheet" href="themes/jquery.mobile.icons.min.css" />
+    <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile.structure-1.4.5.min.css" />
+
+    <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+
+    <script type="text/javascript" src="js/jquery.ui.map.js"></script>
+    <!--The jsapi allows for I.P. address based look-up -->
+      <script src="http://documentcloud.github.com/underscore/underscore-min.js"></script>
+    <script src="http://www.google.com/jsapi" language="javascript"></script>
+    <script type="text/javascript" src="http://www.parsecdn.com/js/parse-1.2.18.min.js"></script>
+    </head>
+
+    <body>
+
+         <!--Temp for ChechIn location-->
+    <script type="template" id="checkLoc">
+    <a onclick="test = '<%= Name %>'; display();" id="<%= Name %>"class="ui-btn ui-corner-all"><%= Name %></a>
+    </script>
+        <!--Temp for ChechIn ChecIn user card-->
+    <script type="template" id="CheckCard">
+    <div class="ui-bar-c ui-corner-all ui-shadow ui-grid-a" style="background-color: white;" id="<%= objectId %>">
+          <div class="ui-block-a" style="width:80px; margin-top:15px; margin-left: 5px;" align="center">
+            <img src="<%= photo.url() %>" height="70px"/>
+          </div>
+          <div class="ui-block-b" style="font-size: 0.9em; margin-left: 20px">
+           <p> <%= name %> <br>
+           <%= major %><br>
+           <%= intent %><br>
+           <%= location %></p>
+          </div>
+      </div>
+      <br>
+    </script>
+
+        <div id="home" data-role="page" data-position="fixed" data-theme="a" class="type-interior ui-page ui-body-c ui-page-header-fixed ui-page-footer-fixed ui-page-active">
+
+      <div data-role="header" data-position="fixed" data-theme="a" class="ui-header ui-bar-a ui-header-fixed slidedown" role="banner" style="height:41px;" align="center" id="headerbut">
+        <img src="images/coworking.png" height="25" width="21" style="margin-top:6px" ></img>CoWorking!
+        <a data-role="button" onclick="refresh ();" id="Refresh" class="ui-btn ui-btn-right ui-corner-all ui-shadow ui-btn-a ui-btn-icon-notext ui-icon-refresh"></a>
+        <a data-role="button" onclick="window.location='./index.html'" id="goBack" class="ui-btn ui-btn-left ui-corner-all ui-shadow ui-btn-a ui-btn-icon-notext ui-icon-carat-l"></a>
+        
+      </div>
+      <div data-role="content" id="checkInWindow" style="display:none;"></div>
+       <div data-role="content" id="checkLocation">
+        <h5>Choose Location:</h5>
+        <form id="LocWin">
+        </form>
+      </div>
+      <div data-role="popup" id="popupIntent" data-theme="a" class="ui-corner-all">
+          <form>
+            <div style="padding:10px 20px;">
+                <h3>Intent</h3>
+                <input type="text" name="userIntent" id="in" value="" placeholder="Intend" data-theme="a">
+                <button type="button" data-theme="a" class="ui-btn ui-corner-all ui-btn-inline ui-shadow ui-btn-a ui-btn-icon-left ui-icon-user" onclick="confirm()">Confirm</button>
+            </form>
+          </div>
+  </body>
+  <script type="text/javascript" src = "js/CheckIn.js"></script>
+  </html>
+
+

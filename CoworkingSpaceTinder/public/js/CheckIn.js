@@ -10,7 +10,7 @@ var pyrmont;
 var Add;
 var Build;
 var test;
-var intent;
+var Userintent;
 
 if (currentUser){
   usName = currentUser.attributes.username;
@@ -38,7 +38,7 @@ function display () {
 }
 
 function confirm() {
-  intent = $('#in').val();
+  Userintent = $('#in').val();
   $( "#popupIntent" ).popup( "close" );
   getUser();
 }
@@ -51,7 +51,7 @@ function getUser() {
   document.getElementById("checkInWindow").style.display = "block";
   document.getElementById("checkLocation").style.display = "none";
   currentUser.set("location", test);
-  currentUser.set("intent", intent);
+  currentUser.set("intent", Userintent);
   currentUser.save(null, {
     success: function(user) {
       var query = new Parse.Query(Parse.User);
