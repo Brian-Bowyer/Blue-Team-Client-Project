@@ -46,9 +46,11 @@ if (currentUser) {
         /*$(window).bind('beforeunload', function() {
             Parse.User.logOut();
         });*/
+
 }
 else{
-  $('#footerbut').html("<a href=\"#popupLogin\" data-rel=\"popup\" data-position-to=\"window\" class=\"ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-check ui-btn-icon-left ui-btn-a\" data-transition=\"pop\">Sign in</a>");
+  $('#footerbut').html("<a href=\"#popupLogin\" data-role=\"popup\" data-position-to=\"window\" class=\"ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-check ui-btn-icon-left ui-btn-a\" data-transition=\"pop\">Sign in</a>");
+
 }
 
 // log in function
