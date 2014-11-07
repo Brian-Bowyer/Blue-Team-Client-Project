@@ -1,0 +1,15 @@
+{
+    "applications": {
+        "CSTDevelopment": {
+            "applicationId": "GI4coBdWVBWk8CexD33M9SD0GjHRTTq5jo1GnUbb", 
+            "masterKey": "cVLwZyypch67HgnqhrLCx3ObbWUeWQ2WFtbrAphw"
+        }, 
+        "CSTProduction": {
+            "applicationId": "lu3wCFY4M2wIjZAZL99LMvaFelwvkMC6sx4a6I6I", 
+            "masterKey": "O2Pp58dYsVc9jiZvV687No3i7tlk9o191JdAVOQT"
+        }, 
+        "_default": {
+            "link": "CSTDevelopment"
+        }
+    }
+}
