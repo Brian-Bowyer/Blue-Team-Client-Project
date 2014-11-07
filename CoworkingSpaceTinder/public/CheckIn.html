@@ -49,7 +49,7 @@
       <div data-role="header" data-position="fixed" data-theme="a" class="ui-header ui-bar-a ui-header-fixed slidedown" role="banner" style="height:41px;" align="center" id="headerbut">
         <img src="images/coworking.png" height="25" width="21" style="margin-top:6px" ></img>Collisions
         <a data-role="button" onclick="refresh ();" id="Refresh" class="ui-btn ui-btn-right ui-corner-all ui-shadow ui-btn-a">Refresh</a>
-        <a data-role="button" onclick="window.location='./index.html'" id="goBack" class="ui-btn ui-btn-left ui-corner-all ui-shadow ui-btn-a">Home</a>
+        <a data-role="button" onclick="checkOut ();" id="goBack" class="ui-btn ui-btn-left ui-corner-all ui-shadow ui-btn-a">Home</a>
         
       </div>
 
@@ -63,8 +63,15 @@
           <form>
             <div style="padding:10px 20px;">
                 <h3>Intent</h3>
-                <input type="text" name="userIntent" id="in" value="" placeholder="Intend" data-theme="a">
+                <textarea cols="40" rows="8" name="limitedtextarea" onKeyDown="limitText(this.form.limitedtextarea,this.form.countdown,200);" onKeyUp="limitText(this.form.limitedtextarea,this.form.countdown,200);" id="in"></textarea>
+                <font size="1">(Maximum characters: 200)</font>
+                <div class="ui-grid-d" >
+                  <div class="ui-block-a" style="width:15%; padding-top:5px;"> <font size="1">You have </font></div>
+                  <div class="ui-block-b" style="width:15%;"><font size="1"><input readonly type="text" name="countdown" size="3" value="200"></font></div>
+                  <div class="ui-block-c" style="width:30%; padding-top:5px; padding-left:4px;"><font size="1">characters left.</font></div>
+                </div>
                 <button type="button" data-theme="a" class="ui-btn ui-corner-all ui-btn-inline ui-shadow ui-btn-a ui-btn-icon-left ui-icon-user" onclick="confirm()">Confirm</button>
+              </div>
           </form>
       </div>
   </body>

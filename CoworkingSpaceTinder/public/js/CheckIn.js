@@ -4,14 +4,9 @@ var temp1 = $("#CheckCard").html();
 var us_temp1 = _.template(temp1);
 var temp2 = $("#checkLoc").html();
 var us_temp2 = _.template(temp2);
-var ShowCard = Parse.Object.extend("UserInfor");
 var usName;
-var pyrmont;
-var Add;
-var Build;
 var test;
 var Userintent;
-var objectId;
 
 if (currentUser){
   usName = currentUser.attributes.username;
@@ -89,4 +84,23 @@ function logOut() {
     }
 
   });
+}
+
+function checkOut() {
+  currentUser.unset("location");
+  currentUser.save(null, {
+    success: function(results){
+      window.location="./index.html";
+    },
+    error: function(error) {
+      // body...
+    }
+  });
+}
+function limitText(limitField, limitCount, limitNum) {
+  if (limitField.value.length > limitNum) {
+    limitField.value = limitField.value.substring(0, limitNum);
+  } else {
+    limitCount.value = limitNum - limitField.value.length;
+  }
 }
