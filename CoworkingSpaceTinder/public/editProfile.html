@@ -60,7 +60,6 @@
 		Parse.initialize("GI4coBdWVBWk8CexD33M9SD0GjHRTTq5jo1GnUbb", "r4yKyt6O5KiJhtMVfXraqoNZqee5JjiIBFH1fyIk");
 
 		var user = Parse.User.current();
-
 		var un;
 		if (user) {
 			un = user.attributes.username;
@@ -84,40 +83,36 @@
 
 		$('#submit').click(function () {
 			var un = user.attributes.username;
-			var n = $("#Name").val();
-			var fileUploadControl = $("#Photo")[0];
+            var n = $("#Name").val();
+                var fileUploadControl = $("#Photo")[0];
+                if (fileUploadControl.files.length > 0) {
+                    var file = fileUploadControl.files[0];
+                    var name = file.name;
+                    var parseFile = new Parse.File(name, file);
 
-			if (fileUploadControl.files.length > 0) {
-				var file = fileUploadControl.files[0];
-				var name = "photo.png";
-				var parseFile = new Parse.File(name, file);
-				parseFile.save().then(function() {
-					alert("success");
-		//user = Parse.User.current();
-			 // The file has been saved to Parse.
-				}, function(error) {
-						alert('Failed to create new file, with error code: ' + error.id);// The file either could not be read, or could not be saved to Parse.
-				});
-			 
-				user.set("name", n);
-				user.set("photo", parseFile);
+   //put this inside if {
+                    parseFile.save().then(function() {
+   // The file has been saved to Parse.
+                     }, function(error) {
+   // The file either could not be read, or could not be saved to Parse.
+                    });
 
-				user.save(null, {
-					success: function(user) {
-						// Execute any logic that should take place after the object is saved.
-						console.log("save success.");
-					},
-					error: function(user, error) {
-						// Execute any logic that should take place if the save fails.
-						// error is a Parse.Error with an error code and message.
-						alert('Failed to create new object, with error code: ' + error.id);
-					}
-				});
-            //user = Parse.User.current();
-            setTimeout('Redirect()', 250);
-			}
+                    //user = Parse.User.current();
+                    user.set("photo", parseFile);
+                    user.set("name", n);
+                    user.save(null, {
+                    success: function(user) {
+                        // Execute any logic that should take place after the object is saved.
+                        Redirect();
+                                            },
+                    error: function(user, error) {
+                        // Execute any logic that should take place if the save fails.
+                        // error is a Parse.Error with an error code and message.
+                        alert('Failed to create new object, with error code: ' + error.id);
+                    }
+                });                
+                }
 
-			
 		});
 
 	</script>

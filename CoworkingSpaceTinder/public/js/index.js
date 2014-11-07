@@ -46,9 +46,12 @@ if (currentUser) {
         /*$(window).bind('beforeunload', function() {
             Parse.User.logOut();
         });*/
+
 }
 else{
+
   $('#footerbut').html("<a href=\"#popupLogin\" data-rel=\"popup\" data-position-to=\"window\" class=\"ui-btn ui-corner-all ui-shadow ui-btn-inline uui-btn-a\" data-transition=\"pop\">Log In</a>");
+
 }
 
 // log in function

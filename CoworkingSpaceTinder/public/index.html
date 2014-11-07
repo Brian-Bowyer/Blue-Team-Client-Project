@@ -15,56 +15,44 @@
 
     <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
     <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
-    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCpMZQh33v3B9AuHlqqH8ubLqhpIpxWwWw"></script>
-    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?libraries=geometry,places"></script>
+    <script type="text/javascript"
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCpMZQh33v3B9AuHlqqH8ubLqhpIpxWwWw"></script>
+    </script>
 
     <script type="text/javascript" src="js/jquery.ui.map.js"></script>
     <!--The jsapi allows for I.P. address based look-up -->
       <script src="http://documentcloud.github.com/underscore/underscore-min.js"></script>
     <script src="http://www.google.com/jsapi" language="javascript"></script>
     <script type="text/javascript" src="http://www.parsecdn.com/js/parse-1.2.18.min.js"></script>
-    <script type="text/javascript" src = "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css"></script>
     </head>
 
     <body>
-    <!--Temp for ChechIn location-->
-    <script type="template" id="checkLoc">
-    <a onclick="test = '<%= Name %>'; getUser();" id="<%= Name %>"class="ui-btn ui-corner-all"><%= Name %></a>
-    </script>
-
+    <script type="text/javascript">Parse.initialize("GI4coBdWVBWk8CexD33M9SD0GjHRTTq5jo1GnUbb", "r4yKyt6O5KiJhtMVfXraqoNZqee5JjiIBFH1fyIk");</script>
     <!--Temp for LogIn user card-->
     <script type="template" id="inforCard">
       <div class="cardinfor">
                <div class="ui-body ui-body-d" align="center">
-                <image src="" id="photoimg" width="205">
+                <image src="<%= photo.url() %>" id="photoimg" width="205">
                 </div>
-                <p> <%= Name %><br>
-                <%= Major %> </p>
+                <p> <%= name %><br>
+                <%= major %><br>
+                <%= intent %></p>
         </div>
-    </script>
-
-    <!--Temp for ChechIn ChecIn user card-->
-    <script type="template" id="CheckCard">
-    <div class="ui-bar-c ui-corner-all ui-shadow ui-grid-a" style="background-color: white;" id="<%= objectId %>">
-          <div class="ui-block-a" style="width:80px; margin-top:15px; margin-left: 5px;" align="center">
-            <img src="<%= Photo.url() %>" height="70px"/>
-          </div>
-          <div class="ui-block-b" style="font-size: 0.9em; margin-left: 20px">
-           <p> <%= Name %> <br>
-           <%= Major %><br>
-           <%= CheckIn %></p>
-          </div>
-      </div>
-      <br>
     </script>
 
     <div id="home" data-role="page" data-position="fixed" data-theme="a" class="type-interior ui-page ui-body-c ui-page-header-fixed ui-page-footer-fixed ui-page-active">
 
       <div data-role="header" data-position="fixed" data-theme="a" class="ui-header ui-bar-a ui-header-fixed slidedown" role="banner" style="height:41px;" align="center" id="headerbut">
-        <img src="images/coworking.png" height="25" width="21" style="margin-top:6px" ></img>CoWorking!
+        <img src="images/coworking.png" height="25" width="21" style="margin-top:6px" ></img>Collisions
         <!--
-        <a href="mailto:tarunvijayvargiya@gmail.com" align="right">Contact us</a>
-        <a  align="right">LogIn</a>-->
+        <a href="mailto:tarunvijayvargiya@gmail.com" align="right">Contact us</a>-->
+        <button id="logOutButton" onclick="logOut()">Log Out</button>
+        <script type="text/javascript">
+        if (!Parse.User.current()) 
+          {
+            $("#logOutButton").hide();
+          };
+          </script>
       </div>
 
       <div data-role="content" id="inforWindow">
@@ -74,17 +62,10 @@
             <img src="images/Working-together.png"/><br/>
           </div>
           <div id="map_canvas" class="map rounded" style="display :none;">
-            <a id="UserCurBut" data-role="button" data-theme="b" data-ajax="false" onclick="CheckIn()">Check-in Current Location</a>
+            <a id="UserCurBut" data-role="button" data-theme="a" data-ajax="false" onclick ="window.location = './CheckIn.html';">Check-in Current Location</a>
           </div>
         </div>
       </div><!--welcom & userInfor Window -->
-
-      <div data-role="content" id="checkInWindow" style="display:none;"></div>
-      <div data-role="content" id="checkLocation" style="display:none;">
-        <h5>Choose Location:</h5>
-        <form id="LocWin">
-        </form>
-      </div>
 
       <div id="search-panel" align="center" style="display:none;">
         <input type="search"
@@ -105,8 +86,8 @@
                 <input type="text" name="user" id="un" value="" placeholder="username" data-theme="a">
                 <label for="pw" class="ui-hidden-accessible">Password:</label>
                 <input type="password" name="pass" id="pw" value="" placeholder="password" data-theme="a">
-                <button type="submit" class="ui-btn ui-corner-all ui-btn-inline ui-shadow ui-btn-a ui-btn-icon-left ui-icon-user" onclick="logIn()">Log in</button>
-                <button type="submit" class="ui-btn ui-corner-all ui-btn-inline ui-shadow ui-btn-a ui-btn-icon-left ui-icon-power" onclick="signUp()">Sign up</button>
+                <button type="submit" data-theme="a" class="ui-btn ui-corner-all ui-btn-inline ui-shadow ui-btn-a ui-btn-icon-left ui-icon-user" onclick="logIn()">Log in</button>
+                <button type="submit" data-theme="a" class="ui-btn ui-corner-all ui-btn-inline ui-shadow ui-btn-a ui-btn-icon-left ui-icon-power" onclick="signUp()">Sign up</button>
               </div>
             </form>
           </div>
@@ -115,5 +96,9 @@
     </div><!-- /page -->
   </body>
 
+<<<<<<< HEAD
   <script type="text/javascript" src = "js/index.js"></script>
+=======
+   <script type="text/javascript" src = "js/index-0.js"></script>
+>>>>>>> origin/master
 </html>
