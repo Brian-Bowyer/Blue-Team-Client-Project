@@ -8,6 +8,9 @@
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta content="telephone=no" name="format-detection" />
     <meta name="mobile-web-app-capable" content="yes">
+    <link rel="shortcut icon" sizes="128x128" href="../images/logo.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="../images/logo.png" /> 
+
     <link type="text/css" rel="stylesheet" href="css/launch.css" media="screen" />
     <link rel="stylesheet" href="themes/theme.min.css" />
     <link rel="stylesheet" href="themes/jquery.mobile.icons.min.css" />
@@ -23,11 +26,20 @@
     <!--The jsapi allows for I.P. address based look-up -->
       <script src="http://documentcloud.github.com/underscore/underscore-min.js"></script>
     <script src="http://www.google.com/jsapi" language="javascript"></script>
-    <script type="text/javascript" src="http://www.parsecdn.com/js/parse-1.2.18.min.js"></script>
+    <script type="text/javascript" src="http://www.parsecdn.com/js/parse-1.3.1.min.js"></script>
     </head>
 
     <body>
     <!--Temp for LogIn user card-->
+    <script type="template" id="inforCard">
+      <div class="cardinfor">
+               <div class="ui-body ui-body-d" align="center">
+                <image src="<%= photo.url() %>" id="photoimg" width="205">
+                </div>
+                <p align="center"> <%= name %><br></p>
+        </div>
+    </script>
+
 
     <div id="home" data-role="page" data-position="fixed" data-theme="a" class="type-interior ui-page ui-body-c ui-page-header-fixed ui-page-footer-fixed ui-page-active">
 

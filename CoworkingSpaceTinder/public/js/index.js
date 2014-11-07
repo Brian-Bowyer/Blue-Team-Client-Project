@@ -1,13 +1,16 @@
     
 Parse.initialize("GI4coBdWVBWk8CexD33M9SD0GjHRTTq5jo1GnUbb", "r4yKyt6O5KiJhtMVfXraqoNZqee5JjiIBFH1fyIk");
 var currentUser = Parse.User.current();
+var temp = $("#inforCard").html();
+var us_temp = _.template(temp);
 var usName;
 var test;
 
 if (currentUser) {
   //usName = currentUser.attributes.username;
-  //cardinfo = currentUser.attributes;
   toggleMap();
+  var cardinfo = currentUser.attributes;
+  document.getElementById("map_canvas").insertAdjacentHTML("afterBegin", us_temp(cardinfo));
   //document.getElementById("map_canvas").insertAdjacentHTML("afterBegin", us_temp(cardinfo))
   $('#headerbut').html("<a data-role=\"button\" onclick=\"editProfile()\" id=\"NewData\" class=\"ui-btn ui-btn-left ui-corner-all ui-shadow ui-btn-a \">Edit Profile</a>" 
     + "<img src=\"images/coworking.png\" height=\"25\" width=\"21\" style=\"margin-top:6px\"></img>Collisions!" 

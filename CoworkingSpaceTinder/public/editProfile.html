@@ -2,6 +2,8 @@
 <head>
 	<!-- Credit to Shanimal on StackExchange for template code -->
 	<title>Edit Profile</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8">
 
 	<!-- Latest compiled and minified CSS -->
 	<link rel="stylesheet" href="themes/theme.min.css" />
@@ -12,7 +14,7 @@
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 	<script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
 	<script src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
-	<script src="https://www.parsecdn.com/js/parse-1.2.18.min.js"></script>
+	<script src="https://www.parsecdn.com/js/parse-1.3.1.min.js"></script>
 	
 	<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCpMZQh33v3B9AuHlqqH8ubLqhpIpxWwWw"></script>
 
@@ -21,7 +23,7 @@
 <body>
 	<div id="home" data-role="page" data-position="fixed" data-theme="a" class="type-interior ui-page ui-body-c ui-page-header-fixed ui-page-footer-fixed ui-page-active">
 		<div data-role="header" data-position="fixed" data-theme="a" class="ui-header ui-bar-a ui-header-fixed slidedown" role="banner" style="height:41px;" align="center" id="headerbut">
-			<img src="images/coworking.png" height="25" width="21" style="margin-top:6px" ></img>CoWorking!
+			<img src="images/coworking.png" height="25" width="21" style="margin-top:6px" ></img>Collisions!
 		</div>
 		<div class="ui-body ui-body-c">
 		<div data-role="fieldcontain" class="ui-field-contain ui-body ui-br">
@@ -67,7 +69,7 @@
 			$("#username").html("<button onclick=\"Parse.User.logOut();location.reload();\" class =\"btn btn-primary btn-lg\"><span class = \"buttontext\">Log Out</span></button>");
 			
 			$('#headerbut').html("<a data-role=\"button\" onclick=\"Redirect()\" id=\"NewData\" class=\"ui-btn ui-btn-left ui-corner-all ui-shadow ui-btn-a \">Cancel</a>" 
-				+ "<img src=\"images/coworking.png\" height=\"25\" width=\"21\" style=\"margin-top:6px\"></img>CoWorking!" 
+				+ "<img src=\"images/coworking.png\" height=\"25\" width=\"21\" style=\"margin-top:6px\"></img>Collisions!" 
 				+ "<a id=\"LogoutBut\" data-role=\"button\" onclick=\"logOut()\" class=\"ui-btn ui-btn-right ui-corner-all ui-shadow ui-btn-a \">Log Out</a>");
 		} else {
 			//un = "none";
