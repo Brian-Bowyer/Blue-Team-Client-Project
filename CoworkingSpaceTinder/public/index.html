@@ -27,32 +27,21 @@
     </head>
 
     <body>
-    <script type="text/javascript">Parse.initialize("GI4coBdWVBWk8CexD33M9SD0GjHRTTq5jo1GnUbb", "r4yKyt6O5KiJhtMVfXraqoNZqee5JjiIBFH1fyIk");</script>
     <!--Temp for LogIn user card-->
     <script type="template" id="inforCard">
       <div class="cardinfor">
-               <div class="ui-body ui-body-d" align="center">
-                <image src="<%= photo.url() %>" id="photoimg" width="205">
-                </div>
-                <p> <%= name %><br>
-                <%= major %><br>
-                <%= intent %></p>
+				<div class="ui-body ui-body-d" align="center">
+					<image src="<%= photo.url() %>" id="photoimg" width="205">
+				</div>
+					<p> <%= name %><br>
+					<%= major %><br>
+					<%= intent %></p>
         </div>
     </script>
 
     <div id="home" data-role="page" data-position="fixed" data-theme="a" class="type-interior ui-page ui-body-c ui-page-header-fixed ui-page-footer-fixed ui-page-active">
 
       <div data-role="header" data-position="fixed" data-theme="a" class="ui-header ui-bar-a ui-header-fixed slidedown" role="banner" style="height:41px;" align="center" id="headerbut">
-        <img src="images/coworking.png" height="25" width="21" style="margin-top:6px" ></img>Collisions
-        <!--
-        <a href="mailto:tarunvijayvargiya@gmail.com" align="right">Contact us</a>-->
-        <button id="logOutButton" onclick="logOut()">Log Out</button>
-        <script type="text/javascript">
-        if (!Parse.User.current()) 
-          {
-            $("#logOutButton").hide();
-          };
-          </script>
       </div>
 
       <div data-role="content" id="inforWindow">
@@ -96,9 +85,6 @@
     </div><!-- /page -->
   </body>
 
-<<<<<<< HEAD
   <script type="text/javascript" src = "js/index.js"></script>
-=======
-   <script type="text/javascript" src = "js/index-0.js"></script>
->>>>>>> origin/master
+
 </html>

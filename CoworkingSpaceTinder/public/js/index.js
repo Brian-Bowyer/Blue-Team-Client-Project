@@ -6,10 +6,10 @@ var objectId;
 var useCurrent = true;
 var temp = $("#inforCard").html();
 var us_temp = _.template(temp);
-var temp1 = $("#CheckCard").html();
-var us_temp1 = _.template(temp1);
-var temp2 = $("#checkLoc").html();
-var us_temp2 = _.template(temp2);
+// var temp1 = $("#CheckCard").html();
+// var us_temp1 = _.template(temp1);
+// var temp2 = $("#checkLoc").html();
+// var us_temp2 = _.template(temp2);
 var ShowCard = Parse.Object.extend("UserInfor");
 var usName;
 var pyrmont;
@@ -18,6 +18,12 @@ var Build;
 var test;
 
 if (currentUser) {
+	$('#headerbut').html("<a data-role=\"button\" onclick=\"editProfile()\" id=\"NewData\" class=\"ui-btn ui-btn-left ui-corner-all ui-shadow ui-btn-a \">Edit Profile</a>" 
+    + "<img src=\"images/coworking.png\" height=\"25\" width=\"21\" style=\"margin-top:6px\"></img>CoWorking!" 
+    + "<a id=\"LogoutBut\" data-role=\"button\" onclick=\"logOut()\" class=\"ui-btn ui-btn-right ui-corner-all ui-shadow ui-btn-a \">Log Out</a>");
+  document.getElementById("search-panel").style.display = "block";
+  $('#footerbut').html("<a data-role=\"button\" onclick=\"codeAddress()\" data-position-to=\"window\" class=\"ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-search ui-btn-icon-left ui-btn-a\" data-transition=\"pop\">Search</a>");
+	
   usName = currentUser.attributes.username;
   toggleMap();
   var query = new Parse.Query(ShowCard);
@@ -35,11 +41,7 @@ if (currentUser) {
     // error is an instance of Parse.Error.
 		}
 	});
-  $('#headerbut').html("<a data-role=\"button\" onclick=\"editProfile()\" id=\"NewData\" class=\"ui-btn ui-btn-left ui-corner-all ui-shadow ui-btn-a \">Edit Profile</a>" 
-    + "<img src=\"images/coworking.png\" height=\"25\" width=\"21\" style=\"margin-top:6px\"></img>CoWorking!" 
-    + "<a id=\"LogoutBut\" data-role=\"button\" onclick=\"logOut()\" class=\"ui-btn ui-btn-right ui-corner-all ui-shadow ui-btn-a \">Log Out</a>");
-  document.getElementById("search-panel").style.display = "block";
-  $('#footerbut').html("<a data-role=\"button\" onclick=\"codeAddress()\" data-position-to=\"window\" class=\"ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-search ui-btn-icon-left ui-btn-a\" data-transition=\"pop\">Search</a>");
+
   setTimeout(function(){
     logOut();
   }, 300000);
@@ -50,7 +52,7 @@ if (currentUser) {
 }
 else{
 
-  $('#footerbut').html("<a href=\"#popupLogin\" data-rel=\"popup\" data-position-to=\"window\" class=\"ui-btn ui-corner-all ui-shadow ui-btn-inline uui-btn-a\" data-transition=\"pop\">Log In</a>");
+  $('#footerbut').html("<a href=\"#popupLogin\" data-rel=\"popup\" data-position-to=\"window\" class=\"ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-a\" data-transition=\"pop\">Log In</a>");
 
 }
 
@@ -160,9 +162,9 @@ function initializeMap(position) {
   document.getElementById("search-panel").style.display = "none";
   document.getElementById("footer").style.display = "none";
   document.getElementById("checkInWindow").style.display = "block";
-  $('#headerbut').html("<a data-role=\"button\" onclick=\"window.location.reload();\" id=\"NewData\" class=\"ui-btn ui-btn-left ui-corner-all ui-shadow ui-btn-a ui-btn-icon-notext ui-icon-carat-l\">Profile</a>" 
+  $('#headerbut').html("<a data-role=\"button\" onclick=\"window.location.reload();\" id=\"NewData\" class=\"ui-btn ui-btn-left ui-corner-all ui-shadow ui-btn-a\">Edit Profile</a>" 
   + "<img src=\"images/coworking.png\" height=\"25\" width=\"21\" style=\"margin-top:6px\"></img>CoWorking!" 
-  + "<a id=\"LogoutBut\" data-role=\"button\" onclick=\"logOut()\" class=\"ui-btn ui-btn-right ui-corner-all ui-shadow ui-btn-a ui-btn-icon-notext ui-icon-back\">LogOut</a>");
+  + "<a id=\"LogoutBut\" data-role=\"button\" onclick=\"logOut()\" class=\"ui-btn ui-btn-right ui-corner-all ui-shadow ui-btn-a\">LogOut</a>");
 
   if (useCurrent == true) {
     curLat = position.coords.latitude;
@@ -299,9 +301,9 @@ function CheckIn() {
   document.getElementById("checkInWindow").style.display = "none";
   document.getElementById("checkLocation").style.display = "block"; 
 
-  $('#headerbut').html("<a data-role=\"button\" onclick=\"window.location.reload();\" id=\"NewData\" class=\"ui-btn ui-btn-left ui-corner-all ui-shadow ui-btn-a ui-btn-icon-notext ui-icon-carat-l\">Profile</a>" 
+  $('#headerbut').html("<a data-role=\"button\" onclick=\"window.location.reload();\" id=\"NewData\" class=\"ui-btn ui-btn-left ui-corner-all ui-shadow ui-btn-a\">Edit Profile</a>" 
     + "<img src=\"images/coworking.png\" height=\"25\" width=\"21\" style=\"margin-top:6px\"></img>CoWorking!" 
-    + "<a id=\"LogoutBut\" data-role=\"button\" onclick=\"logOut()\" class=\"ui-btn ui-btn-right ui-corner-all ui-shadowui-btn-a ui-btn-icon-notext ui-icon-back\">LogOut</a>");
+    + "<a id=\"LogoutBut\" data-role=\"button\" onclick=\"logOut()\" class=\"ui-btn ui-btn-right ui-corner-all ui-shadowui-btn-a\">Log Out</a>");
 
   var locationName = Parse.Object.extend("Location");
   var query = new Parse.Query(locationName);
@@ -326,9 +328,9 @@ function getUser() {
   document.getElementById("footer").style.display = "none";
   document.getElementById("checkInWindow").style.display = "block";
   document.getElementById("checkLocation").style.display = "none";
-  $('#headerbut').html("<a data-role=\"button\" onclick=\"window.location.reload();\" id=\"NewData\" class=\"ui-btn ui-btn-left ui-corner-all ui-shadow ui-btn-a ui-btn-icon-notext ui-icon-carat-l\">Profile</a>" 
+  $('#headerbut').html("<a data-role=\"button\" onclick=\"window.location.reload();\" id=\"NewData\" class=\"ui-btn ui-btn-left ui-corner-all ui-shadow ui-btn-a\">Edit Profile</a>" 
     + "<img src=\"images/coworking.png\" height=\"25\" width=\"21\" style=\"margin-top:6px\"></img>CoWorking!" 
-    + "<a id=\"LogoutBut\" data-role=\"button\" onclick=\"logOut()\" class=\"ui-btn ui-btn-right ui-corner-all ui-shadow ui-btn-a ui-btn-icon-notext ui-icon-back\">LogOut</a>");
+    + "<a id=\"LogoutBut\" data-role=\"button\" onclick=\"logOut()\" class=\"ui-btn ui-btn-right ui-corner-all ui-shadow ui-btn-a\">Log Out</a>");
 
   var query = new Parse.Query(ShowCard);
   query.get(objectId, {
