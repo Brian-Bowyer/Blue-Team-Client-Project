@@ -11,19 +11,18 @@ var Add;
 var Build;
 var test;
 var Userintent;
+var objectId;
 
 if (currentUser){
   usName = currentUser.attributes.username;
-}
-
-
   var locationName = Parse.Object.extend("Location");
   var query = new Parse.Query(locationName);
   query.find({
     success:function(results) {
       results.forEach(function(result){
         var locName = result.attributes;
-        locName['ObjectId']= result.id;
+        locName['ObjectId'] = result.id;
+        objectID = result.id;
         $("#LocWin").append(us_temp2(locName));
       });
     },
@@ -31,6 +30,7 @@ if (currentUser){
       // error is an instance of Parse.Error.
     }
   });
+}
 
 function display () {
   $( "#popupIntent" ).popup( "open" );
@@ -71,5 +71,22 @@ function getUser() {
         }
       }); 
     }
+  });
+}
+
+function logOut() {
+  var query = new Parse.Query(ShowCard);
+  query.get(objectId, {
+    success: function(s) {
+      //s.unset("Location");
+      s.unset("CheckIn");
+      s.save();  
+      Parse.User.logOut();
+      location.reload();      // reset CheckIn in userInfor on parse.
+    },
+    error: function(object, error) {
+      alert(error.message)
+    }
+
   });
 }
