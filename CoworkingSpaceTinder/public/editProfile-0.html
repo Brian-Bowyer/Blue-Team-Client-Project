@@ -4,57 +4,60 @@
 	<title>Edit Profile</title>
 
 	<!-- Latest compiled and minified CSS -->
-	<link rel="stylesheet" href="themes/theme.min.css" />
-  <link rel="stylesheet" href="themes/jquery.mobile.icons.min.css" />
-	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile.structure-1.4.5.min.css" />
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+	<link rel="stylesheet" href="css/Stylesheet.css">
 
 	<!-- Install jQuery and underscore -->
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-	<script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
 	<script src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
+	<script src="http://documentcloud.github.com/underscore/underscore-min.js"></script>
 	<script src="https://www.parsecdn.com/js/parse-1.2.18.min.js"></script>
-	
-	<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCpMZQh33v3B9AuHlqqH8ubLqhpIpxWwWw"></script>
-
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 </head>
 
 <body>
-	<div id="home" data-role="page" data-position="fixed" data-theme="a" class="type-interior ui-page ui-body-c ui-page-header-fixed ui-page-footer-fixed ui-page-active">
-		<div data-role="header" data-position="fixed" data-theme="a" class="ui-header ui-bar-a ui-header-fixed slidedown" role="banner" style="height:41px;" align="center" id="headerbut">
-			<img src="images/coworking.png" height="25" width="21" style="margin-top:6px" ></img>CoWorking!
-		</div>
-		<div class="ui-body ui-body-c">
-		<div data-role="fieldcontain" class="ui-field-contain ui-body ui-br">
-			<label for="Name" >Name</label>
-			<input type="text" id="Name" placeholder="Jane Doe" class="ui-input-text ui-body-c ui-corner-all ui-shadow-inset">
-		</div>
-		
-		<div data-role="fieldcontain" class="ui-field-contain ui-body ui-br">
-			<label for="Photo">Photo</label>
-			<input type="file" data-theme="a" id="Photo" class="ui-input-text ui-body-c ui-corner-all ui-shadow-inset">
-		</div>
-		
-		<div data-role="fieldcontain" class="ui-field-contain ui-body ui-br">
-			<button type="submit" class="ui-btn ui-btn-a ui-btn-left ui-corner-all ui-shadow ui-body-c" id="submit">Submit</button>
-		</div>
-		<br>
-		</div>
-		
-		<div class="footer" data-role="footer" data-position="fixed" data-theme="a" id="footer">
-			<div data-role="controlgroup" data-type="horizontal" id="footerbut">
+	<div class = "header shadow">
+		<div class = "row row-xs-height">
+			<div class = "col-xs-3 col-xs-height col-bottom">
+				<a href = "./index.html"><button class ="btn btn-primary btn-lg"><span class = "buttontext">Cancel</span></button></a>
+			</div>
+			<div class = "col-xs-6 col-xs-height col-bottom">
+				<center><span style="font-size: 6em">Collisions</span></center>
+			</div>
+			<div class = "col-xs-1 col-xs-height col-bottom">
+				<div class = "thumbnail" id = "picture"><img id='picture2' width="100" height="75"></div>
+			</div>
+			<div class = "col-xs-2 col-xs-height col-bottom">
+				<div class = "text-right" id = "username"></div>
+			</div>
 		</div>
 	</div>
-	
+	<div style = "margin: 0 30px 0 30px" class = "container-fluid filters">
+
+		<div class="form-group">
+			<label for="FirstName">Name</label>
+			<input type="text" class="form-control" id="Name" placeholder="Jane Doe">
+		</div>
+		
+		<div class="form-group">
+			<label for="Photo">Photo</label>
+			<input type="file" id="Photo">
+		</div>
+		<br>
+		<div>
+			<button type="submit" class="btn btn-primary btn-lg btn-block" id="submit"><span class = "buttontext">Submit</span></button>
+		</div>
+		<br>
+	</div>
 	<style>
 		label {
-			font-size: 2em;
+			font-size: 3em;
 		}
 		.form-control {
 			height: auto;
-			font-size: 2em;
+			font-size: 3em;
 		}
 	</style>
-
 
 	<script>	
 		Parse.initialize("GI4coBdWVBWk8CexD33M9SD0GjHRTTq5jo1GnUbb", "r4yKyt6O5KiJhtMVfXraqoNZqee5JjiIBFH1fyIk");
@@ -64,12 +67,12 @@
 		var un;
 		if (user) {
 			un = user.attributes.username;
-
+			if (user.attributes.photo) {			
+				document.getElementById('picture2').setAttribute('src',user.attributes.photo.url());
+			} else {
+				document.getElementById('picture2').setAttribute('src',"https://truonex-static.s3.amazonaws.com/images/fallback/profile_avatar_default.png");
+			}
 			$("#username").html("<button onclick=\"Parse.User.logOut();location.reload();\" class =\"btn btn-primary btn-lg\"><span class = \"buttontext\">Log Out</span></button>");
-			
-			$('#headerbut').html("<a data-role=\"button\" onclick=\"Redirect()\" id=\"NewData\" class=\"ui-btn ui-btn-left ui-corner-all ui-shadow ui-btn-a \">Cancel</a>" 
-				+ "<img src=\"images/coworking.png\" height=\"25\" width=\"21\" style=\"margin-top:6px\"></img>CoWorking!" 
-				+ "<a id=\"LogoutBut\" data-role=\"button\" onclick=\"logOut()\" class=\"ui-btn ui-btn-right ui-corner-all ui-shadow ui-btn-a \">Log Out</a>");
 		} else {
 			//un = "none";
 			Redirect();
