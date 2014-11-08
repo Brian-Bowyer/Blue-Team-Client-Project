@@ -14,10 +14,10 @@ if (currentUser) {
   var cardinfo = currentUser.attributes;
   document.getElementById("map_canvas").insertAdjacentHTML("afterBegin", us_temp(cardinfo));
   //document.getElementById("map_canvas").insertAdjacentHTML("afterBegin", us_temp(cardinfo))
-  $('#headerbut').html("<a data-role=\"button\" onclick=\"editProfile()\" id=\"NewData\" class=\"ui-btn ui-btn-left ui-corner-all ui-shadow ui-btn-a \">Edit Profile</a>" 
-    + "<img src=\"images/coworking.png\" height=\"25\" width=\"21\" style=\"margin-top:6px\"></img>Collisions!" 
-    + "<a id=\"LogoutBut\" data-role=\"button\" onclick=\"logOut()\" class=\"ui-btn ui-btn-right ui-corner-all ui-shadow ui-btn-a \">Log Out</a>");
-    $('#footerbut').html("<a data-role=\"button\" onclick=\"codeAddress()\" data-position-to=\"window\" class=\"ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-search ui-btn-icon-left ui-btn-a\" data-transition=\"pop\">Search</a>");
+  $('#headerbut').html("<a data-role=\"button\" onclick=\"editProfile()\" id=\"NewData\" class=\"ui-btn ui-mini ui-btn-left ui-corner-all ui-shadow ui-btn-a \" style=\"margin-top:20px\">Edit Profile</a>" 
+    + "<img src=\"images/coworking.png\" height=\"25\" width=\"21\" style=\"margin-top:25px\"></img>Collisions!" 
+    + "<a id=\"LogoutBut\" data-role=\"button\" onclick=\"logOut()\" class=\"ui-btn ui-mini ui-btn-right ui-corner-all ui-shadow ui-btn-a \" style=\"margin-top:20px\">Log Out</a>");
+    $('#footerbut').html("<a data-role=\"button\" onclick=\"codeAddress()\" data-position-to=\"window\" class=\"ui-btn ui-mini ui-corner-all ui-shadow ui-btn-inline ui-icon-search ui-btn-icon-left ui-btn-a\" data-transition=\"pop\">Search</a>");
   
   //setTimeout(function(){
     //logOut();
@@ -83,5 +83,11 @@ function toggleMap() {
   document.getElementById("map_canvas").style.display="block";
   document.getElementById("search-panel").style.display = "block";
  
+}
+
+function codeAddress() {
+  var searchName = $('#target').val();
+  localStorage.setItem("searchName", searchName);
+  window.location = "./CheckIn.html";
 }
 

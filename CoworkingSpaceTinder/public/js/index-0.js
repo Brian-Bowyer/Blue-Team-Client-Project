@@ -9,17 +9,15 @@ var usName;
 var test;
 
 if (currentUser) {
-  usName = currentUser.attributes.username;
-  cardinfo = currentUser.attributes;
+  //usName = currentUser.attributes.username;
+  //cardinfo = currentUser.attributes;
   toggleMap();
-  document.getElementById("map_canvas").insertAdjacentHTML("afterBegin", us_temp(cardinfo))
-  //document.getElementById('photoimg').setAttribute('src',currentUser.attributes.photo.url());
+  //document.getElementById("map_canvas").insertAdjacentHTML("afterBegin", us_temp(cardinfo))
+  $('#headerbut').html("<a data-role=\"button\" onclick=\"editProfile()\" id=\"NewData\" class=\"ui-btn ui-btn-left ui-corner-all ui-shadow ui-btn-a \">Edit Profile</a>" 
+    + "<img src=\"images/coworking.png\" height=\"25\" width=\"21\" style=\"margin-top:6px\"></img>Collisions!" 
+    + "<a id=\"LogoutBut\" data-role=\"button\" onclick=\"logOut()\" class=\"ui-btn ui-btn-right ui-corner-all ui-shadow ui-btn-a \">Log Out</a>");
+    $('#footerbut').html("<a data-role=\"button\" onclick=\"codeAddress()\" data-position-to=\"window\" class=\"ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-search ui-btn-icon-left ui-btn-a\" data-transition=\"pop\">Search</a>");
   
-  $('#headerbut').html("<a data-role=\"button\" onclick=\"editProfile()\" id=\"NewData\" class=\"ui-btn ui-btn-left ui-corner-all ui-shadow ui-btn-a ui-btn-icon-notext ui-icon-action\">Profile</a>" 
-    + "<img src=\"images/coworking.png\" height=\"25\" width=\"21\" style=\"margin-top:6px\"></img>CoWorking!" 
-    + "<a id=\"LogoutBut\" data-role=\"button\" onclick=\"logOut()\" class=\"ui-btn ui-btn-right ui-corner-all ui-shadow ui-btn-a ui-btn-icon-notext ui-icon-back\">LogOut</a>");
-  //document.getElementById("search-panel").style.display = "block";
-  //$('#footerbut').html("<a data-role=\"button\" onclick=\"codeAddress()\" data-position-to=\"window\" class=\"ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-search ui-btn-icon-left ui-btn-a\" data-transition=\"pop\">Search</a>");
   //setTimeout(function(){
     //logOut();
   //}, 300000);
@@ -28,7 +26,7 @@ if (currentUser) {
         });*/
 }
 else{
-  $('#footerbut').html("<a href=\"#popupLogin\" data-rel=\"popup\" data-position-to=\"window\" class=\"ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-check ui-btn-icon-left ui-btn-a\" data-transition=\"pop\">Sign in</a>");
+  $('#footerbut').html("<a href=\"#popupLogin\" data-rel=\"popup\" data-position-to=\"window\" class=\"ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-a\" data-transition=\"pop\">Log In</a>");
 }
 
 // log in function
@@ -63,16 +61,6 @@ function signUp(){
   var user = new Parse.User();
   user.set("username", $("#un").val());
   user.set("password", $("#pw").val());
-	
-	//var parseFile = new Parse.File("photo.png", file);
-	//parseFile.save().then(function() {
-		//alert("success");
- // The file has been saved to Parse.
-	//}, function(error) {
-			//alert('Failed to create new file, with error code: ' + error.id);// The file either could not be read, or could not be saved to Parse.
-	//});
-	//user.set("photo", "https://truonex-static.s3.amazonaws.com/images/fallback/profile_avatar_default.png");
-  
 	user.signUp(null, {
     success: function(user) {  
       //alert("Sign up successful, redirecting to home page.");
@@ -92,18 +80,7 @@ function toggleMap() {
   document.getElementById("welcome").style.display = "none";
   document.getElementById("footer").style.display="none";
   document.getElementById("map_canvas").style.display="block";
+  document.getElementById("search-panel").style.display = "block";
  
 }
-
-//Check usecurrent function
-
-//google place return function
-
-
-//show person  nearby the location
-
-
-/*function calcDistance(p1, p2){
-  return (google.maps.geometry.spherical.computeDistanceBetween(p1, p2) / 1000 * 0.621371).toFixed(2);
-}*/
 

@@ -7,14 +7,18 @@ var us_temp1 = _.template(temp1);
 var temp2 = $("#checkLoc").html();
 var us_temp2 = _.template(temp2);
 var usName;
+var searchName = localStorage.getItem("searchName");
 var test;
 var Userintent;
 
 if (currentUser){
   usName = currentUser.attributes.username;
   var locationName = Parse.Object.extend("Location");
-  var query = new Parse.Query(locationName);
-  query.find({
+  if (searchName) {
+    var query = new Parse.Query(locationName);
+    query.contains("Name", searchName);
+    localStorage.removeItem("searchName");
+    query.find({
     success:function(results) {
       results.forEach(function(result){
         var locName = result.attributes;
@@ -27,6 +31,23 @@ if (currentUser){
       // error is an instance of Parse.Error.
     }
   });
+  } else {
+    var query = new Parse.Query(locationName);
+    query.find({
+    success:function(results) {
+      results.forEach(function(result){
+        var locName = result.attributes;
+        locName['ObjectId'] = result.id;
+        objectID = result.id;
+        $("#LocWin").append(us_temp2(locName));
+      });
+    },
+    error: function(error) {
+      // error is an instance of Parse.Error.
+    }
+  });
+
+  }
 }
 
 function display () {

@@ -1,13 +1,14 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>CoWorking</title>
+    <title>Collisions!</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta charset="utf-8">
     <!-- Standalone version -->
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta content="telephone=no" name="format-detection" />
     <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
     <link rel="shortcut icon" sizes="128x128" href="../images/logo.png">
     <link rel="apple-touch-icon" sizes="144x144" href="../images/logo.png" /> 
 
@@ -41,10 +42,10 @@
     </script>
 
 
-    <div id="home" data-role="page" data-position="fixed" data-theme="a" class="type-interior ui-page ui-body-c ui-page-header-fixed ui-page-footer-fixed ui-page-active">
+    <div id="home" data-role="page" data-position="fixed" data-theme="a" class="type-interior ui-page ui-body-c ui-page-header-fixed ui-page-footer-fixed ui-page-active" >
 
-      <div data-role="header" data-position="fixed" data-theme="a" class="ui-header ui-bar-a ui-header-fixed slidedown" role="banner" style="height:41px;" align="center" id="headerbut">
-        <img src="images/coworking.png" height="25" width="21" style="margin-top:6px"></img>Collisions!
+      <div data-role="header" data-position="fixed" data-theme="a" class="ui-header ui-bar-a ui-header-fixed slidedown" role="banner" style="height:65px;" align="center" id="headerbut" style="padding-top:5px;">
+        <img src="images/coworking.png" height="25" width="21" style="margin-top:25px"></img>Collisions!
       </div>
 
       <div data-role="content" id="inforWindow">
@@ -60,10 +61,7 @@
       </div><!--welcom & userInfor Window -->
 
       <div id="search-panel" align="center" style="display:none;">
-        <input type="search"
-        style="width:80%;"
-        id="target"
-        placeholder="Search Address" />
+        <input type="search" style="width:80%;" id="target" placeholder="Search Address" />
       </div>
 
       <div class="footer" data-role="footer" data-position="fixed" data-theme="a" id="footer">

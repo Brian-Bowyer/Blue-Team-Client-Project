@@ -7,7 +7,7 @@
 
 	<!-- Latest compiled and minified CSS -->
 	<link rel="stylesheet" href="themes/theme.min.css" />
-  <link rel="stylesheet" href="themes/jquery.mobile.icons.min.css" />
+    <link rel="stylesheet" href="themes/jquery.mobile.icons.min.css" />
 	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile.structure-1.4.5.min.css" />
 
 	<!-- Install jQuery and underscore -->
@@ -22,8 +22,8 @@
 
 <body>
 	<div id="home" data-role="page" data-position="fixed" data-theme="a" class="type-interior ui-page ui-body-c ui-page-header-fixed ui-page-footer-fixed ui-page-active">
-		<div data-role="header" data-position="fixed" data-theme="a" class="ui-header ui-bar-a ui-header-fixed slidedown" role="banner" style="height:41px;" align="center" id="headerbut">
-			<img src="images/coworking.png" height="25" width="21" style="margin-top:6px" ></img>Collisions!
+		<div data-role="header" data-position="fixed" data-theme="a" class="ui-header ui-bar-a ui-header-fixed slidedown" role="banner" style="height:65px;" align="center" id="headerbut">
+			<img src="images/coworking.png" height="25" width="21" style="margin-top:25px" ></img>Collisions!
 		</div>
 		<div class="ui-body ui-body-c">
 		<div data-role="fieldcontain" class="ui-field-contain ui-body ui-br">
@@ -39,9 +39,7 @@
 		<div data-role="fieldcontain" class="ui-field-contain ui-body ui-br" style="height: 60px;">
 			<button type="submit" class="ui-btn ui-btn-a ui-btn-left ui-corner-all ui-shadow ui-body-c" id="submit">Submit</button>
 		</div>
-		<br>
 		</div>
-		
 		<div class="footer" data-role="footer" data-position="fixed" data-theme="a" id="footer">
 			<div data-role="controlgroup" data-type="horizontal" id="footerbut">
 		</div>
@@ -70,9 +68,9 @@
 
 			$("#username").html("<button onclick=\"Parse.User.logOut();location.reload();\" class =\"btn btn-primary btn-lg\"><span class = \"buttontext\">Log Out</span></button>");
 			
-			$('#headerbut').html("<a data-role=\"button\" onclick=\"Redirect()\" id=\"NewData\" class=\"ui-btn ui-btn-left ui-corner-all ui-shadow ui-btn-a \">Cancel</a>" 
-				+ "<img src=\"images/coworking.png\" height=\"25\" width=\"21\" style=\"margin-top:6px\"></img>Collisions!" 
-				+ "<a id=\"LogoutBut\" data-role=\"button\" onclick=\"logOut()\" class=\"ui-btn ui-btn-right ui-corner-all ui-shadow ui-btn-a \">Log Out</a>");
+			$('#headerbut').html("<a data-role=\"button\" onclick=\"Redirect()\" id=\"NewData\" class=\"ui-btn ui-mini ui-btn-left ui-corner-all ui-shadow ui-btn-a \" style=\"margin-top:20px\" >Cancel</a>" 
+				+ "<img src=\"images/coworking.png\" height=\"25\" width=\"21\" style=\"margin-top:25px\"></img>Collisions!" 
+				+ "<a id=\"LogoutBut\" data-role=\"button\" onclick=\"logOut()\" class=\"ui-btn ui-mini ui-btn-right ui-corner-all ui-shadow ui-btn-a \" style=\"margin-top:20px\">Log Out</a>");
 		} else {
 			//un = "none";
 			Redirect();
