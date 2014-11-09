@@ -47,10 +47,6 @@ body {
 	height: 70px;
 }
 
-#Checkbut{
-    margin-top: 30px;
-}
-
 .checkedInCard {
 	border: 1px solid; 
 	border-color: #0cb6ff;
@@ -58,4 +54,8 @@ body {
 
 .card {
 	border: 1px solid;
+}
+
+.optionBut {
+ margin-top: 70px;
 }

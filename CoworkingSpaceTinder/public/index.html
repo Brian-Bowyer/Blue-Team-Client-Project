@@ -34,9 +34,9 @@
     <!--Temp for LogIn user card-->
     <script type="template" id="inforCard">
       <div class="ui-grid-b cardinfor">
-        <div class="ui-block-a">
-           <a href="#" class="ui-btn ui-shadow ui-corner-all ui-icon-location ui-btn-icon-notext ui-btn-inline">location</a>
-           <p>Check-In</p>
+        <div class="ui-block-a" style="margin-top: 90px;" align="center">
+           <a href="#" class="ui-btn ui-shadow ui-corner-all ui-icon-heart ui-btn-icon-notext ui-btn-inline"></a>
+           <p>Points</p>
         </div>
         <div class="ui-block-b">
           <div class="ui-body ui-body-d photoimgL" align="center">
@@ -49,8 +49,8 @@
           <% } else { %>
          <% } %>
         </div>
-        <div class="ui-block-c" align="center">
-          <a href="#" id="Checkbut" class="ui-btn ui-shadow ui-corner-all ui-icon-location ui-btn-icon-notext ui-btn-inline">location</a>
+        <div class="ui-block-c" style="margin-top: 90px;" align="center">
+          <a href="#popupIntent" data-rel="popup" data-transition="pop" id="Checkbut" class="ui-btn ui-shadow ui-corner-all ui-icon-location ui-btn-icon-notext ui-btn-inline"></a>
            <p>Check-In</p>
         </div>
         </div>
@@ -95,8 +95,13 @@
             <img src="images/Working-together.png"/><br/>
           </div>
           <div id="map_canvas" class="map rounded" style="display :none;">
+
             <a href="#popupIntent" data-rel="popup" data-transition="pop" id="UserCurBut" data-theme="a" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-a">Check-in Current Location</a>
-            <div data-role="popup" id="popupIntent" data-theme="a" class="ui-corner-all">
+          </div>  
+        </div>
+      </div><!--welcom & userInfor Window -->
+
+       <div data-role="popup" id="popupIntent" data-theme="a" class="ui-corner-all">
           <form>
             <div style="padding:10px 20px;">
                 <h3>Today's focus</h3>
@@ -111,9 +116,6 @@
               </div>
           </form>
       </div>
-          </div>
-        </div>
-      </div><!--welcom & userInfor Window -->
 
       <div data-role="content" id="checkInWindow" style="display:none;"></div>
 
