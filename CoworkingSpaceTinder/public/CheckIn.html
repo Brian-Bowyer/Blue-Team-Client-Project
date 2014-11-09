@@ -37,13 +37,13 @@
             <img src="<%= photo.url() %>" height="70px"/>
           </div>
           <div class="ui-block-b" style="font-size: 0.9em; margin-left: 20px">
-           <p> <%= name %> <br>
-           <%= intent %><br>
+           <p> <%= typeof(name)!== 'undefined' ?  name : '' %> <br>
+           <%= typeof(intent)!== 'undefined' ?  intent : '' %><br>
           </div>
       </div>
       <div class="ui-bar-c ui-corner-all ui-shadow ui-grid-a" style="border: 1px solid; display: none;" id="togglable<%= objectId %>">
-        Superpowers:
-        <br>
+        Profession: <%= typeof(profession)!== 'undefined' ?  profession : '' %>
+        <br> Superpowers: <%= typeof(skills)!== 'undefined' ?  skills : '' %>
       </div>
       <br>
     </div>
