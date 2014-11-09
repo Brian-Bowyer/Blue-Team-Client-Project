@@ -90,15 +90,18 @@
 				+ "<img src=\"images/coworking.png\" height=\"25\" width=\"21\" style=\"margin-top:25px\"></img>Collisions!" 
 				+ "<a id=\"LogoutBut\" data-role=\"button\" onclick=\"logOut()\" class=\"ui-btn ui-mini ui-btn-right ui-corner-all ui-shadow ui-btn-a \" style=\"margin-top:20px\">Log Out</a>");
 			
-			document.getElementById('Name').value = user.attributes.name;
-			document.getElementById('Profession').value = user.attributes.profession;
-			document.getElementById('Skills').value = user.attributes.skills;
-			$("#currentPhoto").html("<image src=\"" + user.attributes.photo.url() + "\" width=\"205\">");
+			if (user.attributes.name) document.getElementById('Name').value = user.attributes.name;
+			if (user.attributes.profession) document.getElementById('Profession').value = user.attributes.profession;
+			if (user.attributes.skills) document.getElementById('Skills').value = user.attributes.skills;
+			if (user.attributes.photo) $("#currentPhoto").html("<image src=\"" + user.attributes.photo.url() + "\" width=\"205\">");
 			var locationName = Parse.Object.extend("Location");
 			var locationList = "";
-			locationList += "<option value=\"" + user.attributes.homeBase + "\" selected=\"selected\">" + user.attributes.homeBase + "</option>\n";
 			var query = new Parse.Query(locationName);
-			query.notEqualTo("Name",user.attributes.homeBase);
+			if (user.attributes.homeBase) {
+				locationList += "<option value=\"" + user.attributes.homeBase + "\" selected=\"selected\">" + user.attributes.homeBase + "</option>\n";				
+				query.notEqualTo("Name",user.attributes.homeBase);				
+			} 
+			
 			query.ascending("Name");
 			query.find({
 				success:function(results) {
@@ -150,6 +153,7 @@
 			if (hb != user.attributes.homeBase) { user.set("homeBase", hb); }
 			if (s != user.attributes.skills) { user.set("skills", s); }
 			if (p != user.attributes.profession) { user.set("profession", p); }
+			if (user.attributes.checkedIn == null) { user.set("checkedIn", false); }
 			user.save(null, {
 				success: function(user) {
 						// Execute any logic that should take place after the object is saved.
