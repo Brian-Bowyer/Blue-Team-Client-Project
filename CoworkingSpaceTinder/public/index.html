@@ -35,9 +35,9 @@
     <script type="template" id="inforCard">
       <div class="cardinfor">
 				<div class="ui-body ui-body-d" align="center">
-					<image src="<%= photo.url() %>" id="photoimg" width="205">
+					<image src="<%= typeof(photo)!== 'undefined' ?  photo.url() : '' %>" id="photoimg" width="205">
 				</div>
-				<p align="center"> <%= name %><br></p>
+				<p align="center"> <%= typeof(name)!== 'undefined' ?  name : '' %><br></p>
       </div>
     </script>
 
