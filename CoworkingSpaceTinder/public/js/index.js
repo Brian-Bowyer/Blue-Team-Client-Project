@@ -7,6 +7,10 @@ var temp = $("#inforCard").html();
 var us_temp = _.template(temp);
 var temp1 = $("#CheckCard").html();
 var us_temp1 = _.template(temp1);
+var ah = $('#altHeader').html();
+var ah_temp = _.template(ah);
+var af = $("#altFooter").html();
+var af_temp = _.template(af);
 var usName;
 var test;
 var checkedIn;
@@ -22,6 +26,14 @@ if (currentUser) {
     + "<a id=\"LogoutBut\" data-role=\"button\" onclick=\"logOut()\" class=\"ui-btn ui-mini ui-btn-right ui-corner-all ui-shadow ui-btn-a \" style=\"margin-top:20px\">Log Out</a>");
     $('#footerbut').html("<a data-role=\"button\" onclick=\"codeAddress()\" data-position-to=\"window\" class=\"ui-btn ui-mini ui-corner-all ui-shadow ui-btn-inline ui-icon-search ui-btn-icon-left ui-btn-a\" data-transition=\"pop\">Search</a>");
   getUser();
+  //$('#headerbut').html("<a data-role='button' onclick='editProfile()' id='NewData' class='ui-btn ui-mini ui-btn-left ui-corner-all ui-shadow ui-btn-a ' style='margin-top:20px'>Edit Profile</a>" 
+  //  + "<img src='images/coworking.png' height='25' width='21' style='margin-top:25px'></img>Collisions!" 
+  //  + "<a id='LogoutBut' data-role='button' onclick='logOut()' class='ui-btn ui-mini ui-btn-right ui-corner-all ui-shadow ui-btn-a ' style='margin-top:20px'>Log Out</a>");
+  //  $('#footerbut').html("<a data-role='button' onclick='codeAddress()' data-position-to='window' class='ui-btn ui-mini ui-corner-all ui-shadow ui-btn-inline ui-icon-search ui-btn-icon-left ui-btn-a' data-transition='pop'>Search</a>");
+  
+  $('#headerbut').html(ah_temp);
+  $('#footerbut').html(af_temp);
+
   //setTimeout(function(){
     //logOut();
   //}, 300000);
@@ -30,7 +42,7 @@ if (currentUser) {
         });*/
 }
 else{
-  $('#footerbut').html("<a href=\"#popupLogin\" data-rel=\"popup\" data-position-to=\"window\" class=\"ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-a\" data-transition=\"pop\">Log In</a>");
+  $('#footerbut').html("<a href='#popupLogin' data-rel='popup' data-position-to='window' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-a' data-transition='pop'>Log In</a>");
 }
 
 // log in function
@@ -48,7 +60,7 @@ function logIn() {
 
 //logout function
 function logOut() {
-  currentUser.unset("location");
+  //currentUser.unset("location");
   currentUser.save(null, {
     success: function(user) {
       Parse.User.logOut();
