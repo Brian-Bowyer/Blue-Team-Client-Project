@@ -25,25 +25,43 @@
 		<div data-role="header" data-position="fixed" data-theme="a" class="ui-header ui-bar-a ui-header-fixed slidedown" role="banner" style="height:65px;" align="center" id="headerbut">
 			<img src="images/coworking.png" height="25" width="21" style="margin-top:25px" ></img>Collisions!
 		</div>
+		<div class="ui-body ui-body-d" align="center" id="currentPhoto">
+		</div>
 		<div class="ui-body ui-body-c">
-		<div data-role="fieldcontain" class="ui-field-contain ui-body ui-br">
-			<label for="Name" >Name</label>
-			<input type="text" id="Name" placeholder="Jane Doe" class="ui-input-text ui-body-c ui-corner-all ui-shadow-inset">
-		</div>
-		
-		<div data-role="fieldcontain" class="ui-field-contain ui-body ui-br">
-			<label for="Photo">Photo</label>
-			<input type="file" data-theme="a" id="Photo" class="ui-input-text ui-body-c ui-corner-all ui-shadow-inset">
-		</div>
-		
-		<div data-role="fieldcontain" class="ui-field-contain ui-body ui-br" style="height: 60px;">
-			<button type="submit" class="ui-btn ui-btn-a ui-btn-left ui-corner-all ui-shadow ui-body-c" id="submit">Submit</button>
-		</div>
+			<div data-role="fieldcontain" class="ui-field-contain ui-body ui-br">
+				<label for="Name" >Name</label>
+				<input type="text" id="Name" class="ui-input-text ui-body-c ui-corner-all ui-shadow-inset">
+			</div>
+			
+			<div data-role="fieldcontain" class="ui-field-contain ui-body ui-br">
+				<label for="Photo">Photo</label>
+				<input type="file" data-theme="a" id="Photo" class="ui-input-text ui-body-c ui-corner-all ui-shadow-inset">
+			</div>
+			
+			<div data-role="fieldcontain" class="ui-field-contain ui-body ui-br">
+				<label for="Profession" >Profession</label>
+				<input type="text" id="Profession" class="ui-input-text ui-body-c ui-corner-all ui-shadow-inset">
+			</div>
+			
+			<div data-role="fieldcontain" class="ui-field-contain ui-body ui-br">
+				<label for="textarea">Superpowers</label>
+				<textarea cols="40" rows="8" name="Skills" id="Skills"></textarea>
+			</div>
+			
+			<div data-role="fieldcontain" class="ui-field-contain ui-body ui-br">
+				<label for="Location" class="select">Headquarters</label>
+				<select name="Location" id="Location">			
+				</select>
+			</div>
+			
+			<div data-role="fieldcontain" class="ui-field-contain ui-body ui-br" style="height: 60px;">
+				<button type="submit" class="ui-btn ui-btn-a ui-btn-left ui-corner-all ui-shadow ui-body-c" id="submit">Save</button>
+			</div>
 		</div>
 		<div class="footer" data-role="footer" data-position="fixed" data-theme="a" id="footer">
 			<div data-role="controlgroup" data-type="horizontal" id="footerbut">
+			</div>
 		</div>
-	</div>
 	
 	<style>
 		label {
@@ -58,19 +76,44 @@
 
 	<script>	
 		//Dev
-		//Parse.initialize("GI4coBdWVBWk8CexD33M9SD0GjHRTTq5jo1GnUbb", "r4yKyt6O5KiJhtMVfXraqoNZqee5JjiIBFH1fyIk");
-		Parse.initialize("lu3wCFY4M2wIjZAZL99LMvaFelwvkMC6sx4a6I6I", "x7jQv4tn9vA52wZErXuvyllOYhEnG8d6IoxkeSM0")
+		Parse.initialize("GI4coBdWVBWk8CexD33M9SD0GjHRTTq5jo1GnUbb", "r4yKyt6O5KiJhtMVfXraqoNZqee5JjiIBFH1fyIk");
+		//Parse.initialize("lu3wCFY4M2wIjZAZL99LMvaFelwvkMC6sx4a6I6I", "x7jQv4tn9vA52wZErXuvyllOYhEnG8d6IoxkeSM0")
 
 		var user = Parse.User.current();
 		var un;
 		if (user) {
 			un = user.attributes.username;
-
 			$("#username").html("<button onclick=\"Parse.User.logOut();location.reload();\" class =\"btn btn-primary btn-lg\"><span class = \"buttontext\">Log Out</span></button>");
 			
 			$('#headerbut').html("<a data-role=\"button\" onclick=\"Redirect()\" id=\"NewData\" class=\"ui-btn ui-mini ui-btn-left ui-corner-all ui-shadow ui-btn-a \" style=\"margin-top:20px\" >Cancel</a>" 
 				+ "<img src=\"images/coworking.png\" height=\"25\" width=\"21\" style=\"margin-top:25px\"></img>Collisions!" 
 				+ "<a id=\"LogoutBut\" data-role=\"button\" onclick=\"logOut()\" class=\"ui-btn ui-mini ui-btn-right ui-corner-all ui-shadow ui-btn-a \" style=\"margin-top:20px\">Log Out</a>");
+			
+			document.getElementById('Name').value = user.attributes.name;
+			document.getElementById('Profession').value = user.attributes.profession;
+			document.getElementById('Skills').value = user.attributes.skills;
+			$("#currentPhoto").html("<image src=\"" + user.attributes.photo.url() + "\" width=\"205\">");
+			var locationName = Parse.Object.extend("Location");
+			var locationList = "";
+			locationList += "<option value=\"" + user.attributes.homeBase + "\" selected=\"selected\">" + user.attributes.homeBase + "</option>\n";
+			var query = new Parse.Query(locationName);
+			query.notEqualTo("Name",user.attributes.homeBase);
+			query.ascending("Name");
+			query.find({
+				success:function(results) {
+					results.forEach(function(result){
+						var locName = result.attributes;
+						locationList += "<option value=\"" + locName['Name'] + "\">" + locName['Name'] + "</option>\n";
+					});
+					$("#Location").html(locationList);
+				},
+				error: function(error) {
+					// error is an instance of Parse.Error.
+				}
+			});
+			
+			//$("#Location").val(user.attributes.homeBase);			
+			
 		} else {
 			//un = "none";
 			Redirect();
@@ -82,40 +125,48 @@
       window.location = "./index.html";
     }
 
-
 		$('#submit').click(function () {
 			var un = user.attributes.username;
-            var n = $("#Name").val();
-                var fileUploadControl = $("#Photo")[0];
-                if (fileUploadControl.files.length > 0) {
-                    var file = fileUploadControl.files[0];
-                    var name = file.name;
-                    var parseFile = new Parse.File(name, file);
-
-   //put this inside if {
-                    parseFile.save().then(function() {
-   // The file has been saved to Parse.
-                     }, function(error) {
-   // The file either could not be read, or could not be saved to Parse.
-                    });
-
-                    //user = Parse.User.current();
-                    user.set("photo", parseFile);
-                    user.set("name", n);
-                    user.save(null, {
-                    success: function(user) {
-                        // Execute any logic that should take place after the object is saved.
-                        Redirect();
-                                            },
-                    error: function(user, error) {
-                        // Execute any logic that should take place if the save fails.
-                        // error is a Parse.Error with an error code and message.
-                        alert('Failed to create new object, with error code: ' + error.id);
-                    }
-                });                
-                }
-
+			var n = $("#Name").val();
+			var hb = $("#Location option:selected").val();
+			var s = $("#Skills").val();
+			var p = $("#Profession").val();
+			var fileUploadControl = $("#Photo")[0];
+			if (fileUploadControl.files.length > 0) {
+				var file = fileUploadControl.files[0];
+				var name = file.name;
+				var parseFile = new Parse.File(name, file);
+//put this inside if {
+				parseFile.save().then(function() {
+// The file has been saved to Parse.
+				}, function(error) {
+// The file either could not be read, or could not be saved to Parse.
+				});
+				//user = Parse.User.current();
+				user.set("photo", parseFile);
+			}
+			if (n != user.attributes.name) { user.set("name", n); }
+			if (hb != user.attributes.homeBase) { user.set("homeBase", hb); }
+			if (s != user.attributes.skills) { user.set("skills", s); }
+			if (p != user.attributes.profession) { user.set("profession", p); }
+			user.save(null, {
+				success: function(user) {
+						// Execute any logic that should take place after the object is saved.
+						Redirect();
+				},
+				error: function(user, error) {
+						// Execute any logic that should take place if the save fails.
+						// error is a Parse.Error with an error code and message.
+						alert('Failed to create new object, with error code: ' + error.id);
+				}
+			});    
 		});
+		
+	//logout function
+	function logOut() {
+		Parse.User.logOut();
+		Redirect();      
+	}
 
 	</script>
 
