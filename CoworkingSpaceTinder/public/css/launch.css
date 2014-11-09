@@ -25,3 +25,11 @@ body {
     padding-left: 10px;
     padding-right: 10px;
 }
+
+#photoimg { 
+	margin:10px auto
+} 
+
+#photoimg img { 
+	border-radius:50%;
+}

@@ -34,12 +34,40 @@
     <!--Temp for LogIn user card-->
     <script type="template" id="inforCard">
       <div class="cardinfor">
-               <div class="ui-body ui-body-d" align="center">
-                <image src="<%= photo.url() %>" id="photoimg" width="205">
-                </div>
-                <p align="center"> <%= name %><br></p>
+      <% if (checkedIn) { %>
+          <div class="ui-body ui-body-d" id="photoimg" align="center">
+            <image src="<%= photo.url() %>" width="205" height="205">
+          </div>
+          <p align="center"> <%= name %><br>
+          <a href="#" class="ui-btn ui-shadow ui-corner-all ui-icon-location ui-btn-icon-notext ui-btn-inline">Delete</a>
+          <%= homeBase %></p>
+      <% } else { %>
+        <div class="ui-body ui-body-d" id="photoimg" align="center">
+            <image src="<%= photo.url() %>">
+          </div>
+          <p align="center"> <%= name %><br></p>
+        <% } %>
         </div>
     </script>
+    <!--Temp for ChechIn ChecIn user card-->
+    <script type="template" id="CheckCard">
+    <% if (checkedIn){ %>
+      <div class="ui-bar-c ui-corner-all ui-shadow ui-grid-a" style="border: 1px solid; border-color: #0cb6ff;" id="<%= objectId %>">
+    <% } else { %>
+      <div class="ui-bar-c ui-corner-all ui-shadow ui-grid-a" style="border: 1px solid;" id="<%= objectId %>">
+    <% } %>
+          <div class="ui-block-a" id="photoimg" style="width:80px; margin-top:15px; margin-left: 5px;" align="center">
+            <img src="<%= photo.url() %>" width="70px" height="70px"/>
+          </div>
+          <div class="ui-block-b" style="font-size: 0.9em; margin-left: 20px">
+           <p> <%= name %> <br>
+           <%= intent %><br>
+           <%= location %></p>
+          </div>
+      </div>
+      <br>
+    </script>
+
 
 
     <div id="home" data-role="page" data-position="fixed" data-theme="a" class="type-interior ui-page ui-body-c ui-page-header-fixed ui-page-footer-fixed ui-page-active" >
@@ -55,14 +83,12 @@
             <img src="images/Working-together.png"/><br/>
           </div>
           <div id="map_canvas" class="map rounded" style="display :none;">
-            <a id="UserCurBut" data-role="button" data-theme="a" data-ajax="false" onclick ="window.location = './CheckIn.html';">Check-in Current Location</a>
+            <a id="UserCurBut" data-role="button" data-theme="a" data-ajax="false" onclick ="test();">Check-in Current Location</a>
           </div>
         </div>
       </div><!--welcom & userInfor Window -->
 
-      <div id="search-panel" align="center" style="display:none;">
-        <input type="search" style="width:80%;" id="target" placeholder="Search Address" />
-      </div>
+      <div data-role="content" id="checkInWindow" style="display:none;"></div>
 
       <div class="footer" data-role="footer" data-position="fixed" data-theme="a" id="footer">
         <div data-role="controlgroup" data-type="horizontal" id="footerbut">

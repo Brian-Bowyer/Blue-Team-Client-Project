@@ -1,12 +1,15 @@
     
 //Dev
-//Parse.initialize("GI4coBdWVBWk8CexD33M9SD0GjHRTTq5jo1GnUbb", "r4yKyt6O5KiJhtMVfXraqoNZqee5JjiIBFH1fyIk");
-Parse.initialize("lu3wCFY4M2wIjZAZL99LMvaFelwvkMC6sx4a6I6I", "x7jQv4tn9vA52wZErXuvyllOYhEnG8d6IoxkeSM0");
+Parse.initialize("GI4coBdWVBWk8CexD33M9SD0GjHRTTq5jo1GnUbb", "r4yKyt6O5KiJhtMVfXraqoNZqee5JjiIBFH1fyIk");
+//Parse.initialize("lu3wCFY4M2wIjZAZL99LMvaFelwvkMC6sx4a6I6I", "x7jQv4tn9vA52wZErXuvyllOYhEnG8d6IoxkeSM0");
 var currentUser = Parse.User.current();
 var temp = $("#inforCard").html();
 var us_temp = _.template(temp);
+var temp1 = $("#CheckCard").html();
+var us_temp1 = _.template(temp1);
 var usName;
 var test;
+var checkedIn;
 
 if (currentUser) {
   //usName = currentUser.attributes.username;
@@ -18,7 +21,7 @@ if (currentUser) {
     + "<img src=\"images/coworking.png\" height=\"25\" width=\"21\" style=\"margin-top:25px\"></img>Collisions!" 
     + "<a id=\"LogoutBut\" data-role=\"button\" onclick=\"logOut()\" class=\"ui-btn ui-mini ui-btn-right ui-corner-all ui-shadow ui-btn-a \" style=\"margin-top:20px\">Log Out</a>");
     $('#footerbut').html("<a data-role=\"button\" onclick=\"codeAddress()\" data-position-to=\"window\" class=\"ui-btn ui-mini ui-corner-all ui-shadow ui-btn-inline ui-icon-search ui-btn-icon-left ui-btn-a\" data-transition=\"pop\">Search</a>");
-  
+  getUser();
   //setTimeout(function(){
     //logOut();
   //}, 300000);
@@ -81,7 +84,7 @@ function toggleMap() {
   document.getElementById("welcome").style.display = "none";
   document.getElementById("footer").style.display="block";
   document.getElementById("map_canvas").style.display="block";
-  document.getElementById("search-panel").style.display = "block";
+  document.getElementById("checkInWindow").style.display = "block";
  
 }
 
@@ -90,4 +93,40 @@ function codeAddress() {
   localStorage.setItem("searchName", searchName);
   window.location = "./CheckIn.html";
 }
+
+function getUser() {
+  currentUser.set("location", currentUser.attributes.homeBase);
+  //currentUser.set("intent", Userintent);
+  currentUser.save(null, {
+    success: function(user) {
+      var query = new Parse.Query(Parse.User);
+      query.equalTo("location", currentUser.attributes.homeBase);
+      query.descending("checkedIn");
+      query.find({
+        success:function(results) {
+          results.forEach(function(result){           
+              var locInfo = result.attributes;
+              locInfo['objectId']= result.id;
+              $("#checkInWindow").append(us_temp1(locInfo));
+              });   
+        },
+        error: function(error) {
+        }
+      }); 
+    }
+  });
+}
+
+function test() {
+  currentUser.set("checkedIn", true);
+  currentUser.save(null, {
+    success: function (User) {
+      window.location.reload();
+      // body...
+    },
+    error: function (error){
+    }
+  });
+}
+
 
