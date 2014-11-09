@@ -26,10 +26,36 @@ body {
     padding-right: 10px;
 }
 
-#photoimg { 
+.photoimgL { 
 	margin:10px auto
 } 
 
-#photoimg img { 
+.photoimgL img { 
 	border-radius:50%;
+	width: 205px;
+	height: 205px
+}
+
+
+.photoimgS { 
+	margin:10px auto
+} 
+
+.photoimgS img { 
+	border-radius:50%;
+	width: 70px;
+	height: 70px;
+}
+
+#Checkbut{
+    margin-top: 30px;
+}
+
+.checkedInCard {
+	border: 1px solid; 
+	border-color: #0cb6ff;
+}
+
+.card {
+	border: 1px solid;
 }

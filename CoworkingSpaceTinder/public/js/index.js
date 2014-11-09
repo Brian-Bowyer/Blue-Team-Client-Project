@@ -21,10 +21,6 @@ if (currentUser) {
   var cardinfo = currentUser.attributes;
   document.getElementById("map_canvas").insertAdjacentHTML("afterBegin", us_temp(cardinfo));
   //document.getElementById("map_canvas").insertAdjacentHTML("afterBegin", us_temp(cardinfo))
-  $('#headerbut').html("<a data-role=\"button\" onclick=\"editProfile()\" id=\"NewData\" class=\"ui-btn ui-mini ui-btn-left ui-corner-all ui-shadow ui-btn-a \" style=\"margin-top:20px\">Edit Profile</a>" 
-    + "<img src=\"images/coworking.png\" height=\"25\" width=\"21\" style=\"margin-top:25px\"></img>Collisions!" 
-    + "<a id=\"LogoutBut\" data-role=\"button\" onclick=\"logOut()\" class=\"ui-btn ui-mini ui-btn-right ui-corner-all ui-shadow ui-btn-a \" style=\"margin-top:20px\">Log Out</a>");
-    $('#footerbut').html("<a data-role=\"button\" onclick=\"codeAddress()\" data-position-to=\"window\" class=\"ui-btn ui-mini ui-corner-all ui-shadow ui-btn-inline ui-icon-search ui-btn-icon-left ui-btn-a\" data-transition=\"pop\">Search</a>");
   getUser();
   //$('#headerbut').html("<a data-role='button' onclick='editProfile()' id='NewData' class='ui-btn ui-mini ui-btn-left ui-corner-all ui-shadow ui-btn-a ' style='margin-top:20px'>Edit Profile</a>" 
   //  + "<img src='images/coworking.png' height='25' width='21' style='margin-top:25px'></img>Collisions!" 
@@ -129,7 +125,22 @@ function getUser() {
   });
 }
 
-function test() {
+function CheckIn() {
+  $( "#popupIntent" ).popup( "open" );
+}
+
+function limitText(limitField, limitCount, limitNum) {
+  if (limitField.value.length > limitNum) {
+    limitField.value = limitField.value.substring(0, limitNum);
+  } else {
+    limitCount.value = limitNum - limitField.value.length;
+  }
+}
+
+function confirm() {
+  Userintent = $('#in').val();
+  $( "#popupIntent" ).popup( "close" );
+  currentUser.set("intent", Userintent);
   currentUser.set("checkedIn", true);
   currentUser.save(null, {
     success: function (User) {

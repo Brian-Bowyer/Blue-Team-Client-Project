@@ -12,7 +12,7 @@
     <link rel="shortcut icon" sizes="128x128" href="../images/logo.png">
     <link rel="apple-touch-icon" sizes="144x144" href="../images/logo.png" /> 
 
-    <link type="text/css" rel="stylesheet" href="css/launch.css" media="screen" />
+    <link type="text/css" rel="stylesheet" href="css/launch.css"/>
     <link rel="stylesheet" href="themes/theme.min.css" />
     <link rel="stylesheet" href="themes/jquery.mobile.icons.min.css" />
     <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile.structure-1.4.5.min.css" />
@@ -33,31 +33,37 @@
     <body>
     <!--Temp for LogIn user card-->
     <script type="template" id="inforCard">
-      <div class="cardinfor">
-      <% if (checkedIn) { %>
-          <div class="ui-body ui-body-d" id="photoimg" align="center">
-            <image src="<%= photo.url() %>" width="205" height="205">
-          </div>
-          <p align="center"> <%= name %><br>
-          <a href="#" class="ui-btn ui-shadow ui-corner-all ui-icon-location ui-btn-icon-notext ui-btn-inline">Delete</a>
-          <%= homeBase %></p>
-      <% } else { %>
-        <div class="ui-body ui-body-d" id="photoimg" align="center">
+      <div class="ui-grid-b cardinfor">
+        <div class="ui-block-a">
+           <a href="#" class="ui-btn ui-shadow ui-corner-all ui-icon-location ui-btn-icon-notext ui-btn-inline">location</a>
+           <p>Check-In</p>
+        </div>
+        <div class="ui-block-b">
+          <div class="ui-body ui-body-d photoimgL" align="center">
             <image src="<%= photo.url() %>">
           </div>
-          <p align="center"> <%= name %><br></p>
-        <% } %>
+          <h2 align="center"> <%= name %></h2>
+          <% if (checkedIn) { %>
+          <p align="center"><a href="#" class="ui-btn ui-shadow ui-corner-all ui-icon-location ui-btn-icon-notext ui-btn-inline">location</a>
+          <%= homeBase %></p>
+          <% } else { %>
+         <% } %>
+        </div>
+        <div class="ui-block-c" align="center">
+          <a href="#" id="Checkbut" class="ui-btn ui-shadow ui-corner-all ui-icon-location ui-btn-icon-notext ui-btn-inline">location</a>
+           <p>Check-In</p>
+        </div>
         </div>
     </script>
     <!--Temp for ChechIn ChecIn user card-->
     <script type="template" id="CheckCard">
     <% if (checkedIn){ %>
-      <div class="ui-bar-c ui-corner-all ui-shadow ui-grid-a" style="border: 1px solid; border-color: #0cb6ff;" id="<%= objectId %>">
+      <div class="ui-bar-c ui-corner-all ui-shadow ui-grid-a checkedInCard" id="<%= objectId %>">
     <% } else { %>
-      <div class="ui-bar-c ui-corner-all ui-shadow ui-grid-a" style="border: 1px solid;" id="<%= objectId %>">
+      <div class="ui-bar-c ui-corner-all ui-shadow ui-grid-a card" id="<%= objectId %>">
     <% } %>
-          <div class="ui-block-a" id="photoimg" style="width:80px; margin-top:15px; margin-left: 5px;" align="center">
-            <img src="<%= photo.url() %>" width="70px" height="70px"/>
+          <div class="ui-block-a photoimgS" style="width:80px; margin-top:15px; margin-left: 5px;" align="center">
+            <img src="<%= photo.url() %>"/>
           </div>
           <div class="ui-block-b" style="font-size: 0.9em; margin-left: 20px">
            <p> <%= name %> <br>
@@ -89,7 +95,22 @@
             <img src="images/Working-together.png"/><br/>
           </div>
           <div id="map_canvas" class="map rounded" style="display :none;">
-            <a id="UserCurBut" data-role="button" data-theme="a" data-ajax="false" onclick ="test();">Check-in Current Location</a>
+            <a href="#popupIntent" data-rel="popup" data-transition="pop" id="UserCurBut" data-theme="a" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-a">Check-in Current Location</a>
+            <div data-role="popup" id="popupIntent" data-theme="a" class="ui-corner-all">
+          <form>
+            <div style="padding:10px 20px;">
+                <h3>Today's focus</h3>
+                <textarea cols="40" rows="8" name="limitedtextarea" onKeyDown="limitText(this.form.limitedtextarea,this.form.countdown,200);" onKeyUp="limitText(this.form.limitedtextarea,this.form.countdown,200);" id="in"></textarea>
+                <font size="1">(Maximum characters: 200)</font>
+                <div class="ui-grid-c" style="width:100%">
+                  <div class="ui-block-a" style="width:20%; padding-top:5px;"> <font size="1">You have</font></div>
+                  <div class="ui-block-b" style="width:15%;"><font size="1"><input readonly type="text" name="countdown" size="3" value="200"></font></div>
+                  <div class="ui-block-c" style="width:30%; padding-top:5px; padding-left:4px;"><font size="1">characters left.</font></div>
+                </div>
+                <button type="button" data-theme="a" class="ui-btn ui-mini ui-corner-all ui-btn-inline ui-shadow ui-btn-a ui-btn-icon-left ui-icon-check" onclick="confirm()">Confirm</button>
+              </div>
+          </form>
+      </div>
           </div>
         </div>
       </div><!--welcom & userInfor Window -->
@@ -114,7 +135,6 @@
             </form>
           </div>
       </div><!-- /footer -->
-
     </div><!-- /page -->
   </body>
 
