@@ -41,6 +41,12 @@
         </div>
     </script>
 
+    <script type = "template" id = "altHeader">
+     <a data-role='button' onclick='editProfile()' id='NewData' class='ui-btn ui-mini ui-btn-left ui-corner-all ui-shadow ui-btn-a' style='margin-top:20px'>Edit Profile</a>
+     <img src='images/coworking.png' height='25' width='21' style='margin-top:25px'></img>Collisions!
+     <a id='LogoutBut' data-role='button' onclick='logOut()' class='ui-btn ui-mini ui-btn-right ui-corner-all ui-shadow ui-btn-a' style='margin-top:20px'>Log Out</a></script>
+    <script type = "template" id = "altFooter">
+    <a data-role='button' onclick='codeAddress()' data-position-to='window' class='ui-btn ui-mini ui-corner-all ui-shadow ui-btn-inline ui-icon-search ui-btn-icon-left ui-btn-a' data-transition='pop'>Search</a></script>
 
     <div id="home" data-role="page" data-position="fixed" data-theme="a" class="type-interior ui-page ui-body-c ui-page-header-fixed ui-page-footer-fixed ui-page-active" >
 
@@ -65,7 +71,7 @@
       </div>
 
       <div class="footer" data-role="footer" data-position="fixed" data-theme="a" id="footer">
-        <div data-role="controlgroup" data-type="horizontal" id="footerbut">
+        <div data-role="controlgroup" data-type="horizontal" id="footerbut"></div>
       </div>
 
         <div data-role="popup" id="popupLogin" data-theme="a" class="ui-corner-all">
