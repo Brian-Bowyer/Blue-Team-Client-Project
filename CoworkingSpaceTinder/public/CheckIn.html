@@ -31,17 +31,21 @@
     </script>
         <!--Temp for ChechIn ChecIn user card-->
     <script type="template" id="CheckCard">
-    <div class="ui-bar-c ui-corner-all ui-shadow ui-grid-a" style="border: 1px solid;" id="<%= objectId %>">
+    <div id = "togglePane" onclick = "$( '#togglable<%= objectId %>' ).toggle();">
+      <div class="ui-bar-c ui-corner-all ui-shadow ui-grid-a" style="border: 1px solid;" id="<%= objectId %>">
           <div class="ui-block-a" style="width:80px; margin-top:15px; margin-left: 5px;" align="center">
             <img src="<%= photo.url() %>" height="70px"/>
           </div>
           <div class="ui-block-b" style="font-size: 0.9em; margin-left: 20px">
            <p> <%= name %> <br>
            <%= intent %><br>
-           <%= location %></p>
           </div>
       </div>
+      <div class="ui-bar-c ui-corner-all ui-shadow ui-grid-a" style="border: 1px solid; display: none;" id="togglable<%= objectId %>">
+        test
+      </div>
       <br>
+    </div>
     </script>
 
       <div id="home" data-role="page" data-position="fixed" data-theme="a" class="type-interior ui-page ui-body-c ui-page-header-fixed ui-page-footer-fixed ui-page-active">
