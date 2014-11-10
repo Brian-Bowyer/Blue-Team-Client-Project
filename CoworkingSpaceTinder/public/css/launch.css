@@ -33,7 +33,7 @@ body {
 .photoimgL img { 
 	border-radius:50%;
 	width: 120px;
-	height: 120px
+	height: 120px;
 }
 
 
@@ -54,4 +54,23 @@ body {
 
 .card {
 	border: 1px solid;
+}
+
+.ui-block-a .ui-icon-heart {
+	min-height: 45px;
+    min-width: 45px;
+}
+
+.ui-block-c .ui-icon-delete {
+	min-height: 45px;
+    min-width: 45px;
+}
+.ui-block-c .ui-icon-location {
+	min-height: 45px;
+    min-width: 45px;
+}
+
+#map_canvas {
+	border-bottom: 2px solid;
+	border-bottom-color: green;
 }
