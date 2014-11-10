@@ -9,8 +9,8 @@ var temp1 = $("#CheckCard").html();
 var us_temp1 = _.template(temp1);
 var ah = $('#altHeader').html();
 var ah_temp = _.template(ah);
-var af = $("#altFooter").html();
-var af_temp = _.template(af);
+//var af = $("#altFooter").html();
+//var af_temp = _.template(af);
 var usName;
 var test;
 var checkedIn;
@@ -28,7 +28,7 @@ if (currentUser) {
   //  $('#footerbut').html("<a data-role='button' onclick='codeAddress()' data-position-to='window' class='ui-btn ui-mini ui-corner-all ui-shadow ui-btn-inline ui-icon-search ui-btn-icon-left ui-btn-a' data-transition='pop'>Search</a>");
   
   $('#headerbut').html(ah_temp);
-  $('#footerbut').html(af_temp);
+  //$('#footerbut').html(af_temp);
 
   //setTimeout(function(){
     //logOut();
@@ -90,7 +90,7 @@ function editProfile() {
 
 function toggleMap() {
   document.getElementById("welcome").style.display = "none";
-  document.getElementById("footer").style.display="block";
+  document.getElementById("footer").style.display="none";
   document.getElementById("map_canvas").style.display="block";
   document.getElementById("checkInWindow").style.display = "block";
  
@@ -127,6 +127,18 @@ function getUser() {
 
 function CheckIn() {
   $( "#popupIntent" ).popup( "open" );
+}
+
+function CheckOut() {
+  currentUser.set("checkedIn", false);
+  currentUser.save(null, {
+    success: function (User) {
+      window.location.reload();
+      // body...
+    },
+    error: function (error){
+    }
+  });  
 }
 
 function limitText(limitField, limitCount, limitNum) {
