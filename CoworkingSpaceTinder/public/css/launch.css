@@ -34,6 +34,8 @@ body {
 	border-radius:50%;
 	width: 120px;
 	height: 120px;
+	border: 1px solid; 
+	border-color: #0cb6ff;
 }
 
 
@@ -45,16 +47,18 @@ body {
 	border-radius:50%;
 	width: 65px;
 	height: 65px;
+	border: 1px solid; 
+	border-color: #0cb6ff;
 }
 
-.checkedInCard {
+/*.checkedInCard {
 	border: 1px solid; 
 	border-color: #0cb6ff;
 }
 
 .card {
 	border: 1px solid;
-}
+}*/
 
 .ui-block-a .ui-icon-heart {
 	min-height: 45px;

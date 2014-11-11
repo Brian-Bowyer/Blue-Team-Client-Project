@@ -108,7 +108,7 @@ function getUser() {
   currentUser.save(null, {
     success: function(user) {
       var query = new Parse.Query(Parse.User);
-      query.equalTo("location", currentUser.attributes.homeBase);
+      query.equalTo("homeBase", currentUser.attributes.homeBase);
       query.descending("checkedIn");
       query.find({
         success:function(results) {
