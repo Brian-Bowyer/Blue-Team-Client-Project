@@ -21,10 +21,11 @@ if (currentUser){
     query.find({
     success:function(results) {
       results.forEach(function(result){
-        var locName = result.attributes;
+        var locName = _.clone(result.attributes);
         locName['ObjectId'] = result.id;
         objectID = result.id;
         $("#LocWin").append(us_temp2(locName));
+
       });
     },
     error: function(error) {
@@ -36,7 +37,7 @@ if (currentUser){
     query.find({
     success:function(results) {
       results.forEach(function(result){
-        var locName = result.attributes;
+        var locName = _.clone(result.attributes);
         locName['ObjectId'] = result.id;
         objectID = result.id;
         $("#LocWin").append(us_temp2(locName));
@@ -49,6 +50,8 @@ if (currentUser){
 
   }
 }
+
+
 
 function display () {
   $( "#popupIntent" ).popup( "open" );
