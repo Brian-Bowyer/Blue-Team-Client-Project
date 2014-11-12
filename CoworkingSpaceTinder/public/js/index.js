@@ -105,10 +105,10 @@ function codeAddress() {
 function getUser() {
   //actually gets all users currently
 
-  currentUser.set("location", currentUser.attributes.homeBase);
-  //currentUser.set("intent", Userintent);
-  currentUser.save(null, {
-    success: function(user) {
+  //currentUser.set("location", currentUser.attributes.homeBase);
+ // currentUser.set("intent", Userintent);
+  //currentUser.save(null, {
+    //success: function(user) {
       var query = new Parse.Query(Parse.User);
       var query2 = new Parse.Query(Parse.User);
 
@@ -141,8 +141,8 @@ function getUser() {
         }
       });
 
-    }
-  });
+    //}
+  //});
 }
 
 function CheckIn() {

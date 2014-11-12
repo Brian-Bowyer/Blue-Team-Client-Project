@@ -78,3 +78,9 @@ body {
 	border-bottom: 2px solid;
 	border-bottom-color: green;
 }
+.detail {
+	color: Gold;
+	border-top: 1px solid;
+	border-top-color: #0cb6ff;
+	font-size: 0.7em;
+}

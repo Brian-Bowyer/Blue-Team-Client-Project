@@ -73,9 +73,7 @@
            <p style="margin-top: 1px; margin-bottom: 1px;"> Headquarters: <%= typeof(location)!== 'undefined' ?  location : '' %></p>
           </div>
       </div>
-       <div class="ui-bar-c ui-corner-all ui-shadow ui-grid-a" style="display: none;" id="togglable<%= objectId %>">
-        <div class="ui-block-a" style="width:26%; margin-top:15px;" align="center"></div>
-        <div class="ui-block-b" style="font-size: 0.9em; border-top: 1px solid; border-top-color: #0cb6ff; margin-left: 8px; width:70%;">
+       <div class="ui-bar-c ui-corner-all ui-shadow ui-grid-a" style="display: none; border-bottom: 1px solid; border-bottom-color: #0cb6ff;" id="togglable<%= objectId %>">
         <br>
         Profession: <%= typeof(profession)!== 'undefined' ?  profession : '' %>
         <br> Superpowers: <%= typeof(skills)!== 'undefined' ?  skills : '' %>
