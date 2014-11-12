@@ -103,24 +103,44 @@ function codeAddress() {
 }
 
 function getUser() {
+  //actually gets all users currently
+
   currentUser.set("location", currentUser.attributes.homeBase);
   //currentUser.set("intent", Userintent);
   currentUser.save(null, {
     success: function(user) {
       var query = new Parse.Query(Parse.User);
-      query.equalTo("homeBase", currentUser.attributes.homeBase);
-      query.descending("checkedIn");
-      query.find({
-        success:function(results) {
-          results.forEach(function(result){           
-              var locInfo = result.attributes;
-              locInfo['objectId']= result.id;
+      var query2 = new Parse.Query(Parse.User);
+
+      //query.equalTo("location", currentUser.attributes.homeBase);
+      //query.descending("checkedIn");
+      query2.get(currentUser.id, {
+        success:function(object){
+              var locInfo = object.attributes;
+              locInfo['objectId'] = object.id;
               $("#checkInWindow").append(us_temp1(locInfo));
-              });   
+              
+          query.equalTo("homeBase", currentUser.attributes.homeBase);
+          query.descending("checkedIn");
+          query.notEqualTo("username", currentUser.attributes.username);
+          query.find({
+            success:function(results) {
+              results.forEach(function(result){
+                  var locInfo = result.attributes;
+                  locInfo['objectId']= result.id;
+                  $("#checkInWindow").append(us_temp1(locInfo));
+                  });
         },
         error: function(error) {
+          alert(error);
         }
       }); 
+        },
+        error: function(error){
+          alert(error);
+        }
+      });
+
     }
   });
 }
