@@ -7,14 +7,16 @@
 
 	<!-- Latest compiled and minified CSS -->
 	<link rel="stylesheet" href="themes/theme.min.css" />
-    <link rel="stylesheet" href="themes/jquery.mobile.icons.min.css" />
+	<link rel="stylesheet" href="themes/jquery.mobile.icons.min.css" />
 	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile.structure-1.4.5.min.css" />
+	<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/themes/smoothness/jquery-ui.css" />
 
 	<!-- Install jQuery and underscore -->
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 	<script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
 	<script src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
 	<script src="https://www.parsecdn.com/js/parse-1.3.1.min.js"></script>
+	<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
 	
 	<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCpMZQh33v3B9AuHlqqH8ubLqhpIpxWwWw"></script>
 
@@ -28,6 +30,7 @@
 		<br>
 		<div class="ui-body ui-body-c ui-br" align="center" id="currentPhoto">
 		</div>
+		<form>
 		<div class="ui-body ui-body-c">
 			<div data-role="fieldcontain" class="ui-field-contain ui-body ui-br">
 				<label for="Name" >Name</label>
@@ -98,7 +101,8 @@
 			
 			<div data-role="fieldcontain" class="ui-field-contain ui-body ui-br">
 				<label for="Location" class="select">Headquarters</label>
-				<select name="Location" id="Location">			
+				<select name="Location" id="Location">
+					<option></option>
 				</select>
 			</div>
 			
@@ -106,6 +110,7 @@
 				<button type="submit" class="ui-btn ui-btn-a ui-btn-left ui-corner-all ui-shadow ui-body-c" id="submit">Save</button>
 			</div>
 		</div>
+		</form>
 		<div class="footer" data-role="footer" data-position="fixed" data-tap-toggle="false" data-theme="a" id="footer">
 			<div data-role="controlgroup" data-type="horizontal" id="footerbut">
 			</div>
@@ -147,25 +152,29 @@
 			var locationName = Parse.Object.extend("Location");
 			var locationList = "";
 			var query = new Parse.Query(locationName);
-			if (user.attributes.homeBase) {
-				locationList += "<option value=\"" + user.attributes.homeBase + "\" selected=\"selected\">" + user.attributes.homeBase + "</option>\n";				
-				query.notEqualTo("Name",user.attributes.homeBase);				
-			} 
-			
+	
 			query.ascending("Name");
 			query.find({
 				success:function(results) {
 					results.forEach(function(result){
 						var locName = result.attributes;
-						locationList += "<option value=\"" + locName['Name'] + "\">" + locName['Name'] + "</option>\n";
+						if (user.attributes.homeBase == result.attributes.Name)
+						{
+							locationList += "<option value=\"" + locName['Name'] + "\" selected=\"selected\">" + locName['Name'] + "</option>\n";
+						} else {
+							locationList += "<option value=\"" + locName['Name'] + "\">" + locName['Name'] + "</option>\n";
+						}						
 					});
+					//document.getElementById("Location").innerHTML = locationList;
 					$("#Location").html(locationList);
+					document.getElementsByTagName("span")[0].innerHTML = user.attributes.homeBase;
 				},
 				error: function(error) {
 					// error is an instance of Parse.Error.
 				}
 			});
 			
+			//$('#Location').selectmenu('refresh');
 			//$("#Location").val(user.attributes.homeBase);			
 			
 		} else {
