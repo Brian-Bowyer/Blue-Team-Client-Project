@@ -185,7 +185,7 @@ function confirm() {
   currentUser.set("checkedIn", true);  
 
   var t = currentUser.get("TimeoutDuration"); //currently assuming duration measured in seconds
-  //var t = 10;
+  t = typeof(t)!== 'undefined' ?  t : 60*60 //setting to an hour if t is null
 
   var timeout = new Date().getTime() + t*1000;
   console.log(timeout);
