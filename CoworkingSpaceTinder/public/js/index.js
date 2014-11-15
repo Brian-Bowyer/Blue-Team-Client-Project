@@ -171,9 +171,11 @@ function limitText(limitField, limitCount, limitNum) {
 
 function confirm() {
   Userintent = $('#in').val();
+	fq = $('#in2').val();
   $( "#popupIntent" ).popup( "close" );
   currentUser.set("intent", Userintent);
   currentUser.set("checkedIn", true);
+	currentUser.set("funQuestion", fq);
   currentUser.save(null, {
     success: function (User) {
       window.location.reload();
