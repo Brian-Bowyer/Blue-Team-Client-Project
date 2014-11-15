@@ -151,6 +151,7 @@ function CheckIn() {
 
 function CheckOut() {
   currentUser.set("checkedIn", false);
+	currentUser.set("funQuestion", "");
   currentUser.save(null, {
     success: function (User) {
       window.location.reload();
