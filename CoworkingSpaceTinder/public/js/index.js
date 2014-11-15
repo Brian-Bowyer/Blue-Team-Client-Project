@@ -41,6 +41,9 @@ else{
   $('#footerbut').html("<a href='#popupLogin' data-rel='popup' data-position-to='window' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-a' data-transition='pop'>Log In</a>");
 }
 
+//to check timeout
+var pollingInterval = setInterval(onInterval, 300000);
+
 // log in function
 function logIn() {
   Parse.User.logIn($("#un").val(), $("#pw").val(), {
@@ -132,12 +135,12 @@ function getUser() {
                   });
         },
         error: function(error) {
-          alert(error);
+          console.log("error with code " + error.code + " :" + error.message);
         }
       }); 
         },
         error: function(error){
-          alert(error);
+          console.log("error with code " + error.code + " :" + error.message);
         }
       });
 
@@ -147,17 +150,20 @@ function getUser() {
 
 function CheckIn() {
   $( "#popupIntent" ).popup( "open" );
+
 }
 
 function CheckOut() {
   currentUser.set("checkedIn", false);
 	currentUser.set("funQuestion", "");
+  currentUser.set("TimeoutTime", -1);
   currentUser.save(null, {
     success: function (User) {
       window.location.reload();
       // body...
     },
     error: function (error){
+      console.log("error with code " + error.code + " :" + error.message);
     }
   });  
 }
@@ -175,16 +181,40 @@ function confirm() {
 	fq = $('#in2').val();
   $( "#popupIntent" ).popup( "close" );
   currentUser.set("intent", Userintent);
-  currentUser.set("checkedIn", true);
 	currentUser.set("funQuestion", fq);
+  currentUser.set("checkedIn", true);  
+
+  var t = currentUser.get("TimeoutDuration"); //currently assuming duration measured in seconds
+  //var t = 10;
+
+  var timeout = new Date().getTime() + t*1000;
+  console.log(timeout);
+  currentUser.set("TimeoutTime", timeout);
   currentUser.save(null, {
     success: function (User) {
+      console.log("Sucessfully saved TimeoutTime as " + currentUser.get("TimeoutTime") + " which should be equal to " + timeout);
       window.location.reload();
       // body...
     },
     error: function (error){
+      console.log("error with code " + error.code + " :" + error.message);
     }
   });
 }
 
+function onInterval() {
+  console.log("Starting poll now")
+  if (currentUser == null)
+  {
+    return;
+  }
+  //check timeout
+  var now = new Date().getTime();
+  var then = currentUser.get("TimeoutTime");
+  console.log(now + " " + then);
+  if (currentUser.get("checkedIn") && then <= now){
+    CheckOut();
 
+  }
+  
+}
