@@ -32,6 +32,14 @@
 		</div>
 		<form>
 		<div class="ui-body ui-body-c">
+			<div data-role="fieldcontain" class="ui-field-contain ui-body ui-br" style="display: none" id="userfield">
+				<label for="Username" >Username</label>
+				<input type="text" id="Username" placeholder="username" class="ui-input-text ui-body-c ui-corner-all ui-shadow-inset">
+			</div>
+			<div data-role="fieldcontain" class="ui-field-contain ui-body ui-br" style="display: none" id="passfield">
+				<label for="Password" >Password</label>
+				<input type="password" id="Password" placeholder="password" class="ui-input-text ui-body-c ui-corner-all ui-shadow-inset">
+			</div>
 			<div data-role="fieldcontain" class="ui-field-contain ui-body ui-br">
 				<label for="Name" >Name</label>
 				<input type="text" id="Name" class="ui-input-text ui-body-c ui-corner-all ui-shadow-inset">
@@ -107,14 +115,10 @@
 			</div>
 			
 			<div data-role="fieldcontain" class="ui-field-contain ui-body ui-br" style="height: 60px;">
-				<button type="submit" style="left: auto;" class="ui-btn ui-btn-a ui-btn-left ui-corner-all ui-shadow ui-body-c" id="submit">Save</button>
+				<button type="submit" style="left: auto;" class="ui-btn ui-btn-a ui-btn-left ui-corner-all ui-shadow ui-body-c" id="submit">Sign Up</button>
 			</div>
 		</div>
 		</form>
-		<div class="footer" data-role="footer" data-position="fixed" data-tap-toggle="false" data-theme="a" id="footer">
-			<div data-role="controlgroup" data-type="horizontal" id="footerbut">
-			</div>
-		</div>
 	
 	<style>
 		label {
@@ -136,12 +140,12 @@
 		var un;
 		if (user) {
 			un = user.attributes.username;
-			$("#username").html("<button onclick=\"Parse.User.logOut();location.reload();\" class =\"btn btn-primary btn-lg\"><span class = \"buttontext\">Log Out</span></button>");
 			
 			$('#headerbut').html("<a data-role=\"button\" onclick=\"Redirect()\" id=\"NewData\" class=\"ui-btn ui-mini ui-btn-left ui-corner-all ui-shadow ui-btn-a \" style=\"margin-top:20px\" >Cancel</a>" 
 				+ "<img src=\"images/coworking.png\" height=\"25\" width=\"21\" style=\"margin-top:25px\"></img>Collisions!" 
 				+ "<a id=\"LogoutBut\" data-role=\"button\" onclick=\"logOut()\" class=\"ui-btn ui-mini ui-btn-right ui-corner-all ui-shadow ui-btn-a \" style=\"margin-top:20px\">Log Out</a>");
-			
+			document.getElementById('submit').innerHTML = "Save";
+
 			if (user.attributes.name) document.getElementById('Name').value = user.attributes.name;
 			if (user.attributes.profession) document.getElementById('Profession').value = user.attributes.profession;
 			if (user.attributes.passions) document.getElementById('Passions').value = user.attributes.passions;
@@ -178,8 +182,31 @@
 			//$("#Location").val(user.attributes.homeBase);			
 			
 		} else {
+			$('#headerbut').html("<a data-role=\"button\" onclick=\"Redirect()\" id=\"NewData\" class=\"ui-btn ui-mini ui-btn-left ui-corner-all ui-shadow ui-btn-a \" style=\"margin-top:20px\" >Cancel</a>" 
+				+ "<img src=\"images/coworking.png\" height=\"25\" width=\"21\" style=\"margin-top:25px\"></img>Collisions!");
+			document.getElementById("userfield").style.display = "block";
+  			document.getElementById("passfield").style.display="block";
+  			var locationName = Parse.Object.extend("Location");
+			var locationList = "";
+  			var query = new Parse.Query(locationName);
+	
+			query.ascending("Name");
+			query.find({
+				success:function(results) {
+					results.forEach(function(result){
+						var locName = result.attributes;
+							locationList += "<option value=\"" + locName['Name'] + "\">" + locName['Name'] + "</option>\n";						
+					});
+					//document.getElementById("Location").innerHTML = locationList;
+					$("#Location").html(locationList);
+					document.getElementsByTagName("span")[0].innerHTML = "Choose your Headquarters";
+				},
+				error: function(error) {
+					// error is an instance of Parse.Error.
+				}
+			});
 			//un = "none";
-			Redirect();
+			//Redirect();
 			//document.getElementById('picture2').setAttribute('src',"https://truonex-static.s3.amazonaws.com/images/fallback/profile_avatar_default.png");
 			//$("#username").html("<a href = \"login.html\"><button class =\"btn btn-primary btn-lg\"><span class = \"buttontext\">Log In</span></button></a>");
 		}
@@ -196,48 +223,96 @@
 			}
 		}
 
-		$('#submit').click(function () {
-			var un = user.attributes.username;
-			var n = $("#Name").val();
-			var hb = $("#Location option:selected").val();
-			var s = $("#Skills").val();
-			var p = $("#Profession").val();
-			var pa = $("#Passions").val();
-			var w = $("#Weaknesses").val();
-			var l = $("#Learning").val();
-			var fileUploadControl = $("#Photo")[0];
-			if (fileUploadControl.files.length > 0) {
-				var file = fileUploadControl.files[0];
-				var name = file.name;
-				var parseFile = new Parse.File(name, file);
-//put this inside if {
-				parseFile.save().then(function() {
-// The file has been saved to Parse.
-				}, function(error) {
-// The file either could not be read, or could not be saved to Parse.
-				});
-				//user = Parse.User.current();
-				user.set("photo", parseFile);
-			}
-			if (n != user.attributes.name) { user.set("name", n); }
-			if (hb != user.attributes.homeBase) { user.set("homeBase", hb); }
-			if (s != user.attributes.skills) { user.set("skills", s); }
-			if (p != user.attributes.profession) { user.set("profession", p); }
-			if (pa != user.attributes.passions) { user.set("passions",pa); }
-			if (w != user.attributes.weaknesses) { user.set("weaknesses",w); }
-			if (l != user.attributes.wantToLearn) { user.set("wantToLearn",l); }
-			if (user.attributes.checkedIn == null) { user.set("checkedIn", false); }
-			user.save(null, {
-				success: function(user) {
+		$('#submit').click(function () { 
+
+			if (user) {
+				var un = user.attributes.username;
+				var n = $("#Name").val();
+				var hb = $("#Location option:selected").val();
+				var s = $("#Skills").val();
+				var p = $("#Profession").val();
+				var pa = $("#Passions").val();
+				var w = $("#Weaknesses").val();
+				var l = $("#Learning").val();
+				var fileUploadControl = $("#Photo")[0];
+				
+				if (fileUploadControl.files.length > 0) {
+					var file = fileUploadControl.files[0];
+					var name = file.name;
+					var parseFile = new Parse.File(name, file);
+
+					parseFile.save().then(function() {
+					}, function(error) {
+					});
+						user.set("photo", parseFile);
+				}	
+
+				if (n != user.attributes.name) { user.set("name", n); }
+				if (hb != user.attributes.homeBase) { user.set("homeBase", hb); }
+				if (s != user.attributes.skills) { user.set("skills", s); }
+				if (p != user.attributes.profession) { user.set("profession", p); }
+				if (pa != user.attributes.passions) { user.set("passions",pa); }
+				if (w != user.attributes.weaknesses) { user.set("weaknesses",w); }
+				if (l != user.attributes.wantToLearn) { user.set("wantToLearn",l); }
+				if (user.attributes.checkedIn == null) { user.set("checkedIn", false); }
+				user.save(null, {
+					success: function(user) {
 						// Execute any logic that should take place after the object is saved.
 						Redirect();
-				},
-				error: function(user, error) {
+					},
+					error: function(user, error) {
 						// Execute any logic that should take place if the save fails.
 						// error is a Parse.Error with an error code and message.
 						alert('Failed to create new object, with error code: ' + error.id);
-				}
-			});    
+					}
+				});    
+			}
+			else {
+
+				var un = $("#Username").val();
+				var pas = $("#Password").val();
+				var n = $("#Name").val();
+				var hb = $("#Location option:selected").val();
+				var s = $("#Skills").val();
+				var p = $("#Profession").val();
+				var pa = $("#Passions").val();
+				var w = $("#Weaknesses").val();
+				var l = $("#Learning").val();
+				var Newuser = new Parse.User();
+				if (un != null) { Newuser.set("username", un); }
+				if (pas != null) { Newuser.set("password", pas); }
+				if (n != null) { Newuser.set("name", n); }
+				if (hb != null) { Newuser.set("homeBase", hb); }
+				if (s != null) { Newuser.set("skills", s); }
+				if (p != null) { Newuser.set("profession", p); }
+				if (pa != null) { Newuser.set("passions",pa); }
+				if (w != null) { Newuser.set("weaknesses",w); }
+				if (l != null) { Newuser.set("wantToLearn",l); }
+				Newuser.set("checkedIn", false);
+
+				var fileUploadControl = $("#Photo")[0];
+				
+				if (fileUploadControl.files.length > 0) {
+					var file = fileUploadControl.files[0];
+					var name = file.name;
+					var parseFile = new Parse.File(name, file);
+
+					parseFile.save().then(function() {
+					}, function(error) {
+					});
+					Newuser.set("photo", parseFile);
+				}	
+  				
+  				Newuser.signUp(null, {
+    			success: function(user) {  
+      //alert("Sign up successful, redirecting to home page.");
+      Redirect();
+    },
+    error: function(user, error) {
+      alert("Error: " + error.code + " " + error.message);// Show the error message somewhere and let the user try again.
+    }
+  });
+			}		
 		});
 		
 	//logout function
