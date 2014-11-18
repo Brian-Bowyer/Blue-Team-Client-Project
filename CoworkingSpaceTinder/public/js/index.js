@@ -179,15 +179,16 @@ function limitText(limitField, limitCount, limitNum) {
 function confirm() {
   Userintent = $('#in').val();
 	fq = $('#in2').val();
+  tMins = $('#timeout').val();
   $( "#popupIntent" ).popup( "close" );
   currentUser.set("intent", Userintent);
 	currentUser.set("funQuestion", fq);
   currentUser.set("checkedIn", true);  
+ 
+  tSecs = tMins * 60;//currently assuming duration measured in seconds
+  tSecs = typeof(tSecs)!== 'undefined' ?  tSecs : 60*60; //setting to an hour if t is null
 
-  var t = currentUser.get("TimeoutDuration"); //currently assuming duration measured in seconds
-  t = typeof(t)!== 'undefined' ?  t : 60*60 //setting to an hour if t is null
-
-  var timeout = new Date().getTime() + t*1000;
+  var timeout = new Date().getTime() + tSecs*1000;
   console.log(timeout);
   currentUser.set("TimeoutTime", timeout);
   currentUser.save(null, {
