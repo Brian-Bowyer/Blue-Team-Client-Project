@@ -219,13 +219,21 @@ function onInterval() {
 
 function togglea(){
   //toggles availability
-  if currentUser.get("Available")
-  {
+  if (currentUser.get("Available")){
     currentUser.set("Available", false); 
   } else {
     currentUser.set("Available", true);
   }
 
-  
+  currentUser.save(null, {
+    success: function (User) {
+      console.log("Availability toggled, is now " + currentUser.get("Available"));
+      window.location.reload();
+      // body...
+    },
+    error: function (error){
+      console.log("error with code " + error.code + " :" + error.message);
+    }
+  });
 
 }

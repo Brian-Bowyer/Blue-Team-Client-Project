@@ -35,10 +35,18 @@
     <!--Temp for LogIn user card-->
     <script type="template" id="inforCard">
       <div class="ui-grid-b cardinfor">
+        <% if (typeof(Availible)!== 'undefined' ?  Availible : false) {%>
+        <div class="ui-block-a" style="width:25%; margin-top: 50px;" align="center">
+           <a href="#" class="ui-btn ui-shadow ui-corner-all ui-icon-delete ui-btn-icon-notext" style="margin-bottom: 2px; border-radius:50%;" onclick = "togglea()"></a>
+           <p style="margin-top: 3px; font-size: 0.7em;">Don&#39;t Talk to Me</p>
+        </div>
+        <%} else {%>
         <div class="ui-block-a" style="width:25%; margin-top: 50px;" align="center">
            <a href="#" class="ui-btn ui-shadow ui-corner-all ui-icon-heart ui-btn-icon-notext" style="margin-bottom: 2px; border-radius:50%;" onclick = "togglea()"></a>
-           <p style="margin-top: 3px; font-size: 0.7em;">Points</p>
+           <p style="margin-top: 3px; font-size: 0.7em;">Talk to Me</p>
         </div>
+        <% } %>
+
         <div class="ui-block-b" style="width:52%">
           <div class="ui-body ui-body-d photoimgL" align="center">
             <image src="<%= typeof(photo)!== 'undefined' ?  photo.url() : '' %>">
