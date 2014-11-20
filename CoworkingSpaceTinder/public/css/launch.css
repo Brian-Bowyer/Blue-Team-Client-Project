@@ -51,6 +51,17 @@ body {
 	border-color: #0cb6ff;
 }
 
+.ava { 
+	margin:10px auto
+} 
+
+#ava img {
+	border-radius:50%;
+	width: 47px;
+	height: 47px;
+	border: 1px solid; 
+	border-color: #0cb6ff;
+}
 /*.checkedInCard {
 	border: 1px solid; 
 	border-color: #0cb6ff;

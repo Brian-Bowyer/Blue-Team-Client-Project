@@ -1,4 +1,7 @@
     
+//Dev
+Parse.initialize("GI4coBdWVBWk8CexD33M9SD0GjHRTTq5jo1GnUbb", "r4yKyt6O5KiJhtMVfXraqoNZqee5JjiIBFH1fyIk");
+//Parse.initialize("lu3wCFY4M2wIjZAZL99LMvaFelwvkMC6sx4a6I6I", "x7jQv4tn9vA52wZErXuvyllOYhEnG8d6IoxkeSM0");
 var currentUser = Parse.User.current();
 var temp = $("#inforCard").html();
 var us_temp = _.template(temp);
@@ -6,33 +9,17 @@ var temp1 = $("#CheckCard").html();
 var us_temp1 = _.template(temp1);
 var ah = $('#altHeader').html();
 var ah_temp = _.template(ah);
-//var af = $("#altFooter").html();
-//var af_temp = _.template(af);
 var usName;
 var test;
 var checkedIn;
 
 if (currentUser) {
-  //usName = currentUser.attributes.username;
   toggleMap();
   var cardinfo = currentUser.attributes;
   document.getElementById("map_canvas").insertAdjacentHTML("afterBegin", us_temp(cardinfo));
-  //document.getElementById("map_canvas").insertAdjacentHTML("afterBegin", us_temp(cardinfo))
   getUser();
-  //$('#headerbut').html("<a data-role='button' onclick='editProfile()' id='NewData' class='ui-btn ui-mini ui-btn-left ui-corner-all ui-shadow ui-btn-a ' style='margin-top:20px'>Edit Profile</a>" 
-  //  + "<img src='images/coworking.png' height='25' width='21' style='margin-top:25px'></img>Collisions!" 
-  //  + "<a id='LogoutBut' data-role='button' onclick='logOut()' class='ui-btn ui-mini ui-btn-right ui-corner-all ui-shadow ui-btn-a ' style='margin-top:20px'>Log Out</a>");
-  //  $('#footerbut').html("<a data-role='button' onclick='codeAddress()' data-position-to='window' class='ui-btn ui-mini ui-corner-all ui-shadow ui-btn-inline ui-icon-search ui-btn-icon-left ui-btn-a' data-transition='pop'>Search</a>");
-  
   $('#headerbut').html(ah_temp);
-  //$('#footerbut').html(af_temp);
 
-  //setTimeout(function(){
-    //logOut();
-  //}, 300000);
-        /*$(window).bind('beforeunload', function() {
-            Parse.User.logOut();
-        });*/
 }
 else{
   $('#footerbut').html("<a href='#popupLogin' data-rel='popup' data-position-to='window' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-a' data-transition='pop'>Log In</a>");
@@ -103,17 +90,8 @@ function codeAddress() {
 }
 
 function getUser() {
-  //actually gets all users currently
-
-  //currentUser.set("location", currentUser.attributes.homeBase);
- // currentUser.set("intent", Userintent);
-  //currentUser.save(null, {
-    //success: function(user) {
       var query = new Parse.Query(Parse.User);
       var query2 = new Parse.Query(Parse.User);
-
-      //query.equalTo("location", currentUser.attributes.homeBase);
-      //query.descending("checkedIn");
       query2.get(currentUser.id, {
         success:function(object){
               var locInfo = object.attributes;
@@ -140,9 +118,6 @@ function getUser() {
           console.log("error with code " + error.code + " :" + error.message);
         }
       });
-
-    //}
-  //});
 }
 
 function CheckIn() {
@@ -201,6 +176,8 @@ function confirm() {
 }
 
 function onInterval() {
+  $("#checkInWindow").empty();
+  getUser();
   console.log("Starting poll now")
   if (currentUser == null)
   {
@@ -217,23 +194,30 @@ function onInterval() {
   
 }
 
-function togglea(){
+function togglea() {
   //toggles availability
-  if (currentUser.get("Available")){
-    currentUser.set("Available", false); 
-  } else {
-    currentUser.set("Available", true);
-  }
-
+  currentUser.set("available", false); 
   currentUser.save(null, {
     success: function (User) {
-      console.log("Availability toggled, is now " + currentUser.get("Available"));
-      window.location.reload();
-      // body...
+      window.location.reload();// body...
     },
     error: function (error){
       console.log("error with code " + error.code + " :" + error.message);
     }
   });
+}
+
+function toggleb(){
+  //toggles availability
+  currentUser.set("available", true); 
+  currentUser.save(null, {
+    success: function (User) {
+      window.location.reload();// body...
+    },
+    error: function (error){
+      console.log("error with code " + error.code + " :" + error.message);
+    }
+  });
+
 
 }
