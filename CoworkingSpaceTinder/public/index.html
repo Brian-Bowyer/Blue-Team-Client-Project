@@ -127,29 +127,26 @@
        <div data-role="popup" id="popupIntent" data-theme="a" class="ui-corner-all">
           <form>
             <div style="padding:10px 20px;">
-                <h3>Today's focus</h3>
-                <textarea cols="40" rows="8" name="limitedtextarea" onKeyDown="limitText(this.form.limitedtextarea,this.form.countdown,200);" onKeyUp="limitText(this.form.limitedtextarea,this.form.countdown,200);" id="in"></textarea>
+                <h5 style="margin-top: 2px; margin-bottom: 2px;">Today's focus</h5>
+                <textarea cols="40" rows="8" name="limitedtextarea" onKeyDown="limitText(this.form.limitedtextarea,this.form.countdown,200);" onKeyUp="limitText(this.form.limitedtextarea,this.form.countdown,200);" id="in" style="margin-top: 4px; margin-bottom: 4px;"></textarea>
                 <font size="1">(Maximum characters: 200)</font>
                 <div class="ui-grid-c" style="width:100%">
                   <div class="ui-block-a" style="width:20%; padding-top:5px;"> <font size="1">You have</font></div>
                   <div class="ui-block-b" style="width:15%;"><font size="1"><input readonly type="text" name="countdown" size="3" value="200"></font></div>
                   <div class="ui-block-c" style="width:30%; padding-top:5px; padding-left:4px;"><font size="1">characters left.</font></div>
                 </div>
-								<h3>What is your favorite pizza topping?</h3>
-								<textarea cols="40" rows="8" name="lta2" onKeyDown="limitText(this.form.lta2,this.form.countdown2,200);" onKeyUp="limitText(this.form.lta2,this.form.countdown2,200);" id="in2"></textarea>
+								<h5 style="margin-top: 2px; margin-bottom: 2px;">What is your favorite pizza topping?</h5>
+								<textarea cols="40" rows="8" name="lta2" onKeyDown="limitText(this.form.lta2,this.form.countdown2,200);" onKeyUp="limitText(this.form.lta2,this.form.countdown2,200);" id="in2" style="margin-top: 4px; margin-bottom: 4px;"></textarea>
 								<font size="1">(Maximum characters: 200)</font>
 								<div class="ui-grid-c" style="width:100%">
                   <div class="ui-block-a" style="width:20%; padding-top:5px;"> <font size="1">You have</font></div>
                   <div class="ui-block-b" style="width:15%;"><font size="1"><input readonly type="text" name="countdown2" size="3" value="200"></font></div>
                   <div class="ui-block-c" style="width:30%; padding-top:5px; padding-left:4px;"><font size="1">characters left.</font></div>
                 </div>
-                
-
-                <h3>I intend to be here for</h3>
-                <div data-role="fieldcontain" class="ui-field-contain ui-body ui-br" style = "width: 20%;">
-                  
-                  <input type="number" name="number" id="timeout" value="60" class="ui-input-text ui-body-null ui-corner-all ui-shadow-inset ui-body-c">
-                  <h3>minutes</h3>
+                <div class="ui-grid-c" style="width:100%">
+                  <div class="ui-block-a" style="width:53%; padding-top:7px;"> <font size="2">I intend to be here for</font></div>
+                  <div class="ui-block-b" style="width:15%;"><font size="1.5"><input type="number" name="number" id="timeout" value="60"></font></div>
+                  <div class="ui-block-c" style="width:30%; padding-top:7px; padding-left:4px;"><font size="2">minutes</font></div>
                 </div>
                 <button type="button" data-theme="a" class="ui-btn ui-mini ui-corner-all ui-btn-inline ui-shadow ui-btn-a ui-btn-icon-left ui-icon-check" onclick="confirm()">Confirm</button>
               </div>
