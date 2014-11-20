@@ -216,3 +216,16 @@ function onInterval() {
   }
   
 }
+
+function togglea(){
+  //toggles availability
+  if currentUser.get("Available")
+  {
+    currentUser.set("Available", false); 
+  } else {
+    currentUser.set("Available", true);
+  }
+
+  
+
+}
