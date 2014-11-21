@@ -110,7 +110,7 @@
 			<div data-role="fieldcontain" class="ui-field-contain ui-body ui-br">
 				<label for="Location" class="select">Headquarters</label>
 				<select name="Location" id="Location">
-					<option></option>
+					<option>Choose your Headquarters...</option>
 				</select>
 			</div>
 			
@@ -169,17 +169,13 @@
 							locationList += "<option value=\"" + locName['Name'] + "\">" + locName['Name'] + "</option>\n";
 						}						
 					});
-					//document.getElementById("Location").innerHTML = locationList;
-					$("#Location").html(locationList);
+					document.getElementById("Location").insertAdjacentHTML("beforeEnd", locationList);
 					document.getElementsByTagName("span")[0].innerHTML = user.attributes.homeBase;
 				},
 				error: function(error) {
 					// error is an instance of Parse.Error.
 				}
 			});
-			
-			//$('#Location').selectmenu('refresh');
-			//$("#Location").val(user.attributes.homeBase);			
 			
 		} else {
 			$('#headerbut').html("<a data-role=\"button\" onclick=\"Redirect()\" id=\"NewData\" class=\"ui-btn ui-mini ui-btn-left ui-corner-all ui-shadow ui-btn-a \" style=\"margin-top:20px\" >Cancel</a>" 
@@ -197,18 +193,12 @@
 						var locName = result.attributes;
 							locationList += "<option value=\"" + locName['Name'] + "\">" + locName['Name'] + "</option>\n";						
 					});
-					//document.getElementById("Location").innerHTML = locationList;
-					$("#Location").html(locationList);
-					document.getElementsByTagName("span")[0].innerHTML = "Choose your Headquarters";
+					document.getElementById("Location").insertAdjacentHTML("beforeEnd", locationList);
 				},
 				error: function(error) {
 					// error is an instance of Parse.Error.
 				}
 			});
-			//un = "none";
-			//Redirect();
-			//document.getElementById('picture2').setAttribute('src',"https://truonex-static.s3.amazonaws.com/images/fallback/profile_avatar_default.png");
-			//$("#username").html("<a href = \"login.html\"><button class =\"btn btn-primary btn-lg\"><span class = \"buttontext\">Log In</span></button></a>");
 		}
 
 		function Redirect() {
