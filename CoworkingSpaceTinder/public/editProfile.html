@@ -224,16 +224,15 @@
 		}
 
 		$('#submit').click(function () { 
-
+			var n = $("#Name").val();
+			var hb = $("#Location option:selected").val();
+			var s = $("#Skills").val();
+			var p = $("#Profession").val();
+			var pa = $("#Passions").val();
+			var w = $("#Weaknesses").val();
+			var l = $("#Learning").val();
 			if (user) {
 				var un = user.attributes.username;
-				var n = $("#Name").val();
-				var hb = $("#Location option:selected").val();
-				var s = $("#Skills").val();
-				var p = $("#Profession").val();
-				var pa = $("#Passions").val();
-				var w = $("#Weaknesses").val();
-				var l = $("#Learning").val();
 				var fileUploadControl = $("#Photo")[0];
 				
 				if (fileUploadControl.files.length > 0) {
@@ -271,14 +270,9 @@
 
 				var un = $("#Username").val();
 				var pas = $("#Password").val();
-				var n = $("#Name").val();
-				var hb = $("#Location option:selected").val();
-				var s = $("#Skills").val();
-				var p = $("#Profession").val();
-				var pa = $("#Passions").val();
-				var w = $("#Weaknesses").val();
-				var l = $("#Learning").val();
+				
 				var Newuser = new Parse.User();
+
 				if (un != null) { Newuser.set("username", un); }
 				if (pas != null) { Newuser.set("password", pas); }
 				if (n != null) { Newuser.set("name", n); }
@@ -289,6 +283,7 @@
 				if (w != null) { Newuser.set("weaknesses",w); }
 				if (l != null) { Newuser.set("wantToLearn",l); }
 				Newuser.set("checkedIn", false);
+				Newuser.set("available", false);
 
 				var fileUploadControl = $("#Photo")[0];
 				

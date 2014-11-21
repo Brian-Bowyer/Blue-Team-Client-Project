@@ -40,10 +40,10 @@ function logIn() {
     }
   });
 }
-
 //logout function
 function logOut() {
-  //currentUser.unset("location");
+  currentUser.set("checkedIn", false);
+  currentUser.set("available", false);
   currentUser.save(null, {
     success: function(user) {
       Parse.User.logOut();
