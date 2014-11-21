@@ -99,7 +99,7 @@ function getUser() {
               $("#checkInWindow").append(us_temp1(locInfo));
               
           query.equalTo("homeBase", currentUser.attributes.homeBase);
-          query.descending("checkedIn");
+          query.descending("checkedIn","available");
           query.notEqualTo("username", currentUser.attributes.username);
           query.find({
             success:function(results) {
