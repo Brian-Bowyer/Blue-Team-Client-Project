@@ -30,7 +30,7 @@ var pollingInterval = setInterval(onInterval, 300000);
 
 // log in function
 function logIn() {
-  Parse.User.logIn($("#un").val(), $("#pw").val(), {
+  Parse.User.logIn($("#un").val().toLowerCase(), $("#pw").val(), {
     success: function(user) {
         window.location.reload();//alert("Login successful, redirecting to home page.");
     },
@@ -90,34 +90,34 @@ function codeAddress() {
 }
 
 function getUser() {
-      var query = new Parse.Query(Parse.User);
-      var query2 = new Parse.Query(Parse.User);
-      query2.get(currentUser.id, {
-        success:function(object){
-              var locInfo = object.attributes;
-              locInfo['objectId'] = object.id;
-              $("#checkInWindow").append(us_temp1(locInfo));
-              
-          query.equalTo("homeBase", currentUser.attributes.homeBase);
-          query.descending("checkedIn","available");
-          query.notEqualTo("username", currentUser.attributes.username);
-          query.find({
-            success:function(results) {
-              results.forEach(function(result){
-                  var locInfo = result.attributes;
-                  locInfo['objectId']= result.id;
-                  $("#checkInWindow").append(us_temp1(locInfo));
-                  });
-        },
-        error: function(error) {
-          console.log("error with code " + error.code + " :" + error.message);
-        }
-      }); 
-        },
-        error: function(error){
-          console.log("error with code " + error.code + " :" + error.message);
-        }
-      });
+	var query = new Parse.Query(Parse.User);
+	var query2 = new Parse.Query(Parse.User);
+	query2.get(currentUser.id, {
+		success:function(object){
+					var locInfo = object.attributes;
+					locInfo['objectId'] = object.id;
+					$("#checkInWindow").append(us_temp1(locInfo));
+					
+			query.equalTo("homeBase", currentUser.attributes.homeBase);
+			query.descending("checkedIn","available");
+			query.notEqualTo("username", currentUser.attributes.username);
+			query.find({
+				success:function(results) {
+					results.forEach(function(result){
+							var locInfo = result.attributes;
+							locInfo['objectId']= result.id;
+							$("#checkInWindow").append(us_temp1(locInfo));
+							});
+		},
+		error: function(error) {
+			console.log("error with code " + error.code + " :" + error.message);
+		}
+	}); 
+		},
+		error: function(error){
+			console.log("error with code " + error.code + " :" + error.message);
+		}
+	});
 }
 
 function CheckIn() {
@@ -128,6 +128,7 @@ function CheckIn() {
 function CheckOut() {
   currentUser.set("checkedIn", false);
 	currentUser.set("funQuestion", "");
+	currentUser.set("intent", "");
   currentUser.set("TimeoutTime", -1);
   currentUser.save(null, {
     success: function (User) {
@@ -193,7 +194,25 @@ function onInterval() {
   }
   
 }
-
+/*
+$("#flip-select-second").change(function() {
+	state = $("#flip-select-second").val();
+	if (state == 'on') {
+		currentUser.set("available",true);
+	} else if (state == 'off') {
+		currentUser.set("available",false);
+	}
+		
+	currentUser.save(null, {
+    success: function (User) {
+      window.location.reload();// body...
+    },
+    error: function (error){
+      console.log("error with code " + error.code + " :" + error.message);
+    }
+  });
+});
+*/
 function togglea() {
   //toggles availability
   currentUser.set("available", false); 

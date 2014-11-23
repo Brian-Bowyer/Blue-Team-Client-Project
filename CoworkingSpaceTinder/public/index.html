@@ -84,7 +84,7 @@
           <h3 style="margin-top: 18px; margin-bottom: 0px;"><%= typeof(name)!== 'undefined' ?  name : '' %></h3>
           <% } %>
            <p style="margin-top: 1px; margin-bottom: 1px;">Today&#39;s Focus: <%= typeof(intent)!== 'undefined' ?  intent : '' %></p>
-					 <p style="margin-top: 1px; margin-bottom: 1px;">QotD: <%= typeof(funQuestion)!== 'undefined' ? funQuestion : '' %></p>
+					 <p style="margin-top: 1px; margin-bottom: 1px;">Today&#39;s Answer: <%= typeof(funQuestion)!== 'undefined' ? funQuestion : '' %></p>
           </div>
       </div>
        <div class="ui-bar-c ui-shadow ui-grid-a detail" style="display: none;" id="togglable<%= objectId %>">
@@ -144,9 +144,9 @@
                   <div class="ui-block-c" style="width:30%; padding-top:5px; padding-left:4px;"><font size="1">characters left.</font></div>
                 </div>
                 <div class="ui-grid-c" style="width:100%">
-                  <div class="ui-block-a" style="width:53%; padding-top:7px;"> <font size="2">I intend to be here for</font></div>
+                  <div class="ui-block-a" style="width:53%; padding-top:7px;"> <font size="2">Automatic check out after</font></div>
                   <div class="ui-block-b" style="width:15%;"><font size="1.5"><input type="number" name="number" id="timeout" value="60"></font></div>
-                  <div class="ui-block-c" style="width:30%; padding-top:7px; padding-left:4px;"><font size="2">minutes</font></div>
+                  <div class="ui-block-c" style="width:30%; padding-top:7px; padding-left:4px;"><font size="2">hours</font></div>
                 </div>
                 <button type="button" data-theme="a" class="ui-btn ui-mini ui-corner-all ui-btn-inline ui-shadow ui-btn-a ui-btn-icon-left ui-icon-check" onclick="confirm()">Confirm</button>
               </div>

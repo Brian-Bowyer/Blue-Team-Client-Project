@@ -25,6 +25,7 @@
 <body>
 	<div id="home" data-role="page" data-position="fixed" data-theme="a" class="type-interior ui-page ui-body-c ui-page-header-fixed ui-page-footer-fixed ui-page-active">
 		<div data-role="header" data-position="fixed" data-theme="a" class="ui-header ui-bar-a ui-header-fixed slidedown" role="banner" style="height:65px;" data-tap-toggle="false" align="center" id="headerbut">
+			<a data-role=\"button\" onclick=\"Redirect()\" id=\"NewData\" class=\"ui-btn ui-mini ui-btn-left ui-corner-all ui-shadow ui-btn-a \" style=\"margin-top:20px\" >Cancel</a>
 			<img src="images/coworking.png" height="25" width="21" style="margin-top:25px" ></img>Collisions!
 		</div>
 		<br>
@@ -58,52 +59,28 @@
 			<div data-role="fieldcontain" class="ui-field-contain ui-body ui-br">
 				<label for="textarea">Superpowers</label>
 				<div class="ui-grid-solo">
-				<textarea cols="40" rows="8" name="Skills" id="Skills" onKeyDown="limitText(Skills,countdown1,250);" onKeyUp="limitText(Skills,countdown1,250);"></textarea>
-					<div class="ui-grid-c" style="width:100%">
-						<div class="ui-block-a" style="width:16%; padding-top:10px;"> <font size="1">You have</font></div>
-						<div class="ui-block-b" style="width:10%;"><font size="1"><input readonly type="text" name="countdown1" id="countdown1" size="3" value="250"></font></div>
-						<div class="ui-block-c" style="width:25%; padding-top:10px; padding-left:4px;"><font size="1">characters left.</font></div>
-						<div class="ui-block-d" style="width:45%; padding-top:10px; padding-left:4px;"><font size="1">(Maximum characters: 250)</font></div>
-					</div>
+				<textarea cols="40" rows="8" name="Skills" id="Skills""></textarea>
 				</div>
 			</div>
 			
 			<div data-role="fieldcontain" class="ui-field-contain ui-body ui-br">				
 				<label for="textarea">Skillz I want to acquire in the next year</label>
 				<div class="ui-grid-solo">
-					<textarea cols="40" rows="8" name="Learning" id="Learning" onKeyDown="limitText(Learning,countdown2,250);" onKeyUp="limitText(Learning,countdown2,250);"></textarea>
-					<div class="ui-grid-c" style="width:100%">
-						<div class="ui-block-a" style="width:16%; padding-top:10px;"> <font size="1">You have</font></div>
-						<div class="ui-block-b" style="width:10%;"><font size="1"><input readonly type="text" name="countdown2" id="countdown2" size="3" value="250"></font></div>
-						<div class="ui-block-c" style="width:25%; padding-top:10px; padding-left:4px;"><font size="1">characters left.</font></div>
-						<div class="ui-block-d" style="width:45%; padding-top:10px; padding-left:4px;"><font size="1">(Maximum characters: 250)</font></div>
-					</div>
+					<textarea cols="40" rows="8" name="Learning" id="Learning"></textarea>
 				</div>
 			</div>
 			
 			<div data-role="fieldcontain" class="ui-field-contain ui-body ui-br">
 				<label for="textarea">My kryptonite</label>
 				<div class="ui-grid-solo">
-				<textarea cols="40" rows="8" name="Weaknesses" id="Weaknesses" onKeyDown="limitText(Weaknesses,countdown3,140);" onKeyUp="limitText(Weaknesses,countdown3,140);"></textarea>
-					<div class="ui-grid-c" style="width:100%">
-						<div class="ui-block-a" style="width:16%; padding-top:10px;"> <font size="1">You have</font></div>
-						<div class="ui-block-b" style="width:10%;"><font size="1"><input readonly type="text" name="countdown3" id="countdown3" size="3" value="140"></font></div>
-						<div class="ui-block-c" style="width:25%; padding-top:10px; padding-left:4px;"><font size="1">characters left.</font></div>
-						<div class="ui-block-d" style="width:45%; padding-top:10px; padding-left:4px;"><font size="1">(Maximum characters: 140)</font></div>
-					</div>
+				<textarea cols="40" rows="8" name="Weaknesses" id="Weaknesses"></textarea>
 				</div>
 			</div>
 			
 			<div data-role="fieldcontain" class="ui-field-contain ui-body ui-br">
 				<label for="textarea">Ask me about</label>
 				<div class="ui-grid-solo">
-				<textarea cols="40" rows="8" name="Passions" id="Passions" onKeyDown="limitText(Passions,countdown4,300);" onKeyUp="limitText(Passions,countdown4,300);"></textarea>
-					<div class="ui-grid-c" style="width:100%">
-						<div class="ui-block-a" style="width:16%; padding-top:10px;"> <font size="1">You have</font></div>
-						<div class="ui-block-b" style="width:10%;"><font size="1"><input readonly type="text" name="countdown4" id="countdown4" size="3" value="300"></font></div>
-						<div class="ui-block-c" style="width:25%; padding-top:10px; padding-left:4px;"><font size="1">characters left.</font></div>
-						<div class="ui-block-d" style="width:45%; padding-top:10px; padding-left:4px;"><font size="1">(Maximum characters: 300)</font></div>
-					</div>
+				<textarea cols="40" rows="8" name="Passions" id="Passions"></textarea>
 				</div>
 			</div>
 			
@@ -263,7 +240,7 @@
 				
 				var Newuser = new Parse.User();
 
-				if (un != null) { Newuser.set("username", un); }
+				if (un != null) { Newuser.set("username", un.toLowerCase()); }
 				if (pas != null) { Newuser.set("password", pas); }
 				if (n != null) { Newuser.set("name", n); }
 				if (hb != null) { Newuser.set("homeBase", hb); }
