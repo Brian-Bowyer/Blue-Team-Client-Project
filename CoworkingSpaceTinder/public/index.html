@@ -107,21 +107,29 @@
 
     <div id="home" data-role="page" data-theme="a" >
 
-      <div data-role="header" data-position="fixed" data-theme="a" class="ui-header ui-bar-a ui-header-fixed slidedown" role="banner" style="height:65px;" align="center" id="headerbut" data-tap-toggle="false" style="padding-top:5px;">
+      <div data-role="header" data-position="fixed" data-theme="a" class="ui-header ui-bar-a ui-header-fixed slidedown" role="banner" style="height:65px; padding-top:5px; display:none;" align="center" id="headerbut" data-tap-toggle="false" >
         <img src="images/coworking.png" height="25" width="21" style="margin-top:25px"></img>Collisions!
       </div>
 
       <div data-role="content" id="inforWindow">
         <div class="ui-bar-c ui-corner-all ui-shadow" style="padding:0.45em;">
           <div id="welcome" style="textalign:center;" class="ui-grid-a" align="center">
-            <h4> "Let's do some amazing things together!" </h4><br/>
-            <img src="images/Working-together.png"/><br/>
+            <br>
+            <h4> Collisions!</h4>
+            <br><br>
+            <input type="text"  data-role="none" name="user" id="un" value="" placeholder="username" class="ui-shadow">
+            <input type="password" data-role="none"  name="pass" id="pw" value="" placeholder="password" class="ui-shadow">
+
+            <button type="submit" class="ui-btn ui-shadow" onclick="logIn()" id="login">Log in</button>
+            <br><br><br><br><br><br><br>
+            <a data-role="none"><font size="1" onclick="editProfile()" align="center">Sign Up for Collisions!</font></a>
+          </div>
           </div>
           <div id="map_canvas" class="map rounded" style="display :none;">
             <!--
             <a href="#popupIntent" data-rel="popup" data-transition="pop" id="UserCurBut" data-theme="a" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-a">Check-in Current Location</a>-->
           </div>  
-        </div>
+        </d iv>
       </div><!--welcom & userInfor Window -->
 
        <div data-role="popup" id="popupIntent" data-theme="a" class="ui-corner-all">
@@ -154,25 +162,6 @@
       </div>
 
       <div data-role="content" id="checkInWindow" style="display:none;"></div>
-
-      <div class="footer" data-role="footer" data-position="fixed" data-tap-toggle="false" data-theme="a" id="footer">
-        <div data-role="controlgroup" data-type="horizontal" id="footerbut"></div>
-      </div>
-
-        <div data-role="popup" id="popupLogin" data-theme="a" class="ui-corner-all">
-          <form>
-            <div style="padding:10px 20px;">
-                <h3>Please sign in</h3>
-                <label for="un" class="ui-hidden-accessible" id="">Username:</label>
-                <input type="text" name="user" id="un" value="" placeholder="username" data-theme="a">
-                <label for="pw" class="ui-hidden-accessible">Password:</label>
-                <input type="password" name="pass" id="pw" value="" placeholder="password" data-theme="a">
-                <button type="submit" data-theme="a" class="ui-btn ui-corner-all ui-btn-inline ui-shadow ui-btn-a ui-btn-icon-left ui-icon-power" onclick="editProfile()">Sign up</button>
-                <button type="submit" data-theme="a" class="ui-btn ui-corner-all ui-btn-inline ui-shadow ui-btn-a ui-btn-icon-left ui-icon-user" onclick="logIn()">Log in</button>
-              </div>
-            </form>
-          </div>
-      </div><!-- /footer -->
     </div><!-- /page -->
   </body>
 

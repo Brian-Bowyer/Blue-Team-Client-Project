@@ -18,6 +18,7 @@ if (currentUser) {
   var cardinfo = currentUser.attributes;
   document.getElementById("map_canvas").insertAdjacentHTML("afterBegin", us_temp(cardinfo));
   getUser();
+  
   $('#headerbut').html(ah_temp);
 
 }
@@ -77,10 +78,10 @@ function editProfile() {
 
 function toggleMap() {
   document.getElementById("welcome").style.display = "none";
-  document.getElementById("footer").style.display="none";
+  document.getElementById("headerbut").style.display = "block";
   document.getElementById("map_canvas").style.display="block";
   document.getElementById("checkInWindow").style.display = "block";
- 
+  
 }
 
 function codeAddress() {

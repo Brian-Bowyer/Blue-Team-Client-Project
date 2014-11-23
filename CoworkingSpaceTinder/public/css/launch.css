@@ -95,3 +95,13 @@ body {
 	border-top-color: #0cb6ff;
 	font-size: 0.7em;
 }
+#un {
+	width: 100%;
+}
+#pw {
+	width: 100%;
+}
+#login {
+	 padding-bottom: 3px;
+    padding-top: 3px;	
+}
