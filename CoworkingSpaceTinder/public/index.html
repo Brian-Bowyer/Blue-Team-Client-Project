@@ -19,13 +19,9 @@
 
     <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
     <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
-    <script type="text/javascript"
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCpMZQh33v3B9AuHlqqH8ubLqhpIpxWwWw"></script>
-    </script>
-
-    <script type="text/javascript" src="js/jquery.ui.map.js"></script>
     <!--The jsapi allows for I.P. address based look-up -->
-      <script src="http://documentcloud.github.com/underscore/underscore-min.js"></script>
+    
+    <script src="http://documentcloud.github.com/underscore/underscore-min.js"></script>
     <script src="http://www.google.com/jsapi" language="javascript"></script>
     <script type="text/javascript" src="http://www.parsecdn.com/js/parse-1.3.1.min.js"></script>
     </head>
@@ -76,9 +72,9 @@
           <div class="ui-block-b" style="font-size: 0.7em; margin-left: 8px; width:70%;">
            <% if (checkedIn){ %>
             <% if (available) { %>
-           <h3 style="margin-top: 18px; margin-bottom: 0px;"><%= typeof(name)!== 'undefined' ?  name : '' %> <img src="images/here-star.png" height="20" width="17"></img> <img src="images/green_light.png" height="20" width="20"></img></h3>
+           <h3 style="margin-top: 18px; margin-bottom: 0px;"><%= typeof(name)!== 'undefined' ?  name : '' %> <img src="images/marker_pin.png" height="20" width="30"></img> <img src="images/green_light.png" height="20" width="20"></img></h3>
            <% } else { %>
-            <h3 style="margin-top: 18px; margin-bottom: 0px;"><%= typeof(name)!== 'undefined' ?  name : '' %> <img src="images/here-star.png" height="20" width="17"></img> <img src="images/red_light.png" height="20" width="20"></img></h3>
+            <h3 style="margin-top: 18px; margin-bottom: 0px;"><%= typeof(name)!== 'undefined' ?  name : '' %> <img src="images/marker_pin.png" height="20" width="30"></img> <img src="images/red_light.png" height="20" width="20"></img></h3>
             <% } %>
            <% } else { %>
           <h3 style="margin-top: 18px; margin-bottom: 0px;"><%= typeof(name)!== 'undefined' ?  name : '' %></h3>
@@ -117,10 +113,10 @@
             <br>
             <h4> Collisions!</h4>
             <br><br>
-            <input type="text"  data-role="none" name="user" id="un" value="" placeholder="username" class="ui-shadow">
-            <input type="password" data-role="none"  name="pass" id="pw" value="" placeholder="password" class="ui-shadow">
+            <input type="text" data-role="none" name="user" id="un" value="" placeholder="Username" class="ui-corner-top">
+            <input type="password" data-role="none"  name="pass" id="pw" value="" placeholder="Password" class="ui-corner-bottom">
 
-            <button type="submit" class="ui-btn ui-shadow" onclick="logIn()" id="login">Log in</button>
+            <button type="submit" class="ui-btn ui-shadow ui-corner-all" onclick="logIn()" id="login" style="height: 38px;">Log in</button>
             <br><br><br><br><br><br><br>
             <a data-role="none"><font size="1" onclick="editProfile()" align="center">Sign Up for Collisions!</font></a>
           </div>

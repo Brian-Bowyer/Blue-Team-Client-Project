@@ -96,12 +96,51 @@ body {
 	font-size: 0.7em;
 }
 #un {
+	border-top: 0px;
+	border-left: 0px;
+	border-right: 0px;
+	border-bottom: 1px solid;
+	border-color: #0cb6ff;
 	width: 100%;
+	height:38px;
+	margin-bottom: 0px; 
+	padding-top: 0px; 
+	padding-bottom: 0px; 
+	padding-left: 0px; 
+	padding-right: 0px;
 }
 #pw {
+	border: 0px;
 	width: 100%;
+	height:38px;
+	margin-top: 0px; 
+	padding-top: 0px; 
+	padding-bottom: 0px; 
+	padding-left: 0px; 
+	padding-right: 0px;
 }
 #login {
-	 padding-bottom: 3px;
-    padding-top: 3px;	
+	padding-bottom: 3px;
+    padding-top: 3px;
+
+}
+
+.ui-listview>.ui-li-static {
+    padding: 0em !important;
+}
+.ui-corner-all {
+	border-radius:0.2em !important;
+}
+.ui-corner-top {
+	border-top-left-radius: 0.2em;
+	border-top-right-radius: 0.2em;
+	border-bottom-right-radius: 0em;
+	border-bottom-left-radius: 0em;
+}
+
+.ui-corner-bottom {
+	border-top-left-radius: 0em;
+	border-top-right-radius: 0em;
+	border-bottom-right-radius: 0.2em;
+	border-bottom-left-radius: 0.2em;
 }
