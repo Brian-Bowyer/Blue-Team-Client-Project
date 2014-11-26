@@ -13,7 +13,7 @@
     <link rel="apple-touch-icon" sizes="144x144" href="../images/logo.png" /> 
 
     <link type="text/css" rel="stylesheet" href="css/launch.css"/>
-    <link rel="stylesheet" href="themes/theme.min.css" />
+    <link rel="stylesheet" href="themes/Collisions.min.css" />
     <link rel="stylesheet" href="themes/jquery.mobile.icons.min.css" />
     <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile.structure-1.4.5.min.css" />
 
@@ -45,7 +45,7 @@
         </div>
 
         <div class="ui-block-b" style="width:52%">
-          <div class="ui-body ui-body-d photoimgL" align="center">
+          <div class="ui-body photoimgL" align="center">
             <image src="<%= typeof(photo)!== 'undefined' ?  photo.url() : '' %>">
           </div>
           <h4 style="margin-top: 2px; margin-bottom: 15px;" align="center"><%= typeof(homeBase)!== 'undefined' ?  homeBase : '' %></h4>
@@ -65,7 +65,7 @@
     </script>
     <!--Temp for ChechIn ChecIn user card-->
     <script type="template" id="CheckCard">
-      <div class="ui-bar-c ui-corner-all ui-shadow ui-grid-a card" id = "togglePane" onclick = "$( '#togglable<%= objectId %>' ).toggle();">
+      <div class="ui-bar-c ui-shadow ui-grid-a card" id = "togglePane" onclick = "$( '#togglable<%= objectId %>' ).toggle();">
           <div class="ui-block-a photoimgS" style="width:26%; margin-top:15px;" align="center">
             <img src="<%= typeof(photo)!== 'undefined' ?  photo.url() : '' %>"/>
           </div>
@@ -82,14 +82,14 @@
            <p style="margin-top: 1px; margin-bottom: 1px;">Today&#39;s Focus: <%= typeof(intent)!== 'undefined' ?  intent : '' %></p>
 					 <p style="margin-top: 1px; margin-bottom: 1px;">Today&#39;s Answer: <%= typeof(funQuestion)!== 'undefined' ? funQuestion : '' %></p>
           </div>
-      </div>
+        </div>
        <div class="ui-bar-c ui-shadow ui-grid-a detail" style="display: none;" id="togglable<%= objectId %>">
-       <br>
-        Profession: <%= typeof(profession)!== 'undefined' ?  profession : '' %>
-        <br> Superpowers: <%= typeof(skills)!== 'undefined' ?  skills : '' %>
-        <br> Skillz I want to acquire: <%= typeof(wantToLearn)!== 'undefined' ?  wantToLearn : '' %>
-        <br> My kryptonite: <%= typeof(weaknesses)!== 'undefined' ?  weaknesses : '' %>
-        <br> Ask me about: <%= typeof(passions)!== 'undefined' ?  passions : '' %>
+        Profession: <span class = "otherColor"><%= typeof(profession)!== 'undefined' ?  profession : '' %></span>
+        <br> Superpowers: <span class = "otherColor"><%= typeof(skills)!== 'undefined' ?  skills : '' %> </span>
+        <br> Skillz I want to acquire: <span class = "otherColor"><%= typeof(wantToLearn)!== 'undefined' ?  wantToLearn : '' %></span>
+        <br> My kryptonite: <span class = "otherColor"><%= typeof(weaknesses)!== 'undefined' ?  weaknesses : '' %></span>
+        <br> Ask me about: <span class = "otherColor"><%= typeof(passions)!== 'undefined' ?  passions : '' %></span>
+        <br>
       </div>
      </div>
     </script>
@@ -103,7 +103,7 @@
 
     <div id="home" data-role="page" data-theme="a" >
 
-      <div data-role="header" data-position="fixed" data-theme="a" class="ui-header ui-bar-a ui-header-fixed slidedown" role="banner" style="height:65px; padding-top:5px; display:none;" align="center" id="headerbut" data-tap-toggle="false" >
+      <div data-role="header" data-position="fixed" data-theme="a" class="ui-header ui-bar-c ui-header-fixed slidedown" role="banner" style="height:65px; padding-top:5px; display:none;" align="center" id="headerbut" data-tap-toggle="false" >
         <img src="images/coworking.png" height="25" width="21" style="margin-top:25px"></img>Collisions!
       </div>
 
@@ -115,8 +115,7 @@
             <br><br>
             <input type="text" data-role="none" name="user" id="un" value="" placeholder="Username" class="ui-corner-top">
             <input type="password" data-role="none"  name="pass" id="pw" value="" placeholder="Password" class="ui-corner-bottom">
-
-            <button type="submit" class="ui-btn ui-shadow ui-corner-all" onclick="logIn()" id="login" style="height: 38px;">Log in</button>
+            <button type="submit" class="ui-btn ui-btn-a ui-shadow ui-corner-all" onclick="logIn()" id="login" style="height: 38px;">Log in</button>
             <br><br><br><br><br><br><br>
             <a data-role="none"><font size="1" onclick="editProfile()" align="center">Sign Up for Collisions!</font></a>
           </div>
@@ -152,7 +151,7 @@
                   <div class="ui-block-b" style="width:15%;"><font size="1.5"><input type="number" name="number" id="timeout" value="60"></font></div>
                   <div class="ui-block-c" style="width:30%; padding-top:7px; padding-left:4px;"><font size="2">hours</font></div>
                 </div>
-                <button type="button" data-theme="a" class="ui-btn ui-mini ui-corner-all ui-btn-inline ui-shadow ui-btn-a ui-btn-icon-left ui-icon-check" onclick="confirm()">Confirm</button>
+                <button type="button" data-theme="b" class="ui-btn-a ui-mini ui-corner-all ui-btn-inline ui-shadow ui-btn-a ui-btn-icon-left ui-icon-check" onclick="confirm()">Confirm</button>
               </div>
           </form>
       </div>
