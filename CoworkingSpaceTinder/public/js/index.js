@@ -20,11 +20,39 @@ if (currentUser) {
   getUser();
   
   $('#headerbut').html(ah_temp);
-
+  if (cardinfo.checkedIn) { 
+    $("#CheckedInButton").jqxSwitchButton({ orientation: 'vertical', theme: 'classic', width: '47', height: '65', checked: true, onLabel:"In",offLabel:"Out"});
+    if (cardinfo.available) {
+            $("#BusyFreeButton").jqxSwitchButton({ orientation: 'vertical', theme: 'classic', width: '47', height: '65', checked: true, onLabel:"free",offLabel:"busy"});
+          } else {
+            $("#BusyFreeButton").jqxSwitchButton({ orientation: 'vertical', theme: 'classic', width: '47', height: '65', checked: false, onLabel:"free",offLabel:"busy"});
+            } 
+  } else {
+    $("#CheckedInButton").jqxSwitchButton({ orientation: 'vertical', theme: 'classic', width: '47', height: '65', checked: false, onLabel:"In",offLabel:"Out"});   
+  }
 }
 else{
   $('#footerbut').html("<a href='#popupLogin' data-rel='popup' data-position-to='window' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-a' data-transition='pop'>Log In</a>");
 }
+
+$("#CheckedInButton").bind('change', function (event) {
+  var checked = event.args.check;
+  if(checked) {
+    CheckIn();
+  } else {
+    
+    CheckOut();
+  }
+});
+
+$("#BusyFreeButton").bind('change', function (event) {
+  var checked = event.args.check;
+  if(checked) {
+    toggleb();
+  } else {
+    togglea();
+  }
+});
 
 //to check timeout
 var pollingInterval = setInterval(onInterval, 300000);
@@ -121,6 +149,7 @@ function getUser() {
 	});
 }
 
+
 function CheckIn() {
   $( "#popupIntent" ).popup( "open" );
 
@@ -195,25 +224,7 @@ function onInterval() {
   }
   
 }
-/*
-$("#flip-select-second").change(function() {
-	state = $("#flip-select-second").val();
-	if (state == 'on') {
-		currentUser.set("available",true);
-	} else if (state == 'off') {
-		currentUser.set("available",false);
-	}
-		
-	currentUser.save(null, {
-    success: function (User) {
-      window.location.reload();// body...
-    },
-    error: function (error){
-      console.log("error with code " + error.code + " :" + error.message);
-    }
-  });
-});
-*/
+
 function togglea() {
   //toggles availability
   currentUser.set("available", false); 

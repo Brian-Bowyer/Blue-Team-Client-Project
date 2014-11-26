@@ -128,9 +128,7 @@ body {
 .ui-listview>.ui-li-static {
     padding: 0em !important;
 }
-.ui-corner-all {
-	border-radius:0.2em !important;
-}
+
 .ui-corner-top {
 	border-top-left-radius: 0.2em;
 	border-top-right-radius: 0.2em;
@@ -144,3 +142,17 @@ body {
 	border-bottom-right-radius: 0.2em;
 	border-bottom-left-radius: 0.2em;
 }
+.jqx-switchbutton-label-on {
+	background: teal;
+	font-size: 1em !important;
+	color: whitesmoke;
+	text-transform: capitalize !important;
+}/*switch button off label*/
+
+.jqx-switchbutton-label-off {
+	margin-top: -2.8px;
+	background: darkred;
+	color: whitesmoke;
+	font-size: 1em !important;
+	text-transform: capitalize !important;
+}/*switch button on label*/
