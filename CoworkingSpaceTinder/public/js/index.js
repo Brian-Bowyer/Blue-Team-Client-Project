@@ -186,7 +186,8 @@ function confirm() {
   $( "#popupIntent" ).popup( "close" );
   currentUser.set("intent", Userintent);
 	currentUser.set("funQuestion", fq);
-  currentUser.set("checkedIn", true);  
+  currentUser.set("checkedIn", true); 
+  currentUser.set("available", true); 
  
   tSecs = tMins * 60;//currently assuming duration measured in seconds
   tSecs = typeof(tSecs)!== 'undefined' ?  tSecs : 60*60; //setting to an hour if t is null
