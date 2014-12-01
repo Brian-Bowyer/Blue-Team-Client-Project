@@ -117,13 +117,15 @@
           </div>  
         </div>
       </div><!--welcom & userInfor Window -->
-       <div data-role="popup" id="popupIntent" data-theme="a" class="ui-corner-all">
+
+      <div data-role="content" id="checkInWindow" style="display:none;"></div>
+      <div data-role="popup" id="popupIntent" data-theme="a" class="ui-corner-all">
           <form>
             <div style="padding:10px 20px;">
                 <h5 style="margin-top: 2px; margin-bottom: 2px;">Today's focus</h5>
                 <textarea cols="40" rows="8" name="limitedtextarea" onKeyDown="limitText(this.form.limitedtextarea,200);" onKeyUp="limitText(this.form.limitedtextarea,200);" id="in" style="margin-top: 4px; margin-bottom: 4px;"></textarea>
-								<h5 style="margin-top: 2px; margin-bottom: 2px;">What is your favorite pizza topping?</h5>
-								<textarea cols="40" rows="8" name="lta2" onKeyDown="limitText(this.form.lta2,200);" onKeyUp="limitText(this.form.lta2,200);" id="in2" style="margin-top: 4px; margin-bottom: 4px;"></textarea>
+                <h5 style="margin-top: 2px; margin-bottom: 2px;">What is your favorite pizza topping?</h5>
+                <textarea cols="40" rows="8" name="lta2" onKeyDown="limitText(this.form.lta2,200);" onKeyUp="limitText(this.form.lta2,200);" id="in2" style="margin-top: 4px; margin-bottom: 4px;"></textarea>
                 <div class="ui-grid-c" style="width:100%">
                   <div class="ui-block-a" style="width:53%; padding-top:7px;"> <font size="2">Automatic check out after</font></div>
                   <div class="ui-block-b" style="width:15%;"><font size="1.5"><input type="number" name="number" id="timeout" value="4"></font></div>
@@ -134,8 +136,6 @@
               </div>
           </form>
       </div>
-
-      <div data-role="content" id="checkInWindow" style="display:none;"></div>
     </div><!-- /page -->
   </body>
 
