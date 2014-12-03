@@ -70,8 +70,8 @@
            <% } else { %>
           <h3 style="margin-top: 18px; margin-bottom: 0px;"><%= typeof(name)!== 'undefined' ?  name : '' %></h3>
           <% } %>
-           <p style="margin-top: 1px; margin-bottom: 1px;">Today&#39;s Focus: <%= typeof(intent)!== 'undefined' ?  intent : '' %></p>
-					 <p style="margin-top: 1px; margin-bottom: 1px;">Today&#39;s Answer: <%= typeof(funQuestion)!== 'undefined' ? funQuestion : '' %></p>
+           <p style="margin-top: 1px; margin-bottom: 1px;"><span class = "otherColor">Today&#39;s Focus: </span><%= typeof(intent)!== 'undefined' ?  intent : '' %></p>
+					 <p style="margin-top: 1px; margin-bottom: 1px;"><span class = "otherColor">Today&#39;s Answer: </span><%= typeof(funQuestion)!== 'undefined' ? funQuestion : '' %></p>
           </div>
       </div>
 
@@ -80,15 +80,21 @@
 
           </div>
         <div style = "display: table-cell; font-size:15px;">
-           Profession: <span class = "otherColor"><%= typeof(profession)!== 'undefined' ?  profession : '' %></span>
-          <br> Superpowers: <span class = "otherColor"><%= typeof(skills)!== 'undefined' ?  skills : '' %> </span>
-          <br> Skillz I want to acquire: <span class = "otherColor"><%= typeof(wantToLearn)!== 'undefined' ?  wantToLearn : '' %></span>
-          <br> My kryptonite: <span class = "otherColor"><%= typeof(weaknesses)!== 'undefined' ?  weaknesses : '' %></span>
-          <br> Ask me about: <span class = "otherColor"><%= typeof(passions)!== 'undefined' ?  passions : '' %></span>
+           <span class = "otherColor">Profession: </span><%= typeof(profession)!== 'undefined' ?  profession : '' %>
+          <br> <span class = "otherColor">Superpowers: </span><%= typeof(skills)!== 'undefined' ?  skills : '' %>
+          <br> <span class = "otherColor">Stuff I want to learn: </span><%= typeof(wantToLearn)!== 'undefined' ?  wantToLearn : '' %>
+          <br> <span class = "otherColor">My kryptonite: </span><%= typeof(weaknesses)!== 'undefined' ?  weaknesses : '' %>
+          <br> <span class = "otherColor">Ask me about: </span><%= typeof(passions)!== 'undefined' ?  passions : '' %>
         </div>
       </div>
      </div>
     </script>
+		
+		<style>
+			.otherColor {
+				color:#3399ff;
+			}
+		</style>
 
     <!--Temp for head button-->
     <script type = "template" id = "altHeader">
