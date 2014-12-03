@@ -31,16 +31,13 @@ if (currentUser) {
     $("#CheckedInButton").jqxSwitchButton({ orientation: 'vertical', theme: 'classic', width: '47', height: '65', checked: false, onLabel:"In",offLabel:"Out"});   
   }
 }
-else{
-  $('#footerbut').html("<a href='#popupLogin' data-rel='popup' data-position-to='window' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-a' data-transition='pop'>Log In</a>");
-}
+  
 
 $("#CheckedInButton").bind('change', function (event) {
   var checked = event.args.check;
   if(checked) {
     CheckIn();
-  } else {
-    
+  } else { 
     CheckOut();
   }
 });
@@ -151,8 +148,7 @@ function getUser() {
 
 
 function CheckIn() {
-  $( "#popupIntent" ).popup( "open" );
-
+  $("#popupIntent").popup("open");
 }
 
 function CheckOut() {
