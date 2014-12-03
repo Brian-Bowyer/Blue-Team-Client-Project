@@ -18,8 +18,6 @@
     <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile.structure-1.4.5.min.css" />
     <link rel="stylesheet" href="css/styles/jqx.base.css" type="text/css" />
 
-
-
     <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
     <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
     <!--The jsapi allows for I.P. address based look-up -->
@@ -42,7 +40,11 @@
 
         <div class="ui-block-b" style="width:52%">
           <div class="ui-body photoimgL" align="center" style="padding-right: 13px; padding-left: 13px;">
-            <image src="<%= typeof(photo)!== 'undefined' ?  photo.url() : '' %>">
+          <% if (typeof(photo)!== 'undefined') { %>
+            <image src="<%= photo.url() %>" onclick="editProfile();">
+            <%} else { %>
+            <image src="images/profile-photo-placeholder.jpg" onclick="editProfile();">
+              <% } %>
           </div>
         </div>
         
@@ -51,14 +53,18 @@
         </div>
       </div>
       <div>
-      <h4 style="margin-top: 2px; margin-bottom: 15px;" align="center"><%= typeof(homeBase)!== 'undefined' ?  homeBase : '' %></h4>
+      <h3 style="margin-top: 2px; margin-bottom: 15px;" align="center"><%= typeof(homeBase)!== 'undefined' ?  homeBase : '' %></h3>
       </div>
     </script>
     <!--Temp for ChechIn ChecIn user card-->
     <script type="template" id="CheckCard">
-      <div class="ui-bar-c ui-shadow ui-grid-a cardlike" style = "border:none;" id = "togglePane" onclick = "$( '#togglable<%= objectId %>' ).toggle();">
+      <div class="ui-bar-c ui-shadow ui-grid-a cardlike" style = "border:none;" id = "togglePane" onclick = "$( '#togglable<%= objectId %>' ).slideToggle('slow')";>
         <div class="ui-block-a photoimgS" style="width:26%; margin-top:15px;" align="center">
-            <img src="<%= typeof(photo)!== 'undefined' ?  photo.url() : '' %>"/>
+        <% if (typeof(photo)!== 'undefined') { %>
+            <img src="<%= photo.url() %>"/>
+        <%} else { %>
+            <img src="images/profile-photo-placeholder.jpg"/>
+        <% } %>
           </div>
           <div class="ui-block-b" style="font-size: 0.7em; margin-left: 8px; width:70%;">
            <% if (checkedIn){ %>
@@ -98,15 +104,13 @@
 
     <!--Temp for head button-->
     <script type = "template" id = "altHeader">
-     <a data-role='button' onclick='editProfile()' id='NewData' class='ui-btn ui-mini ui-btn-left ui-corner-all ui-shadow ui-btn-a' style='margin-top:20px'>Edit Profile</a>
-     <img src='images/coworking.png' height='25' width='21' style='margin-top:25px'></img>Collisions!
-     <a id='LogoutBut' data-role='button' onclick='logOut()' class='ui-btn ui-mini ui-btn-right ui-corner-all ui-shadow ui-btn-a' style='margin-top:20px'>Log Out</a>
+     <img src='images/Collisions-Logo.png' height='35' style='margin-top:25px'></img>
+     <a id="LogoutBut" data-role="button" onclick="logOut()" class="ui-btn ui-shadow ui-btn-right ui-corner-all ui-icon-delete ui-btn-icon-notext ui-btn-a ui-btn-inline" style="margin-top:20px">Log Out</a>
      </script>
   <body>
     <div id="home" data-role="page" data-theme="a" >
 
-    <div data-role="header" data-position="fixed" data-theme="a" class="ui-header ui-bar-c ui-header-fixed slidedown" role="banner" style="height:65px; padding-top:5px; display:none;" align="center" id="headerbut" data-tap-toggle="false">
-      <img src="images/coworking.png" height="25" width="21" style="margin-top:25px"></img>Collisions!
+    <div data-role="header" data-position="fixed" data-theme="a" class="ui-header ui-bar-c ui-header-fixed slidedown" role="banner" style="height:65px; padding-top:5px; border-bottom-width: 0px; border-top-width: 0px; display:none;" align="center" id="headerbut" data-tap-toggle="false">
     </div>
 
       <div data-role="content" id="inforWindow">
@@ -114,8 +118,8 @@
         <div class="ui-shadow" style="padding:0.45em;">
           <div id="welcome" style="textalign:center;" class="ui-grid-a" align="center">
             <br>
-            <h4> Collisions!</h4>
-            <br><br>
+           <img src='images/Collisions-Logo.png' height='50'></img>
+            <br><br><br><br>
             <input type="text" data-role="none" name="user" id="un" value="" placeholder="Username" class="ui-corner-top">
             <input type="password" data-role="none"  name="pass" id="pw" value="" placeholder="Password" class="ui-corner-bottom">
 
@@ -123,8 +127,7 @@
             <br><br><br><br><br><br><br>
             <a data-role="none"><font size="1" onclick="editProfile()" align="center">Sign Up for Collisions!</font></a>
           </div>
-          <div id="map_canvas" class="map rounded" style="display :none;">
-          </div>  
+          <div id="map_canvas" class="map rounded" style="display :none;"></div>  
         </div>
       </div><!--welcom & userInfor Window -->
 
@@ -142,7 +145,6 @@
                   <div class="ui-block-c" style="width:30%; padding-top:7px; padding-left:4px;"><font size="2">hours</font></div>
                 </div>
                 <button type="button" data-theme="b" class="ui-btn-a ui-mini ui-corner-all ui-btn-inline ui-shadow ui-btn-a ui-btn-icon-left ui-icon-check" onclick="confirm()">Confirm</button>
-
               </div>
           </form>
       </div>

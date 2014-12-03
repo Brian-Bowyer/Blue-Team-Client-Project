@@ -21,26 +21,23 @@ if (currentUser) {
   
   $('#headerbut').html(ah_temp);
   if (cardinfo.checkedIn) { 
-    $("#CheckedInButton").jqxSwitchButton({ orientation: 'vertical', theme: 'classic', width: '47', height: '65', checked: true, onLabel:"In",offLabel:"Out"});
+    $("#CheckedInButton").jqxSwitchButton({ orientation: 'vertical', theme: 'classic', width: '35', height: '45', checked: true, onLabel:"In",offLabel:"Out"});
     if (cardinfo.available) {
-            $("#BusyFreeButton").jqxSwitchButton({ orientation: 'vertical', theme: 'classic', width: '47', height: '65', checked: true, onLabel:"free",offLabel:"busy"});
+            $("#BusyFreeButton").jqxSwitchButton({ orientation: 'vertical', theme: 'classic', width: '35', height: '45', checked: true, onLabel:"free",offLabel:"busy"});
           } else {
-            $("#BusyFreeButton").jqxSwitchButton({ orientation: 'vertical', theme: 'classic', width: '47', height: '65', checked: false, onLabel:"free",offLabel:"busy"});
+            $("#BusyFreeButton").jqxSwitchButton({ orientation: 'vertical', theme: 'classic', width: '35', height: '45', checked: false, onLabel:"free",offLabel:"busy"});
             } 
   } else {
-    $("#CheckedInButton").jqxSwitchButton({ orientation: 'vertical', theme: 'classic', width: '47', height: '65', checked: false, onLabel:"In",offLabel:"Out"});   
+    $("#CheckedInButton").jqxSwitchButton({ orientation: 'vertical', theme: 'classic', width: '35', height: '45', checked: false, onLabel:"In",offLabel:"Out"});   
   }
 }
-else{
-  $('#footerbut').html("<a href='#popupLogin' data-rel='popup' data-position-to='window' class='ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-a' data-transition='pop'>Log In</a>");
-}
+  
 
 $("#CheckedInButton").bind('change', function (event) {
   var checked = event.args.check;
   if(checked) {
     CheckIn();
-  } else {
-    
+  } else { 
     CheckOut();
   }
 });
@@ -151,8 +148,7 @@ function getUser() {
 
 
 function CheckIn() {
-  $( "#popupIntent" ).popup( "open" );
-
+  $("#popupIntent").popup("open");
 }
 
 function CheckOut() {
@@ -231,7 +227,8 @@ function togglea() {
   currentUser.set("available", false); 
   currentUser.save(null, {
     success: function (User) {
-      window.location.reload();// body...
+      $("#checkInWindow").empty();
+      getUser();// body...
     },
     error: function (error){
       console.log("error with code " + error.code + " :" + error.message);
@@ -244,7 +241,8 @@ function toggleb(){
   currentUser.set("available", true); 
   currentUser.save(null, {
     success: function (User) {
-      window.location.reload();// body...
+      $("#checkInWindow").empty();
+      getUser();// body...
     },
     error: function (error){
       console.log("error with code " + error.code + " :" + error.message);
