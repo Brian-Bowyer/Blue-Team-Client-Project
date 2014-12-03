@@ -40,7 +40,11 @@
 
         <div class="ui-block-b" style="width:52%">
           <div class="ui-body photoimgL" align="center" style="padding-right: 13px; padding-left: 13px;">
-            <image src="<%= typeof(photo)!== 'undefined' ?  photo.url() : '' %>" onclick="editProfile();">
+          <% if (typeof(photo)!== 'undefined') { %>
+            <image src="<%= photo.url() %>" onclick="editProfile();">
+            <%} else { %>
+            <image src="images/profile-photo-placeholder.jpg" onclick="editProfile();">
+              <% } %>
           </div>
         </div>
         
@@ -56,7 +60,11 @@
     <script type="template" id="CheckCard">
       <div class="ui-bar-c ui-shadow ui-grid-a cardlike" style = "border:none;" id = "togglePane" onclick = "$( '#togglable<%= objectId %>' ).slideToggle('slow')";>
         <div class="ui-block-a photoimgS" style="width:26%; margin-top:15px;" align="center">
-            <img src="<%= typeof(photo)!== 'undefined' ?  photo.url() : '' %>"/>
+        <% if (typeof(photo)!== 'undefined') { %>
+            <img src="<%= photo.url() %>"/>
+        <%} else { %>
+            <img src="images/profile-photo-placeholder.jpg"/>
+        <% } %>
           </div>
           <div class="ui-block-b" style="font-size: 0.7em; margin-left: 8px; width:70%;">
            <% if (checkedIn){ %>
