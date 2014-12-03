@@ -21,14 +21,14 @@ if (currentUser) {
   
   $('#headerbut').html(ah_temp);
   if (cardinfo.checkedIn) { 
-    $("#CheckedInButton").jqxSwitchButton({ orientation: 'vertical', theme: 'classic', width: '35', height: '45', checked: true, onLabel:"In",offLabel:"Out"});
+    $("#CheckedInButton").jqxSwitchButton({ orientation: 'vertical', theme: 'collisions', width: '35', height: '45', checked: true, onLabel:"In",offLabel:"Out"});
     if (cardinfo.available) {
-            $("#BusyFreeButton").jqxSwitchButton({ orientation: 'vertical', theme: 'classic', width: '35', height: '45', checked: true, onLabel:"free",offLabel:"busy"});
+            $("#BusyFreeButton").jqxSwitchButton({ orientation: 'vertical', theme: 'collisions', width: '35', height: '45', checked: true, onLabel:"free",offLabel:"busy"});
           } else {
-            $("#BusyFreeButton").jqxSwitchButton({ orientation: 'vertical', theme: 'classic', width: '35', height: '45', checked: false, onLabel:"free",offLabel:"busy"});
+            $("#BusyFreeButton").jqxSwitchButton({ orientation: 'vertical', theme: 'collisions', width: '35', height: '45', checked: false, onLabel:"free",offLabel:"busy"});
             } 
   } else {
-    $("#CheckedInButton").jqxSwitchButton({ orientation: 'vertical', theme: 'classic', width: '35', height: '45', checked: false, onLabel:"In",offLabel:"Out"});   
+    $("#CheckedInButton").jqxSwitchButton({ orientation: 'vertical', theme: 'collisions', width: '35', height: '45', checked: false, onLabel:"In",offLabel:"Out"});   
   }
 }
   
