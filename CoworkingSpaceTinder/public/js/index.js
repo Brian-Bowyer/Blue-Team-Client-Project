@@ -21,14 +21,14 @@ if (currentUser) {
   
   $('#headerbut').html(ah_temp);
   if (cardinfo.checkedIn) { 
-    $("#CheckedInButton").jqxSwitchButton({ orientation: 'vertical', theme: 'classic', width: '47', height: '65', checked: true, onLabel:"In",offLabel:"Out"});
+    $("#CheckedInButton").jqxSwitchButton({ orientation: 'vertical', theme: 'classic', width: '35', height: '45', checked: true, onLabel:"In",offLabel:"Out"});
     if (cardinfo.available) {
-            $("#BusyFreeButton").jqxSwitchButton({ orientation: 'vertical', theme: 'classic', width: '47', height: '65', checked: true, onLabel:"free",offLabel:"busy"});
+            $("#BusyFreeButton").jqxSwitchButton({ orientation: 'vertical', theme: 'classic', width: '35', height: '45', checked: true, onLabel:"free",offLabel:"busy"});
           } else {
-            $("#BusyFreeButton").jqxSwitchButton({ orientation: 'vertical', theme: 'classic', width: '47', height: '65', checked: false, onLabel:"free",offLabel:"busy"});
+            $("#BusyFreeButton").jqxSwitchButton({ orientation: 'vertical', theme: 'classic', width: '35', height: '45', checked: false, onLabel:"free",offLabel:"busy"});
             } 
   } else {
-    $("#CheckedInButton").jqxSwitchButton({ orientation: 'vertical', theme: 'classic', width: '47', height: '65', checked: false, onLabel:"In",offLabel:"Out"});   
+    $("#CheckedInButton").jqxSwitchButton({ orientation: 'vertical', theme: 'classic', width: '35', height: '45', checked: false, onLabel:"In",offLabel:"Out"});   
   }
 }
   
@@ -227,7 +227,8 @@ function togglea() {
   currentUser.set("available", false); 
   currentUser.save(null, {
     success: function (User) {
-      window.location.reload();// body...
+      $("#checkInWindow").empty();
+      getUser();// body...
     },
     error: function (error){
       console.log("error with code " + error.code + " :" + error.message);
@@ -240,7 +241,8 @@ function toggleb(){
   currentUser.set("available", true); 
   currentUser.save(null, {
     success: function (User) {
-      window.location.reload();// body...
+      $("#checkInWindow").empty();
+      getUser();// body...
     },
     error: function (error){
       console.log("error with code " + error.code + " :" + error.message);
