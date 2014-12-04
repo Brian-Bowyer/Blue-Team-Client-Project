@@ -37,7 +37,7 @@ body {
 	width: 120px;
 	height: 120px;
 	border: 2px solid; 
-	border-color: #0cb6ff;
+	border-color: #3399FF;
 }
 
 
@@ -50,7 +50,7 @@ body {
 	width: 65px;
 	height: 65px;
 	border: 2px solid; 
-	border-color: #0cb6ff;
+	border-color: #3399FF;
 }
 
 .ava { 
@@ -62,11 +62,11 @@ body {
 	width: 47px;
 	height: 47px;
 	border: 1px solid; 
-	border-color: #0cb6ff;
+	border-color: #3399FF;
 }
 /*.checkedInCard {
 	border: 1px solid; 
-	border-color: #0cb6ff;
+	border-color: #3399FF;
 }
 
 .card {
@@ -89,7 +89,7 @@ body {
 
 #map_canvas {
 	border-bottom: 2px solid;
-	border-bottom-color: green;
+	border-bottom-color: #00FF33;
 }
 
 .cardlike{
@@ -101,20 +101,20 @@ body {
 .detail {
 	color: Gold;
 	/*border-top: 1px solid;
-	border-top-color: #0cb6ff;
+	border-top-color: #3399FF;
 	*/
 	font-size: 0.7em;
 	padding-left: 0%;
 	padding-bottom: 10px;
 	border-bottom: 1px solid !important;
-	border-color: #0cb6ff!important;
+	border-color: #3399FF!important;
 }
 #un {
 	border-top: 0px;
 	border-left: 0px;
 	border-right: 0px;
 	border-bottom: 1px solid;
-	border-color: #0cb6ff;
+	border-color: #3399FF;
 	width: 100%;
 	height:38px;
 	margin-bottom: 0px; 
@@ -157,17 +157,27 @@ body {
 	border-bottom-left-radius: 0.2em;
 }
 .jqx-switchbutton-label-on {
-	background: teal;
+	background: #3399FF;
 	font-size: 1em !important;
-	color: whitesmoke;
+	color: #FFFF00;
 	text-transform: capitalize !important;
 }/*switch button off label*/
 
 .jqx-switchbutton-label-off {
 	margin-top: -2.8px;
-	background: darkred;
-	color: whitesmoke;
+	background: #CC66FF;
+	color: #FFFF00;
 	font-size: 1em !important;
 	text-transform: capitalize !important;
 }/*switch button on label*/
 
+.jqx-widget-content {
+	border-color: #3399FF !important;
+}
+
+.otherColor {
+	color:#3399ff;
+}
+#homeBaseName {
+	color: #00FF33;
+}
