@@ -181,3 +181,8 @@ body {
 #homeBaseName {
 	color: #00FF33;
 }
+#submit {
+	background-color: #CC66FF;
+	border-color: #3399FF;
+	color: #FFFF00;
+}
