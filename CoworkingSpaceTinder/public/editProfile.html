@@ -62,7 +62,7 @@
 			</div>
 			
 			<div data-role="fieldcontain" class="ui-field-contain ui-body ui-br">				
-				<label for="textarea">Stuff I want to learn</label>
+				<label for="textarea">Skillz I want to acquire in the next year</label>
 				<div class="ui-grid-solo">
 					<textarea cols="40" rows="8" name="Learning" id="Learning"></textarea>
 				</div>
@@ -199,6 +199,17 @@
 			if (user) {
 				var un = user.attributes.username;
 				var fileUploadControl = $("#Photo")[0];
+				
+				if (fileUploadControl.files.length > 0) {
+					var file = fileUploadControl.files[0];
+					var name = file.name;
+					var parseFile = new Parse.File(name, file);
+
+					parseFile.save().then(function() {
+					}, function(error) {
+					});
+						user.set("photo", parseFile);
+				}	
 
 				if (n != user.attributes.name) { user.set("name", n); }
 				if (hb != user.attributes.homeBase) { user.set("homeBase", hb); }
@@ -208,34 +219,18 @@
 				if (w != user.attributes.weaknesses) { user.set("weaknesses",w); }
 				if (l != user.attributes.wantToLearn) { user.set("wantToLearn",l); }
 				if (user.attributes.checkedIn == null) { user.set("checkedIn", false); }
-				
-				if (fileUploadControl.files.length > 0) {
-					var file = fileUploadControl.files[0];
-					var name = file.name;
-					var parseFile = new Parse.File(name, file);
-					parseFile.save({
-						success: function(parseFile) {
-							console.log("file saved");
-							alert('Save successful. Redirecting...');
-							user.set("photo", parseFile);
-							user.save(null, {
-								success: function(user) {
-									// Execute any logic that should take place after the object is saved.
-									console.log("user saved");
-									Redirect();
-								},
-								error: function(user, error) {
-									// Execute any logic that should take place if the save fails.
-									// error is a Parse.Error with an error code and message.
-									alert('Failed to create new object, with error code: ' + error.id);
-								}
-							});  
-						}, 
-						error: function(error) {
-						
-						}
-					});
-				}	   
+				user.save(null, {
+					success: function(user) {
+						alert('Profile edit successful, redirecting to home page.');
+						// Execute any logic that should take place after the object is saved.
+						Redirect();
+					},
+					error: function(user, error) {
+						// Execute any logic that should take place if the save fails.
+						// error is a Parse.Error with an error code and message.
+						alert('Failed to create new object, with error code: ' + error.id);
+					}
+				});    
 			}
 			else {
 
@@ -257,34 +252,27 @@
 				Newuser.set("available", false);
 
 				var fileUploadControl = $("#Photo")[0];
-
+				
 				if (fileUploadControl.files.length > 0) {
 					var file = fileUploadControl.files[0];
 					var name = file.name;
 					var parseFile = new Parse.File(name, file);
-					parseFile.save({
-						success: function(parseFile) {
-							console.log("file saved");
-							alert('Sign up successful. Redirecting...');
-							Newuser.set("photo", parseFile);
-							Newuser.signUp(null, {
-								success: function(Newuser) {
-									// Execute any logic that should take place after the object is saved.
-									console.log("user saved");
-									Redirect();
-								},
-								error: function(Newuser, error) {
-									// Execute any logic that should take place if the save fails.
-									// error is a Parse.Error with an error code and message.
-									alert('Failed to create new object, with error code: ' + error.id);
-								}
-							});  
-						}, 
-						error: function(error) {
-							alert("Error: " + error.code + " " + error.message);// Show the error message somewhere and let the user try again.
-						}
+
+					parseFile.save().then(function() {
+					}, function(error) {
 					});
-				}	
+					Newuser.set("photo", parseFile);
+				}
+  				
+  				Newuser.signUp(null, {
+    			success: function(user) {  
+					alert("Sign up successful, redirecting to home page.");
+      Redirect();
+    },
+    error: function(user, error) {
+      alert("Error: " + error.code + " " + error.message);// Show the error message somewhere and let the user try again.
+    }
+  });
 			}		
 		});
 		
