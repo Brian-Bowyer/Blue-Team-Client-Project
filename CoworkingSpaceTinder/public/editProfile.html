@@ -62,7 +62,7 @@
 			</div>
 			
 			<div data-role="fieldcontain" class="ui-field-contain ui-body ui-br">				
-				<label for="textarea">Stuff I want to learn in the next year</label>
+				<label for="textarea">Skillz I want to acquire in the next year</label>
 				<div class="ui-grid-solo">
 					<textarea cols="40" rows="8" name="Learning" id="Learning"></textarea>
 				</div>
@@ -209,8 +209,6 @@
 					}, function(error) {
 					});
 						user.set("photo", parseFile);
-				}
-
 				}	
 
 				if (n != user.attributes.name) { user.set("name", n); }
@@ -264,8 +262,6 @@
 					}, function(error) {
 					});
 					Newuser.set("photo", parseFile);
-				} else {
-					var file = 
 				}
   				
   				Newuser.signUp(null, {
