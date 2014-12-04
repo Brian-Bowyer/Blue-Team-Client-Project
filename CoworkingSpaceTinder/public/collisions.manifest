@@ -1,4 +1,5 @@
 CACHE MANIFEST
+＃version 5
 
 index.html
 editProfile.html
@@ -10,7 +11,7 @@ css/styles/jqx.base.css
 js/jqxcore.js
 js/jqxswitchbutton.js
 js/index.js
-images/profile-photo-placeholder
+images/profile-photo-placeholder.png
 images/Collisions-Icon-Chat-Off.png
 images/Collisions-Icon-Chat-On.png
 images/Collisions-Icon-Location-Off.png

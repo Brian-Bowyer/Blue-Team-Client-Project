@@ -116,9 +116,9 @@
 		if (user) {
 			un = user.attributes.username;
 			
-			$('#headerbut').html("<a data-role=\"button\" onclick=\"Redirect()\" id=\"NewData\" class=\"ui-btn ui-shadow ui-btn-left ui-corner-all ui-icon-carat-l ui-btn-icon-notext ui-btn-a ui-btn-inline \" style=\"margin-top:20px\" >Cancel</a>" 
+			$('#headerbut').html("<a onclick=\"Redirect()\" id=\"NewData\" class=\"ui-btn ui-btn-left ui-corner-all ui-icon-carat-l ui-btn-icon-notext\" style=\"margin-top:20px\" >Cancel</a>" 
 				+ "<img src=\"images/Collisions-Logo.png\" height=\"35\" style=\"margin-top:25px\"></img>" 
-				+ "<a id=\"LogoutBut\" data-role=\"button\" onclick=\"logOut()\" class=\"ui-btn ui-shadow ui-btn-right ui-corner-all ui-icon-delete ui-btn-icon-notext ui-btn-a ui-btn-inline\" style=\"margin-top:20px\">Log Out</a>");
+				+ "<a id=\"LogoutBut\" data-role=\"button\" onclick=\"logOut()\" class=\"ui-btn ui-btn-right ui-corner-all ui-icon-delete ui-btn-icon-notext\" style=\"margin-top:20px\">Log Out</a>");
 			document.getElementById('submit').innerHTML = "Save";
 
 			if (user.attributes.name) document.getElementById('Name').value = user.attributes.name;
@@ -153,7 +153,7 @@
 			});
 			
 		} else {
-			$('#headerbut').html("<a data-role=\"button\" onclick=\"Redirect()\" id=\"NewData\" class=\"ui-btn ui-shadow ui-btn-left ui-corner-all ui-icon-carat-l ui-btn-icon-notext ui-btn-a ui-btn-inline \" style=\"margin-top:20px\" >Cancel</a>" 
+			$('#headerbut').html("<a data-role=\"button\" onclick=\"Redirect()\" id=\"NewData\" class=\"ui-btn ui-btn-left ui-corner-all ui-icon-carat-l ui-btn-icon-notext \" style=\"margin-top:20px\" >Cancel</a>" 
 				+ "<img src=\"images/Collisions-Logo.png\" height=\"35\" style=\"margin-top:25px\"></img>");
 			document.getElementById("userfield").style.display = "block";
   			document.getElementById("passfield").style.display="block";
@@ -176,17 +176,17 @@
 			});
 		}
 
-		function Redirect() {
-      window.location = "./index.html";
+	function Redirect() {
+      	window.location = "./index.html";
     }
 		
-		function limitText(limitField, limitCount, limitNum) {
+	function limitText(limitField, limitCount, limitNum) {
 			if (limitField.value.length > limitNum) {
 				limitField.value = limitField.value.substring(0, limitNum);
 			} else {
 				limitCount.value = limitNum - limitField.value.length;
 			}
-		}
+	}
 
 		$('#submit').click(function () { 
 			var n = $("#Name").val();
@@ -208,9 +208,9 @@
 					parseFile.save().then(function() {
 					}, function(error) {
 					});
-						user.set("photo", parseFile);
+						//user.set("photo", parseFile);
 				}	
-
+				user.set("photo", parseFile);
 				if (n != user.attributes.name) { user.set("name", n); }
 				if (hb != user.attributes.homeBase) { user.set("homeBase", hb); }
 				if (s != user.attributes.skills) { user.set("skills", s); }
@@ -261,18 +261,18 @@
 					parseFile.save().then(function() {
 					}, function(error) {
 					});
-					Newuser.set("photo", parseFile);
+					//Newuser.set("photo", parseFile);
 				}
-  				
+  				Newuser.set("photo", parseFile);
   				Newuser.signUp(null, {
-    			success: function(user) {  
-					alert("Sign up successful, redirecting to home page.");
-      Redirect();
-    },
-    error: function(user, error) {
-      alert("Error: " + error.code + " " + error.message);// Show the error message somewhere and let the user try again.
-    }
-  });
+    				success: function(user) {  
+						alert("Sign up successful, redirecting to home page.");
+      					Redirect();
+    				},
+    				error: function(user, error) {
+      					alert("Error: " + error.code + " " + error.message);// Show the error message somewhere and let the user try again.
+    				}
+  				});
 			}		
 		});
 		
