@@ -5,8 +5,8 @@
  */
 
 body {
-	background-color: black;
-	font-family: Arial, Helvetica, sans-serif;
+	background-color: black !important;
+	font-family: Arial, Helvetica, sans-serif !important;
 
 }
 
@@ -64,14 +64,6 @@ body {
 	border: 1px solid; 
 	border-color: #3399FF;
 }
-/*.checkedInCard {
-	border: 1px solid; 
-	border-color: #3399FF;
-}
-
-.card {
-	border: 1px solid;
-}*/
 
 .ui-block-a .ui-icon-heart {
 	min-height: 45px;
@@ -99,10 +91,6 @@ body {
 }
 
 .detail {
-	color: Gold;
-	/*border-top: 1px solid;
-	border-top-color: #3399FF;
-	*/
 	font-size: 0.7em;
 	padding-left: 0%;
 	padding-bottom: 10px;
@@ -185,4 +173,10 @@ body {
 	background-color: #CC66FF;
 	border-color: #3399FF;
 	color: #FFFF00;
+}
+h3 {
+	color: #FFFF00;
+}
+p {
+	color: #CC66FF;
 }
