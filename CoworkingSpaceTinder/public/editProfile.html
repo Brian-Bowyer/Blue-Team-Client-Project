@@ -177,7 +177,7 @@
 		}
 
 	function Redirect() {
-      	window.location = "./index.html";
+      	window.location = "index.html";
     }
 		
 	function limitText(limitField, limitCount, limitNum) {
@@ -205,10 +205,7 @@
 					var name = file.name;
 					var parseFile = new Parse.File(name, file);
 
-					parseFile.save().then(function() {
-					}, function(error) {
-					});
-						//user.set("photo", parseFile);
+					parseFile.save();
 				}	
 				user.set("photo", parseFile);
 				if (n != user.attributes.name) { user.set("name", n); }
@@ -221,14 +218,16 @@
 				if (user.attributes.checkedIn == null) { user.set("checkedIn", false); }
 				user.save(null, {
 					success: function(user) {
+						Redirect();
 						alert('Profile edit successful, redirecting to home page.');
 						// Execute any logic that should take place after the object is saved.
-						Redirect();
+						
 					},
 					error: function(user, error) {
 						// Execute any logic that should take place if the save fails.
 						// error is a Parse.Error with an error code and message.
 						alert('Failed to create new object, with error code: ' + error.id);
+						window.location.reload();
 					}
 				});    
 			}
@@ -258,19 +257,19 @@
 					var name = file.name;
 					var parseFile = new Parse.File(name, file);
 
-					parseFile.save().then(function() {
-					}, function(error) {
-					});
-					//Newuser.set("photo", parseFile);
+					parseFile.save();
+
 				}
   				Newuser.set("photo", parseFile);
   				Newuser.signUp(null, {
-    				success: function(user) {  
+    				success: function(user) { 
+    					Redirect(); 
 						alert("Sign up successful, redirecting to home page.");
-      					Redirect();
+      					
     				},
     				error: function(user, error) {
       					alert("Error: " + error.code + " " + error.message);// Show the error message somewhere and let the user try again.
+      					window.location.reload();
     				}
   				});
 			}		
